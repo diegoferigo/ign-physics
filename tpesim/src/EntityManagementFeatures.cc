@@ -24,18 +24,10 @@ namespace physics {
 namespace tpesim {
 
 /////////////////////////////////////////////////
-// ignition::physics::Identity InitiateEngine(std::size_t /*_engineID*/)
-// {
-//   using Identity = ignition::physics::Identity;
-//   std::string engineName = "tpe";
-//   return GenerateIdentity(0);
-// }
-
-/////////////////////////////////////////////////
 const std::string &EntityManagementFeatures::GetEngineName(
   const Identity &/*_engineID*/) const
 {
-  static const std::string engineName = "tpe";
+  static const std::string engineName = "tpe"; // TODO[claire]: change to TPE API
   return engineName;
 }
 
@@ -47,6 +39,12 @@ std::size_t EntityManagementFeatures::GetEngineIndex(
 }
 
 /////////////////////////////////////////////////
+std::size_t EntityManagementFeatures::GetWorldCount(
+    const Identity &/*_engineID*/) const
+{
+  return worlds.size();
+}
+
 // const std::string &EntityManagementFeatures::GetWorldName(
 //   const Identity &_worldID) const
 // {
@@ -54,11 +52,11 @@ std::size_t EntityManagementFeatures::GetEngineIndex(
 // }
 
 /////////////////////////////////////////////////
-Identity EntityManagementFeatures::GetEngineOfWorld(
-  const Identity &/*_worldID*/) const
-{
-  return this->GenerateIdentity(0);
-}
+// Identity EntityManagementFeatures::GetEngineOfWorld(
+//   const Identity &/*_worldID*/) const
+// {
+//   return this->GenerateIdentity(0);
+// }
 
 }
 }

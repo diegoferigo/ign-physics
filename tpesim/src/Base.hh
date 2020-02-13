@@ -15,36 +15,17 @@
  *
 */
 
-// #include <string>
+#ifndef IGNITION_PHYSICS_TPESIM_BASE_HH_
+#define IGNITION_PHYSICS_TPESIM_BASE_HH_
 
-#include <ignition/physics/Register.hh>
 
-#include "EntityManagementFeatures.hh"
 
 namespace ignition {
 namespace physics {
 namespace tpesim {
 
-struct TpesimFeatures : FeatureList<
-  EntityManagementFeatureList
-> { };
-
-class Plugin :
-  public virtual Implements3d<TpesimFeatures>,
-  public virtual EntityManagementFeatures 
-{
-  // in dartsim engine is initiated in base.hh
-  using Identity = ignition::physics::Identity;
-
-  public: Identity InitiateEngine(std::size_t /*_engineID*/) override
-  {
-    std::string engineName = "tpe"; // TODO[claire]: change to TPE API
-    return GenerateIdentity(0);
-  }
-};
-
-IGN_PHYSICS_ADD_PLUGIN(Plugin, FeaturePolicy3d, TpesimFeatures)
-
 }
 }
 }
+
+#endif

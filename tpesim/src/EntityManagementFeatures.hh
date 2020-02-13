@@ -40,24 +40,23 @@ class EntityManagementFeatures :
 
   public: std::size_t GetEngineIndex(const Identity &) const override;
 
-  public: std::size_t GetWorldCount(const Identity &) const override
-    { return 0; };
+  public: std::size_t GetWorldCount(const Identity &) const override;
 
-  public: Identity GetWorld(
-      const Identity &, std::size_t /*_worldIndex*/) const override
-      { return this->GenerateInvalidId(); };
+  // public: Identity GetWorld(
+  //     const Identity &, std::size_t /*_worldIndex*/) const override
+  //     { return this->GenerateInvalidId(); };
 
-  public: Identity GetWorld(
-      const Identity &, const std::string &/*_worldName*/) const override
-      { return this->GenerateInvalidId(); };
-  
-  public: const std::string &GetWorldName(
-      const Identity &_worldID) const override;
+  // public: Identity GetWorld(
+  //     const Identity &, const std::string &/*_worldName*/) const override
+  //     { return this->GenerateInvalidId(); };
 
-  public: std::size_t GetWorldIndex(const Identity &/*_worldID*/) const override
-    { return 0; };
+  // public: const std::string &GetWorldName(
+  //     const Identity &_worldID) const override;
 
-  public: Identity GetEngineOfWorld(const Identity &/*_worldID*/) const override;
+  // public: std::size_t GetWorldIndex(const Identity &/*_worldID*/) const override
+  //   { return 0; };
+
+  // public: Identity GetEngineOfWorld(const Identity &/*_worldID*/) const override;
 
   // public: std::size_t GetModelCount(
   //     const Identity &_worldID) const override;
