@@ -38,12 +38,12 @@ std::size_t EntityManagementFeatures::GetEngineIndex(
   return 0;
 }
 
-/////////////////////////////////////////////////
-std::size_t EntityManagementFeatures::GetWorldCount(
-    const Identity &/*_engineID*/) const
-{
-  return worlds.size();
-}
+// /////////////////////////////////////////////////
+// std::size_t EntityManagementFeatures::GetWorldCount(
+//     const Identity &/*_engineID*/) const
+// {
+//   return worlds.size();
+// }
 
 // const std::string &EntityManagementFeatures::GetWorldName(
 //   const Identity &_worldID) const

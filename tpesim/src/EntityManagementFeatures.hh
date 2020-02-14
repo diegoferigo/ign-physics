@@ -28,8 +28,8 @@ namespace physics {
 namespace tpesim {
 
 struct EntityManagementFeatureList : FeatureList<
-  GetEngineInfo,
-  GetWorldFromEngine
+  GetEngineInfo
+//  GetWorldFromEngine
 > { };
 
 class EntityManagementFeatures :
@@ -40,7 +40,7 @@ class EntityManagementFeatures :
 
   public: std::size_t GetEngineIndex(const Identity &) const override;
 
-  public: std::size_t GetWorldCount(const Identity &) const override;
+//  public: std::size_t GetWorldCount(const Identity &) const override;
 
   // public: Identity GetWorld(
   //     const Identity &, std::size_t /*_worldIndex*/) const override

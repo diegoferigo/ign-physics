@@ -1,3 +1,5 @@
+add_subdirectory(tpe)
+
 # This component expresses custom features of the dartsim plugin, which can
 # expose native dartsim data types.
 ign_add_component(tpesim INTERFACE
