@@ -68,7 +68,7 @@ class Entity
   // public: virtual void RemoveChildByIndex(size_t _index);
 
   /// \brief Get number of children
-  public: size_t GetChildCount() const;
+  public: virtual size_t GetChildCount() const;
 
   /// \brief
   protected: static size_t GetNextId();
