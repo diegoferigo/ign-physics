@@ -35,5 +35,5 @@ Link &Model::AddLink()
 //   uint64_t linkId = link.GetId();
 //   const auto [it, success]  = this->children.insert({linkId, link});
 //   return *dynamic_cast<Link *>(&it->second);
-  return Link;
+  return link;
 }
