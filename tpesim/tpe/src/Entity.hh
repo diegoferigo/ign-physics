@@ -19,6 +19,7 @@
 #define IGNITION_PHYSICS_TPESIM_TPE_ENTITY_HH_
 
 #include <string>
+#include <map>
 #include <ignition/math/Pose3.hh>
 
 namespace ignition {
@@ -31,19 +32,61 @@ class Entity
   public: Entity();
 
   /// \brief Destructor
-  public: ~Entity();
+  public: ~Entity() = default;
 
   /// \brief Set the name of the entity
+  /// \param[in] _name Name of entity
   public: virtual void SetName(const std::string &_name);
 
+  /// \brief Get the name of the entity
+  /// \return Name of entity
+  public: virtual std::string GetName() const;
+
+  /// \brief Get the id of the entity
+  /// \return Entity id
+  public: virtual uint64_t GetId() const;
+
   /// \brief Set the pose of the entity
+  /// \param[in] _pose Pose of entity to set to
   public: virtual void SetPose(const math::Pose3d &_pose);
+
+  /// \brief Get the pose of the entity
+  /// \return Pose of entity to set to
+  public: virtual math::Pose3d GetPose() const;
+
+  /// \brief Remove a child entity by id
+  /// \param[in] _id Id of child entity to remove
+  public: virtual bool RemoveChildById(uint64_t _id);
+
+  /// \brief Remove a child entity by name
+  /// \param[in] _name Name of child entity to remove
+  /// \return True if child entity was removed, false otherwise
+  public: virtual bool RemoveChildByName(const std::string &_name);
+
+  /// \brief Remove a child entity by index
+  /// \param[in] _index Index of child entity to remove
+  // public: virtual void RemoveChildByIndex(size_t _index);
+
+  /// \brief Get number of children
+  public: size_t GetChildCount() const;
+
+  /// \brief
+  protected: static size_t GetNextId();
 
   /// \brief Name of entity
   protected: std::string name;
 
   /// \brief Entity pose
   protected: math::Pose3d pose;
+
+  /// \brief Entity Id
+  protected: uint64_t id;
+
+  /// \brief Child entities
+  protected: std::map<uint64_t, Entity> children;
+
+  /// \brief Entity id counter
+  private: static uint64_t nextId;
 };
 
 
