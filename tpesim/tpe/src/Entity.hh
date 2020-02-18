@@ -26,6 +26,9 @@ namespace ignition {
 namespace physics {
 namespace tpesim {
 
+/// \brief Represents an invalid Id.
+static const uint64_t kNullEntityId = math::MAX_UI64;
+
 class Entity
 {
   /// \brief Constructor
@@ -34,6 +37,10 @@ class Entity
   /// \brief Destructor
   public: ~Entity() = default;
 
+  /// \brief Constructor with id
+  /// \param[in] _id Id to set the entity to
+  protected: explicit Entity(uint64_t _id);
+
   /// \brief Set the name of the entity
   /// \param[in] _name Name of entity
   public: virtual void SetName(const std::string &_name);
@@ -41,6 +48,10 @@ class Entity
   /// \brief Get the name of the entity
   /// \return Name of entity
   public: virtual std::string GetName() const;
+
+  /// \brief Set the id of the entity
+  /// \param[in] _unique Id
+  public: virtual void SetId(uint64_t _id);
 
   /// \brief Get the id of the entity
   /// \return Entity id
@@ -53,6 +64,11 @@ class Entity
   /// \brief Get the pose of the entity
   /// \return Pose of entity to set to
   public: virtual math::Pose3d GetPose() const;
+
+  /// \brief Get a child entity by id
+  /// \param[in] _id Id of child entity
+  /// \return Child entity
+  public: virtual Entity &GetChildById(uint64_t _id);
 
   /// \brief Remove a child entity by id
   /// \param[in] _id Id of child entity to remove
@@ -70,8 +86,11 @@ class Entity
   /// \brief Get number of children
   public: virtual size_t GetChildCount() const;
 
+  /// \brief An invalid vertex.
+  public: static Entity kNullEntity;
+
   /// \brief
-  protected: static size_t GetNextId();
+  protected: static uint64_t GetNextId();
 
   /// \brief Name of entity
   protected: std::string name;

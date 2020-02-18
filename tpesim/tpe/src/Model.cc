@@ -28,12 +28,10 @@ Model::Model() : Entity()
 }
 
 //////////////////////////////////////////////////
-Link &Model::AddLink()
+Entity &Model::AddLink()
 {
-  // TODO(anyone) implement this function
   Link link;
-//   uint64_t linkId = link.GetId();
-//   const auto [it, success]  = this->children.insert({linkId, link});
-//   return *dynamic_cast<Link *>(&it->second);
-  return link;
+  uint64_t linkId = link.GetId();
+  const auto [it, success]  = this->children.insert({linkId, link});
+  return it->second;
 }

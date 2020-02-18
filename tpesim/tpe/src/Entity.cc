@@ -25,11 +25,18 @@ using namespace physics;
 using namespace tpesim;
 
 uint64_t Entity::nextId = 0;
+Entity Entity::kNullEntity = Entity(kNullEntityId);
 
 //////////////////////////////////////////////////
 Entity::Entity()
 {
   this->id = Entity::GetNextId();
+}
+
+//////////////////////////////////////////////////
+Entity::Entity(uint64_t _id)
+{
+  this->id = _id;
 }
 
 //////////////////////////////////////////////////
@@ -57,13 +64,31 @@ math::Pose3d Entity::GetPose() const
 }
 
 //////////////////////////////////////////////////
+void Entity::SetId(uint64_t _id)
+{
+  this->id = _id;
+}
+
+//////////////////////////////////////////////////
 uint64_t Entity::GetId() const
 {
   return this->id;
 }
 
 //////////////////////////////////////////////////
-bool Entity::RemoveChildById(size_t _id)
+Entity &Entity::GetChildById(uint64_t _id)
+{
+  auto it = this->children.find(_id);
+  if (it != this->children.end())
+  {
+    return it->second;
+  }
+
+  return kNullEntity;
+}
+
+//////////////////////////////////////////////////
+bool Entity::RemoveChildById(uint64_t _id)
 {
   // for (size_t i = 0; i < this->children.size(); ++i)
   // {
@@ -106,7 +131,7 @@ bool Entity::RemoveChildByName(const std::string &_name)
   return false;
 }
 
-//////////////////////////////////////////////////
+// ///////////////////////////////////////////////
 // void Entity::RemoveChildByIndex(size_t _index)
 // {
 //   if (_index >= this->children.size())

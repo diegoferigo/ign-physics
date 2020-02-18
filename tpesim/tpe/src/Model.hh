@@ -18,7 +18,7 @@
 #ifndef IGNITION_PHYSICS_TPESIM_TPE_MODEL_HH_
 #define IGNITION_PHYSICS_TPESIM_TPE_MODEL_HH_
 
-#include <Entity.hh>
+#include "Entity.hh"
 
 namespace ignition {
 namespace physics {
@@ -26,6 +26,7 @@ namespace tpesim {
 
 class Link;
 
+/// \brief Model class
 class Model : public Entity
 {
   /// \brief Constructor
@@ -35,8 +36,8 @@ class Model : public Entity
   public: ~Model() = default;
 
   /// \brief Add a link
-  /// \return Link
-  public: Link &AddLink();
+  /// \return Newly created Link
+  public: Entity &AddLink();
 };
 
 }

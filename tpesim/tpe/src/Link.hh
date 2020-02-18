@@ -18,7 +18,7 @@
 #ifndef IGNITION_PHYSICS_TPESIM_TPE_LINK_HH_
 #define IGNITION_PHYSICS_TPESIM_TPE_LINK_HH_
 
-#include <Entity.hh>
+#include "Entity.hh"
 
 namespace ignition {
 namespace physics {

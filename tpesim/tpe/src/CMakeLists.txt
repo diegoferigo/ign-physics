@@ -17,3 +17,15 @@ target_include_directories(${tpe_target}
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
+
+ign_build_tests(
+  TYPE UNIT
+  SOURCES ${test_sources}
+  LIB_DEPS
+    ${features}
+    ignition-plugin${IGN_PLUGIN_VER}::loader
+    ignition-common${IGN_COMMON_VER}::ignition-common${IGN_COMMON_VER}
+    ${PROJECT_LIBRARY_TARGET_NAME}-sdf
+    ${PROJECT_LIBRARY_TARGET_NAME}-mesh
+    ${PROJECT_LIBRARY_TARGET_NAME}-tpe
+  TEST_LIST tests)
