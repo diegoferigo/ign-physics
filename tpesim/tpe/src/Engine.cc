@@ -18,20 +18,46 @@
 #include <string>
 
 #include "Engine.hh"
+#include "World.hh"
 
 using namespace ignition;
 using namespace physics;
-using namespace tpe;
+using namespace tpesim;
 
-////////////////////////////////////////////////////
+/////////////////////////////////////////////////
 Engine::Engine()
 {
 }
 
-////////////////////////////////////////////////////
-Engine::~Engine() = default;
-
-////////////////////////////////////////////////////
-void Engine::CreateWorld(std::string world_name)
+/////////////////////////////////////////////////
+World &Engine::AddWorld()
 {
+  World world;
+  uint64_t worldId = world.GetId();
+  const auto [it, success]  = this->worlds.insert({worldId, world});
+  return it->second;
+}
+
+/////////////////////////////////////////////////
+// World Engine::GetWorldByName(const std::string &_name) const
+// {
+//   for (auto const&[id, world] : this->worlds)
+//   {
+//     if (world.GetName() == _name)
+//       return world;
+//   }
+//   ignerr << "The World [" << _name << "] does not exist." << std::endl;
+// }
+
+/////////////////////////////////////////////////
+World Engine::GetWorldById(const int _id) const
+{
+  // return this->worlds[_id];
+  auto it = this->worlds.find(_id);
+  if (it != this->worlds.end())
+  {
+    return it->second;
+  }
+
+  return World::kNullWorld;
 }

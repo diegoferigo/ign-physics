@@ -15,16 +15,19 @@
  *
 */
 
-#ifndef TPE_ENGINE_HPP_
-#define TPE_ENGINE_HPP_
+#ifndef IGNITION_PHYSICS_TPESIM_TPE_ENGINE_HH_
+#define IGNITION_PHYSICS_TPESIM_TPE_ENGINE_HH_
 
 #include <string>
+#include <map>
+
+#include "World.hh"
 
 namespace ignition
 {
 namespace physics
 {
-namespace tpe
+namespace tpesim
 {
   class Engine
   {
@@ -32,14 +35,26 @@ namespace tpe
     public: Engine();
 
     /// \brief Destructor
-    public: ~Engine();
+    public: ~Engine() = default;
 
-    /// \brief Create world by name
-    public: void CreateWorld(std::string world_name);
+    /// \brief Add world to engine
+    /// \brief assume one world per engine
+    /// \param[in] _name world name
+    public: World &AddWorld();
+
+    // public: World &GetWorldByName(const std::string &_world_name) const;
+
+    /// \brief Get the world object from engine
+    /// \param[in] _id world id
+    public: World GetWorldById(const int _id) const;
+
+    /// \brief List of worlds attach to this engine
+    /// \brief Only support one world per engine
+    protected: std::map<uint64_t, World> worlds{};
+
   };
 } // namespace tpe
 } // namespace physics
 } // namespace ignition
-
 
 #endif
