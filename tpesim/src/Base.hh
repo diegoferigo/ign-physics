@@ -22,6 +22,7 @@
 
 #include "../tpe/src/Engine.hh"
 #include "../tpe/src/World.hh"
+#include "../tpe/src/Model.hh"
 
 #include <ignition/physics/Implements.hh>
 

@@ -165,16 +165,18 @@ size_t World::GetModelCount() const
   return this->models.size();
 }
 
-/////////////////////////////////////////////////
-// Entity &World::GetModelByName(const std::string &_name)
-// {
-//   for (auto const& [id, model] : this->models)
-//   {
-//     if (model.GetName() == _name)
-//       return model;
-//   }
-//   return kNullEntity;
-// }
+///////////////////////////////////////////////
+Entity &World::GetModelByName(const std::string &_name)
+{
+  for (auto it = this->models.begin(); it != this->models.end(); ++it)
+  {
+    if (it->second.GetName() == _name)
+    {
+      return it->second;
+    }
+  }
+  return Entity::kNullEntity;
+}
 
 /////////////////////////////////////////////////
 Entity &World::GetModelById(int _id)

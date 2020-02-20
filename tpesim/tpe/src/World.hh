@@ -95,7 +95,7 @@ namespace tpesim {
     /// \brief Get model from current world
     /// \param _name model name 
     /// \return pointer to the model object
-    // public: Model &GetModelByName(const std::string &_name);
+    public: Entity &GetModelByName(const std::string &_name);
 
     /// \brief Get model from current world
     /// \param _id model id

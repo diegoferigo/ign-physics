@@ -31,7 +31,8 @@ namespace tpesim {
 
 struct EntityManagementFeatureList : FeatureList<
   GetEngineInfo,
-  GetWorldFromEngine
+  GetWorldFromEngine,
+  GetModelFromWorld
 > { };
 
 class EntityManagementFeatures :
@@ -61,21 +62,21 @@ class EntityManagementFeatures :
 
   public: Identity GetEngineOfWorld(const Identity &/*_worldID*/) const override;
 
-  // public: std::size_t GetModelCount(
-  //     const Identity &_worldID) const override;
+  public: std::size_t GetModelCount(
+      const Identity &_worldID) const override;
 
-  // public: Identity GetModel(
-  //     const Identity &_worldID, std::size_t _modelIndex) const override;
+  public: Identity GetModel(
+      const Identity &_worldID, std::size_t _modelIndex) const override;
 
-  // public: Identity GetModel(
-  //     const Identity &_worldID, const std::string &_modelName) const override;
+  public: Identity GetModel(
+      const Identity &_worldID, const std::string &_modelName) const override;
 
-  // public: const std::string &GetModelName(
-  //     const Identity &_modelID) const override;
+  public: const std::string &GetModelName(
+      const Identity &_modelID) const override;
 
-  // public: std::size_t GetModelIndex(const Identity &_modelID) const override;
+  public: std::size_t GetModelIndex(const Identity &_modelID) const override;
 
-  // public: Identity GetWorldOfModel(const Identity &_modelID) const override;
+  public: Identity GetWorldOfModel(const Identity &_modelID) const override;
 
   // public: std::size_t GetLinkCount(const Identity &_modelID) const override;
 

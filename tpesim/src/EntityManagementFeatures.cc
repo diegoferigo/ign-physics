@@ -49,9 +49,10 @@ std::size_t EntityManagementFeatures::GetWorldCount(
 Identity EntityManagementFeatures::GetWorld(
     const Identity &, std::size_t _worldIndex) const
 {
-  // assuming worldIndex is the same as worldId
+  // assume worldIndex is the same as worldId
   auto world = engine.GetWorldById(_worldIndex);
   auto worldPtr = std::make_shared<World>(world);
+  // need shared_ptr to convert to Identity type
   return this->GenerateIdentity(_worldIndex, worldPtr);
 }
 
@@ -61,6 +62,7 @@ Identity EntityManagementFeatures::GetWorld(
 {
   auto world = engine.GetWorldByName(_worldName);
   auto worldPtr = std::make_shared<World>(world);
+  // need shared_ptr to convert to Identity type
   return this->GenerateIdentity(world.GetId(), worldPtr);
 }
 
@@ -68,7 +70,7 @@ Identity EntityManagementFeatures::GetWorld(
 const std::string &EntityManagementFeatures::GetWorldName(
     const Identity &_worldID) const
 {
-  // assuming worldIndex is the same as worldId
+  // assume worldIndex is the same as worldId
   auto world = engine.GetWorldById(_worldID);
   return world.GetName();
 }
@@ -77,7 +79,7 @@ const std::string &EntityManagementFeatures::GetWorldName(
 std::size_t EntityManagementFeatures::GetWorldIndex(
     const Identity &_worldID) const
 {
-  // assuming worldIndex is the same as worldId
+  // assume worldIndex is the same as worldId
   return _worldID;
 }
 
@@ -86,6 +88,61 @@ Identity EntityManagementFeatures::GetEngineOfWorld(
   const Identity &/*_worldID*/) const
 {
   return this->GenerateIdentity(0);
+}
+
+/////////////////////////////////////////////////
+std::size_t EntityManagementFeatures::GetModelCount(
+    const Identity &_worldID) const
+{
+  auto world = engine.GetWorldById(_worldID);
+  return world.GetModelCount();
+}
+
+/////////////////////////////////////////////////
+Identity EntityManagementFeatures::GetModel(
+    const Identity &_worldID, const std::size_t _modelIndex) const
+{
+  // assume index == id
+  auto world = engine.GetWorldById(_worldID);
+  auto model = world.GetModelById(_modelIndex);
+  auto modelPtr = std::make_shared<Entity>(model);
+  // need shared_ptr to convert to Identity type
+  return this->GenerateIdentity(_modelIndex, modelPtr);
+}
+
+/////////////////////////////////////////////////
+Identity EntityManagementFeatures::GetModel(
+    const Identity &_worldID, const std::string &_modelName) const
+{
+  auto world = engine.GetWorldById(_worldID);
+  auto model = world.GetModelByName(_modelName);
+  auto modelPtr = std::make_shared<Entity>(model);
+  // need shared_ptr to convert to Identity type
+  return this->GenerateIdentity(model.GetId(), modelPtr);
+}
+
+/////////////////////////////////////////////////
+const std::string &EntityManagementFeatures::GetModelName(
+    const Identity &_modelID) const
+{
+  // assume there's only one world per engine
+  auto world = engine.worlds.begin()->second;
+  auto model = world.GetModelById(_modelID);
+  return model.GetName();
+}
+
+/////////////////////////////////////////////////
+std::size_t EntityManagementFeatures::GetModelIndex(
+    const Identity &_modelID) const
+{
+  return _modelID;
+}
+
+/////////////////////////////////////////////////
+Identity EntityManagementFeatures::GetWorldOfModel(
+    const Identity &_modelID) const
+{
+  return this->GenerateIdentity(_modelID);
 }
 
 }

@@ -49,7 +49,7 @@ namespace tpesim {
 
     /// \brief List of worlds attach to this engine
     /// \brief Only support one world per engine
-    protected: std::map<uint64_t, World> worlds{};
+    public: std::map<uint64_t, World> worlds{};
 
   };
 } // namespace tpe
