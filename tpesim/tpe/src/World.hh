@@ -23,12 +23,9 @@
 
 #include "Model.hh"
 
-namespace ignition
-{
-namespace physics
-{
-namespace tpesim
-{
+namespace ignition {
+namespace physics {
+namespace tpesim {
   /// \brief Represents an invalid Id.
   static const uint64_t kNullWorldId = math::MAX_UI64;
   class Model;

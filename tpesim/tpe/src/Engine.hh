@@ -23,12 +23,9 @@
 
 #include "World.hh"
 
-namespace ignition
-{
-namespace physics
-{
-namespace tpesim
-{
+namespace ignition {
+namespace physics {
+namespace tpesim {
   class Engine
   {
     /// \brief Constructor
@@ -42,11 +39,13 @@ namespace tpesim
     /// \param[in] _name world name
     public: World &AddWorld();
 
-    // public: World &GetWorldByName(const std::string &_world_name) const;
+    public: World GetWorldByName(const std::string &_world_name) const;
 
     /// \brief Get the world object from engine
     /// \param[in] _id world id
     public: World GetWorldById(const int _id) const;
+
+    public: uint64_t GetWorldCount() const;
 
     /// \brief List of worlds attach to this engine
     /// \brief Only support one world per engine

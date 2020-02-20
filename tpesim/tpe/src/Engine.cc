@@ -39,15 +39,21 @@ World &Engine::AddWorld()
 }
 
 /////////////////////////////////////////////////
-// World Engine::GetWorldByName(const std::string &_name) const
-// {
-//   for (auto const&[id, world] : this->worlds)
-//   {
-//     if (world.GetName() == _name)
-//       return world;
-//   }
-//   ignerr << "The World [" << _name << "] does not exist." << std::endl;
-// }
+uint64_t Engine::GetWorldCount() const
+{
+  return this->worlds.size();
+}
+
+/////////////////////////////////////////////////
+World Engine::GetWorldByName(const std::string &_name) const
+{
+  for (auto const&[id, world] : this->worlds)
+  {
+    if (world.GetName() == _name)
+      return world;
+  }
+  return World::kNullWorld;
+}
 
 /////////////////////////////////////////////////
 World Engine::GetWorldById(const int _id) const

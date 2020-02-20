@@ -18,11 +18,30 @@
 #ifndef IGNITION_PHYSICS_TPESIM_BASE_HH_
 #define IGNITION_PHYSICS_TPESIM_BASE_HH_
 
+#include <map>
 
+#include "../tpe/src/Engine.hh"
+#include "../tpe/src/World.hh"
+
+#include <ignition/physics/Implements.hh>
 
 namespace ignition {
 namespace physics {
 namespace tpesim {
+
+class Base: public Implements3d<FeatureList<Feature>>
+{
+  public: using Identity = ignition::physics::Identity;
+
+  public: Identity InitiateEngine(std::size_t /*_engineID*/) override
+  {
+    auto world = this->engine.AddWorld();
+    // tpesim does not have multiple engines
+    return this->GenerateIdentity(0);
+  }
+
+  public: Engine engine;
+};
 
 }
 }

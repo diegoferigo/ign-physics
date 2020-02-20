@@ -31,17 +31,8 @@ struct TpesimFeatures : FeatureList<
 
 class Plugin :
   public virtual Implements3d<TpesimFeatures>,
-  public virtual EntityManagementFeatures 
-{
-  // in dartsim engine is initiated in base.hh
-  using Identity = ignition::physics::Identity;
-
-  public: Identity InitiateEngine(std::size_t /*_engineID*/) override
-  {
-    std::string engineName = "tpe"; // TODO[claire]: change to TPE API
-    return GenerateIdentity(0);
-  }
-};
+  public virtual Base,
+  public virtual EntityManagementFeatures { };
 
 IGN_PHYSICS_ADD_PLUGIN(Plugin, FeaturePolicy3d, TpesimFeatures)
 

@@ -27,7 +27,7 @@ namespace tpesim {
 const std::string &EntityManagementFeatures::GetEngineName(
   const Identity &/*_engineID*/) const
 {
-  static const std::string engineName = "tpe"; // TODO[claire]: change to TPE API
+  static const std::string engineName = "tpe";
   return engineName;
 }
 
@@ -38,25 +38,55 @@ std::size_t EntityManagementFeatures::GetEngineIndex(
   return 0;
 }
 
-// /////////////////////////////////////////////////
-// std::size_t EntityManagementFeatures::GetWorldCount(
-//     const Identity &/*_engineID*/) const
-// {
-//   return worlds.size();
-// }
-
-// const std::string &EntityManagementFeatures::GetWorldName(
-//   const Identity &_worldID) const
-// {
-//   return this->worlds.at(_worldID)->name;
-// }
+/////////////////////////////////////////////////
+std::size_t EntityManagementFeatures::GetWorldCount(
+    const Identity &/*_engineID*/) const
+{
+  return engine.GetWorldCount();
+}
 
 /////////////////////////////////////////////////
-// Identity EntityManagementFeatures::GetEngineOfWorld(
-//   const Identity &/*_worldID*/) const
-// {
-//   return this->GenerateIdentity(0);
-// }
+Identity EntityManagementFeatures::GetWorld(
+    const Identity &, std::size_t _worldIndex) const
+{
+  // assuming worldIndex is the same as worldId
+  auto world = engine.GetWorldById(_worldIndex);
+  auto worldPtr = std::make_shared<World>(world);
+  return this->GenerateIdentity(_worldIndex, worldPtr);
+}
+
+/////////////////////////////////////////////////
+Identity EntityManagementFeatures::GetWorld(
+    const Identity &, const std::string &_worldName) const
+{
+  auto world = engine.GetWorldByName(_worldName);
+  auto worldPtr = std::make_shared<World>(world);
+  return this->GenerateIdentity(world.GetId(), worldPtr);
+}
+
+/////////////////////////////////////////////////
+const std::string &EntityManagementFeatures::GetWorldName(
+    const Identity &_worldID) const
+{
+  // assuming worldIndex is the same as worldId
+  auto world = engine.GetWorldById(_worldID);
+  return world.GetName();
+}
+
+/////////////////////////////////////////////////
+std::size_t EntityManagementFeatures::GetWorldIndex(
+    const Identity &_worldID) const
+{
+  // assuming worldIndex is the same as worldId
+  return _worldID;
+}
+
+/////////////////////////////////////////////////
+Identity EntityManagementFeatures::GetEngineOfWorld(
+  const Identity &/*_worldID*/) const
+{
+  return this->GenerateIdentity(0);
+}
 
 }
 }
