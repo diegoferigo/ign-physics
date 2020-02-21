@@ -21,39 +21,44 @@
 #include <string>
 #include <map>
 
-#include "World.hh"
+#include "Entity.hh"
 
 namespace ignition {
 namespace physics {
 namespace tpesim {
-  class Engine
-  {
-    /// \brief Constructor
-    public: Engine();
 
-    /// \brief Destructor
-    public: ~Engine() = default;
+class World;
 
-    /// \brief Add world to engine
-    /// \brief assume one world per engine
-    /// \param[in] _name world name
-    public: void AddWorld(std::string &_name);
+/// \brief Engine class
+class Engine
+{
+  /// \brief Constructor
+  public: Engine();
 
-    public: World GetWorld() const;
+  /// \brief Destructor
+  public: ~Engine() = default;
 
-    // public: World GetWorldByName(const std::string &_world_name) const;
+  /// \brief Add world to engine
+  /// \return added World entity
+  public: Entity &AddWorld();
 
-    // /// \brief Get the world object from engine
-    // /// \param[in] _id world id
-    // public: World GetWorldById(const int _id) const;
+  /// \brief Get World
+  /// \param[in] _worldId World ID
+  public: Entity &GetWorldById(uint64_t _worldId);
 
-    public: uint64_t GetWorldCount() const;
+  /// \brief Get total number of worlds
+  /// \return number of worlds
+  public: uint64_t GetWorldCount() const;
 
-    /// \brief List of worlds attach to this engine
-    /// \brief Only support one world per engine
-    public: std::vector<World> worlds{};
+  /// \brief Remove World from engine
+  /// \return true/false if world is removed/not
+  public: bool RemoveWorldById(uint64_t _worldId);
 
-  };
+  /// \brief World entities in engine
+  protected: std::map<uint64_t, Entity> worlds;
+
+};
+
 } // namespace tpe
 } // namespace physics
 } // namespace ignition

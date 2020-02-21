@@ -25,38 +25,8 @@ using namespace physics;
 using namespace tpesim;
 
 /////////////////////////////////////////////////
-World::World()
+World::World() : Entity()
 {
-}
-
-/////////////////////////////////////////////////
-World::World(uint64_t _id)
-{
-  this->id = _id;
-}
-
-// /////////////////////////////////////////////////
-// void World::SetId(uint64_t _id)
-// {
-//   this->id = _id;
-// }
-
-// /////////////////////////////////////////////////
-// uint64_t World::GetId() const
-// {
-//   return this->id;
-// }
-
-/////////////////////////////////////////////////
-void World::SetName(const std::string &_name)
-{
-  this->name = _name;
-}
-
-/////////////////////////////////////////////////
-std::string World::GetName() const
-{
-  return this->name;
 }
 
 /////////////////////////////////////////////////
@@ -83,88 +53,14 @@ Entity &World::AddModel()
 {
   Model model;
   uint64_t modelId = model.GetId();
-  const auto [it, success]  = this->models.insert({modelId, model});
+  const auto [it, success]  = this->children.insert({modelId, model});
   return it->second;
-}
-
-/////////////////////////////////////////////////
-// bool World::HasModel(const std::string &_name)
-// {
-//   for (auto const& [mId, model] : this->models)
-//   {
-//     if (model.GetName() == _name)
-//       return true;
-//   }
-//   return false;
-// }
-
-/////////////////////////////////////////////////
-// bool World::HasModel(const int _id)
-// {
-//   for (auto const& [mId, model] : this->models)
-//   {
-//     if (mId == _id)
-//       return true;
-//   }
-//   return false;
-// }
-
-/////////////////////////////////////////////////
-bool World::RemoveModelByName(const std::string &_name)
-{
-  // if (World::HasModel(_name))
-  // {
-  //   auto m = World::GetModelByName(_name);
-  //   this->models.erase(m->GetId());
-  // }
-  // else
-  // {
-  //   ignwarn << "This model with name [" << _name
-  //     << "] does not exist" << std::endl;
-  // }
-  for (auto it = this->models.begin(); it != this->models.end(); ++it)
-  {
-    if (it->second.GetName() == _name)
-    {
-      this->models.erase(it);
-      return true;
-    }
-  }
-  return false;
-}
-
-/////////////////////////////////////////////////
-bool World::RemoveModelById(int _id)
-{
-  // if (World::HasModel(_id))
-  // {
-  //   this->models.erase(_id);
-  // }
-  // else
-  // {
-  //   ignwarn << "This model with id [" << _id 
-  //     << "] does not exist" << std::endl;
-  // }
-  auto it = this->models.find(_id);
-  if (it != this->models.end())
-  {
-    this->models.erase(it);
-    return true;
-  }
-
-  return false; 
-}
-
-/////////////////////////////////////////////////
-size_t World::GetModelCount() const
-{
-  return this->models.size();
 }
 
 ///////////////////////////////////////////////
 Entity &World::GetModelByName(const std::string &_name)
 {
-  for (auto it = this->models.begin(); it != this->models.end(); ++it)
+  for (auto it = this->children.begin(); it != this->children.end(); ++it)
   {
     if (it->second.GetName() == _name)
     {
@@ -173,21 +69,3 @@ Entity &World::GetModelByName(const std::string &_name)
   }
   return Entity::kNullEntity;
 }
-
-/////////////////////////////////////////////////
-Entity &World::GetModelById(int _id)
-{
-  auto it = this->models.find(_id);
-  if (it != this->models.end())
-  {
-    return it->second;
-  }
-
-  return Entity::kNullEntity;
-}
-
-// /////////////////////////////////////////////////
-// uint64_t World::GetNextId()
-// {
-//   return nextId++;
-// }

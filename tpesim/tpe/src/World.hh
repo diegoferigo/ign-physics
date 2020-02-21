@@ -18,112 +18,49 @@
 #ifndef IGNITION_PHYSICS_TPESIM_TPE_WORLD_HH_
 #define IGNITION_PHYSICS_TPESIM_TPE_WORLD_HH_
 
-#include <string>
-#include <map>
-
-#include "Model.hh"
+#include "Entity.hh"
 
 namespace ignition {
 namespace physics {
 namespace tpesim {
-  class World
-  {
-    /// \brief Constructor
-    public: World();
 
-    /// \brief Destructor
-    public: virtual ~World() = default;
+class Model;
 
-    /// \brief Constructor with id
-    /// \param[in] _id Id to set the world to
-    protected: explicit World(uint64_t _id);
+/// \brief World Class
+class World : public Entity
+{
+  /// \brief Constructor
+  public: World();
 
-    /// \brief Set the name of the world
-    /// \param[in] _name world name
-    public: void SetName(const std::string &_name);
+  /// \brief Destructor
+  public: virtual ~World() = default;
 
-    /// \brief Get the name of the world
-    /// \return World name
-    public: std::string GetName() const;
+  /// \brief Set the time of the world
+  /// \param _time time of the world
+  public: void SetTime(double _time);
 
-    // /// \brief Set the id of the world
-    // /// \param[in] _unique Id
-    // public: virtual void SetId(uint64_t _id);
+  /// \brief Get the time of the world
+  /// \return double current time of the world
+  public: double GetTime();
 
-    // /// \brief Get the id of the world
-    // /// \return World id
-    // public: virtual uint64_t GetId() const;
+  /// \brief Step forward at a constant timestep
+  public: void Step();
 
-    /// \brief Set the time of the world
-    /// \param _time time of the world
-    public: void SetTime(double _time);
+  /// \brief Add a model to this world
+  /// \return Model added to the world
+  public: Entity &AddModel();
 
-    /// \brief Get the time of the world
-    /// \return double current time of the world
-    public: double GetTime();
+  /// \brief Get model from current world
+  /// \param _name model name 
+  /// \return pointer to the model object
+  public: Entity &GetModelByName(const std::string &_name);
 
-    /// \brief Step forward at a constant timestep
-    public: void Step();
+  /// \brief World time
+  protected: double time{0.0};
 
-    /// \brief Add a model to this world
-    /// \return Model addded to the world
-    public: Entity &AddModel();
-
-    // /// \brief Check if world has a specific model
-    // /// \param _name model name
-    // public: bool HasModel(const std::string &_name);
-
-    // /// \brief Check if world has a specific model
-    // /// \param _id model id
-    // public: bool HasModel(const int _id);
-
-    /// \brief Remove a specified model
-    /// \param _name model name
-    public: bool RemoveModelByName(const std::string &_name);
-
-    /// \brief Remove a specified model
-    /// \param _id model id
-    public: bool RemoveModelById(const int _id);
-
-    /// \brief Get total amount of models in the world
-    /// \return number of models
-    public: virtual size_t GetModelCount() const;
-
-    /// \brief Get model from current world
-    /// \param _name model name 
-    /// \return pointer to the model object
-    public: Entity &GetModelByName(const std::string &_name);
-
-    /// \brief Get model from current world
-    /// \param _id model id
-    /// \return pointer to the model object
-    public: Entity &GetModelById(int _id);
-
-    /// \brief increment world id once it's created
-    // protected: static size_t GetNextId();
-
-    /// \brief An invalid vertex.
-    // public: static World kNullWorld;
-
-    /// \brief Name of world
-    protected: std::string name;
-
-    /// \brief World time
-    protected: double time{0.0};
-
-    /// \brief Time step size
-    protected: double timeStep{0.1};
-
-    /// \brief World Id
-    protected: uint64_t id;
-
-    /// \brief Models inside World
-    protected: std::map<uint64_t, Entity> models;
-
-    /// \brief Entity id counter
-    // private: static uint64_t nextId;
-
-  };
+  /// \brief Time step size
+  protected: double timeStep{0.1};
+};
 
 } // namespace tpe
 } // namespace physics
