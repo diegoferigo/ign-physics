@@ -26,9 +26,6 @@
 namespace ignition {
 namespace physics {
 namespace tpesim {
-  /// \brief Represents an invalid Id.
-  static const uint64_t kNullWorldId = math::MAX_UI64;
-  class Model;
   class World
   {
     /// \brief Constructor
@@ -49,13 +46,13 @@ namespace tpesim {
     /// \return World name
     public: std::string GetName() const;
 
-    /// \brief Set the id of the world
-    /// \param[in] _unique Id
-    public: virtual void SetId(uint64_t _id);
+    // /// \brief Set the id of the world
+    // /// \param[in] _unique Id
+    // public: virtual void SetId(uint64_t _id);
 
-    /// \brief Get the id of the world
-    /// \return World id
-    public: virtual uint64_t GetId() const;
+    // /// \brief Get the id of the world
+    // /// \return World id
+    // public: virtual uint64_t GetId() const;
 
     /// \brief Set the time of the world
     /// \param _time time of the world
@@ -103,10 +100,10 @@ namespace tpesim {
     public: Entity &GetModelById(int _id);
 
     /// \brief increment world id once it's created
-    protected: static size_t GetNextId();
+    // protected: static size_t GetNextId();
 
     /// \brief An invalid vertex.
-    public: static World kNullWorld;
+    // public: static World kNullWorld;
 
     /// \brief Name of world
     protected: std::string name;
@@ -124,7 +121,7 @@ namespace tpesim {
     protected: std::map<uint64_t, Entity> models;
 
     /// \brief Entity id counter
-    private: static uint64_t nextId;
+    // private: static uint64_t nextId;
 
   };
 

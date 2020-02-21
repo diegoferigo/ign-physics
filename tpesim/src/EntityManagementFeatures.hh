@@ -32,7 +32,9 @@ namespace tpesim {
 struct EntityManagementFeatureList : FeatureList<
   GetEngineInfo,
   GetWorldFromEngine,
-  GetModelFromWorld
+  GetModelFromWorld,
+  GetLinkFromModel,
+  GetShapeFromLink
 > { };
 
 class EntityManagementFeatures :
@@ -78,35 +80,35 @@ class EntityManagementFeatures :
 
   public: Identity GetWorldOfModel(const Identity &_modelID) const override;
 
-  // public: std::size_t GetLinkCount(const Identity &_modelID) const override;
+  public: std::size_t GetLinkCount(const Identity &_modelID) const override;
 
-  // public: Identity GetLink(
-  //     const Identity &_modelID, std::size_t _linkIndex) const override;
+  public: Identity GetLink(
+      const Identity &_modelID, std::size_t _linkIndex) const override;
 
-  // public: Identity GetLink(
-  //     const Identity &_modelID, const std::string &_linkName) const override;
+  public: Identity GetLink(
+      const Identity &_modelID, const std::string &_linkName) const override;
 
-  // public: const std::string &GetLinkName(
-  //     const Identity &_linkID) const override;
+  public: const std::string &GetLinkName(
+      const Identity &_linkID) const override;
 
-  // public: std::size_t GetLinkIndex(const Identity &_linkID) const override;
+  public: std::size_t GetLinkIndex(const Identity &_linkID) const override;
 
-  // public: Identity GetModelOfLink(const Identity &_linkID) const override;
+  public: Identity GetModelOfLink(const Identity &_linkID) const override;
 
-  // public: std::size_t GetShapeCount(const Identity &_linkID) const override;
+  public: std::size_t GetShapeCount(const Identity &_linkID) const override;
 
-  // public: Identity GetShape(
-  //     const Identity &_linkID, std::size_t _shapeIndex) const override;
+  public: Identity GetShape(
+      const Identity &_linkID, std::size_t _shapeIndex) const override;
 
-  // public: Identity GetShape(
-  //     const Identity &_linkID, const std::string &_shapeName) const override;
+  public: Identity GetShape(
+      const Identity &_linkID, const std::string &_shapeName) const override;
 
-  // public: const std::string &GetShapeName(
-  //     const Identity &_shapeID) const override;
+  public: const std::string &GetShapeName(
+      const Identity &_shapeID) const override;
 
-  // public: std::size_t GetShapeIndex(const Identity &_shapeID) const override;
+  public: std::size_t GetShapeIndex(const Identity &_shapeID) const override;
 
-  // public: Identity GetLinkOfShape(const Identity &_shapeID) const override;
+  public: Identity GetLinkOfShape(const Identity &_shapeID) const override;
 };
 
 }

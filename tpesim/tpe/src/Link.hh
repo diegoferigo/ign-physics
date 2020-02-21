@@ -31,6 +31,10 @@ class Link : public Entity
 
   /// \brief Destructor
   public: ~Link() = default;
+
+  /// \brief Add a collision
+  /// \return Newly created Collision
+  public: Entity &AddCollision();
 };
 
 }

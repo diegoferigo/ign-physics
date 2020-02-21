@@ -38,6 +38,11 @@ class Model : public Entity
   /// \brief Add a link
   /// \return Newly created Link
   public: Entity &AddLink();
+
+  /// \brief Get a link
+  /// \param[in] _linkName link name
+  /// \return Link
+  public: Entity &GetLinkByName(const std::string &_name);
 };
 
 }

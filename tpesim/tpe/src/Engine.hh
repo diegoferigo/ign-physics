@@ -37,19 +37,21 @@ namespace tpesim {
     /// \brief Add world to engine
     /// \brief assume one world per engine
     /// \param[in] _name world name
-    public: World &AddWorld();
+    public: void AddWorld(std::string &_name);
 
-    public: World GetWorldByName(const std::string &_world_name) const;
+    public: World GetWorld() const;
 
-    /// \brief Get the world object from engine
-    /// \param[in] _id world id
-    public: World GetWorldById(const int _id) const;
+    // public: World GetWorldByName(const std::string &_world_name) const;
+
+    // /// \brief Get the world object from engine
+    // /// \param[in] _id world id
+    // public: World GetWorldById(const int _id) const;
 
     public: uint64_t GetWorldCount() const;
 
     /// \brief List of worlds attach to this engine
     /// \brief Only support one world per engine
-    public: std::map<uint64_t, World> worlds{};
+    public: std::vector<World> worlds{};
 
   };
 } // namespace tpe

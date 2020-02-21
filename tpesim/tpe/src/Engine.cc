@@ -30,12 +30,11 @@ Engine::Engine()
 }
 
 /////////////////////////////////////////////////
-World &Engine::AddWorld()
+void Engine::AddWorld(std::string &_name)
 {
   World world;
-  uint64_t worldId = world.GetId();
-  const auto [it, success]  = this->worlds.insert({worldId, world});
-  return it->second;
+  world.SetName(_name);
+  this->worlds.push_back(world);
 }
 
 /////////////////////////////////////////////////
@@ -45,25 +44,28 @@ uint64_t Engine::GetWorldCount() const
 }
 
 /////////////////////////////////////////////////
-World Engine::GetWorldByName(const std::string &_name) const
+World Engine::GetWorld() const
 {
-  for (auto const&[id, world] : this->worlds)
-  {
-    if (world.GetName() == _name)
-      return world;
-  }
-  return World::kNullWorld;
+  return this->worlds.front();
 }
 
-/////////////////////////////////////////////////
-World Engine::GetWorldById(const int _id) const
-{
-  // return this->worlds[_id];
-  auto it = this->worlds.find(_id);
-  if (it != this->worlds.end())
-  {
-    return it->second;
-  }
+// /////////////////////////////////////////////////
+// World Engine::GetWorldByName(const std::string &_name) const
+// {
+//   for (auto const&[id, world] : this->worlds)
+//   {
+//     if (world.GetName() == _name)
+//       return world;
+//   }
+// }
 
-  return World::kNullWorld;
-}
+// /////////////////////////////////////////////////
+// World Engine::GetWorldById(const int _id) const
+// {
+//   // return this->worlds[_id];
+//   auto it = this->worlds.find(_id);
+//   if (it != this->worlds.end())
+//   {
+//     return it->second;
+//   }
+// }

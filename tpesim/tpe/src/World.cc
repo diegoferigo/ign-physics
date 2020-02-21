@@ -24,13 +24,9 @@ using namespace ignition;
 using namespace physics;
 using namespace tpesim;
 
-uint64_t World::nextId = 0;
-World World::kNullWorld = World(kNullWorldId);
-
 /////////////////////////////////////////////////
 World::World()
 {
-  this->id = World::GetNextId();
 }
 
 /////////////////////////////////////////////////
@@ -39,17 +35,17 @@ World::World(uint64_t _id)
   this->id = _id;
 }
 
-/////////////////////////////////////////////////
-void World::SetId(uint64_t _id)
-{
-  this->id = _id;
-}
+// /////////////////////////////////////////////////
+// void World::SetId(uint64_t _id)
+// {
+//   this->id = _id;
+// }
 
-/////////////////////////////////////////////////
-uint64_t World::GetId() const
-{
-  return this->id;
-}
+// /////////////////////////////////////////////////
+// uint64_t World::GetId() const
+// {
+//   return this->id;
+// }
 
 /////////////////////////////////////////////////
 void World::SetName(const std::string &_name)
@@ -190,8 +186,8 @@ Entity &World::GetModelById(int _id)
   return Entity::kNullEntity;
 }
 
-/////////////////////////////////////////////////
-uint64_t World::GetNextId()
-{
-  return nextId++;
-}
+// /////////////////////////////////////////////////
+// uint64_t World::GetNextId()
+// {
+//   return nextId++;
+// }

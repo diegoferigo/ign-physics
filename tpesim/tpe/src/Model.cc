@@ -15,6 +15,8 @@
  *
 */
 
+#include <string>
+
 #include "Link.hh"
 #include "Model.hh"
 
@@ -34,4 +36,17 @@ Entity &Model::AddLink()
   uint64_t linkId = link.GetId();
   const auto [it, success]  = this->children.insert({linkId, link});
   return it->second;
+}
+
+//////////////////////////////////////////////////
+Entity &Model::GetLinkByName(const std::string &_name)
+{
+  for (auto it = this->children.begin(); it != this->children.end(); ++it)
+  {
+    if (it->second.GetName() == _name)
+    {
+      return it->second;
+    }
+  }
+  return Entity::kNullEntity;
 }

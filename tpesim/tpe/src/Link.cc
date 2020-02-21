@@ -15,6 +15,7 @@
  *
 */
 
+#include "Collision.hh"
 #include "Link.hh"
 
 using namespace ignition;
@@ -26,4 +27,11 @@ Link::Link() : Entity()
 {
 }
 
-
+//////////////////////////////////////////////////
+Entity &Link::AddCollision()
+{
+  Collision collision;
+  uint64_t collisionId = collision.GetId();
+  const auto [it, success] = this->children.insert({collisionId, collision});
+  return it->second;
+}
