@@ -20,7 +20,9 @@
 
 #include <string>
 
+#include <ignition/physics/ConstructEmpty.hh>
 #include <ignition/physics/GetEntities.hh>
+#include <ignition/physics/RemoveEntities.hh>
 #include <ignition/physics/Implements.hh>
 
 #include "Base.hh"
@@ -34,7 +36,11 @@ struct EntityManagementFeatureList : FeatureList<
   GetWorldFromEngine,
   GetModelFromWorld,
   GetLinkFromModel,
-  GetShapeFromLink
+  GetShapeFromLink,
+  RemoveEntities,
+  ConstructEmptyWorldFeature,
+  ConstructEmptyModelFeature,
+  ConstructEmptyLinkFeature
 > { };
 
 class EntityManagementFeatures :
@@ -109,6 +115,27 @@ class EntityManagementFeatures :
   public: std::size_t GetShapeIndex(const Identity &_shapeID) const override;
 
   public: Identity GetLinkOfShape(const Identity &_shapeID) const override;
+
+  // ----- Remove entities -----
+  public: bool RemoveModelByIndex(
+      const Identity &_worldID, std::size_t _modelIndex) override;
+
+  public: bool RemoveModelByName(
+      const Identity &_worldID, const std::string &_modelName) override;
+
+  public: bool RemoveModel(const Identity &_modelID) override;
+
+  public: bool ModelRemoved(const Identity &_modelID) const override;
+
+  // ----- Construct empty entities -----
+  public: Identity ConstructEmptyWorld(
+      const Identity &_engineID, const std::string &_name) override;
+
+  public: Identity ConstructEmptyModel(
+      const Identity &_worldID, const std::string &_name) override;
+
+  public: Identity ConstructEmptyLink(
+      const Identity &_modelID, const std::string &_name) override;
 };
 
 }

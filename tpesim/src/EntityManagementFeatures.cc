@@ -174,6 +174,51 @@ Identity EntityManagementFeatures::GetLinkOfShape(
   
 }
 
+/////////////////////////////////////////////////
+bool EntityManagementFeatures::RemoveModelByIndex(const Identity &_worldID,
+                                                  std::size_t _modelIndex)
+{
+
+}
+
+/////////////////////////////////////////////////
+bool EntityManagementFeatures::RemoveModelByName(const Identity &_worldID,
+                                                 const std::string &_modelName)
+{
+  
+}
+
+/////////////////////////////////////////////////
+bool EntityManagementFeatures::RemoveModel(const Identity &_modelID)
+{
+}
+
+/////////////////////////////////////////////////
+bool EntityManagementFeatures::ModelRemoved(const Identity &_modelID) const
+{
+
+}
+
+/////////////////////////////////////////////////
+Identity EntityManagementFeatures::ConstructEmptyWorld(
+    const Identity &/*_engineID*/, const std::string &_name)
+{
+  
+}
+
+/////////////////////////////////////////////////
+Identity EntityManagementFeatures::ConstructEmptyModel(
+    const Identity &_worldID, const std::string &_name)
+{
+}
+
+/////////////////////////////////////////////////
+Identity EntityManagementFeatures::ConstructEmptyLink(
+    const Identity &_modelID, const std::string &_name)
+{
+
+}
+
 }
 }
 }
