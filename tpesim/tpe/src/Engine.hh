@@ -50,6 +50,10 @@ class Engine
   /// \return number of worlds
   public: uint64_t GetWorldCount() const;
 
+  /// \brief Get all worlds in engine
+  /// \return a map of id -> world
+  public: std::map<uint64_t, Entity> GetWorlds();
+
   /// \brief Remove World from engine
   /// \return true/false if world is removed/not
   public: bool RemoveWorldById(uint64_t _worldId);

@@ -45,6 +45,12 @@ uint64_t Engine::GetWorldCount() const
 }
 
 /////////////////////////////////////////////////
+std::map<uint64_t, Entity> Engine::GetWorlds()
+{
+  return this->worlds;
+}
+
+/////////////////////////////////////////////////
 Entity &Engine::GetWorldById(uint64_t _worldId)
 {
   auto it = this->worlds.find(_worldId);
