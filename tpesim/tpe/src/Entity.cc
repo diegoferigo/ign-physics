@@ -64,6 +64,19 @@ math::Pose3d Entity::GetPose() const
 }
 
 //////////////////////////////////////////////////
+void Entity::UpdatePose(double _timeStep)
+{
+  // update position
+
+
+  // update its children's poses
+  for (auto it = this->children.begin(); it != this->children.end(); ++it)
+  {
+    it->second.UpdatePose(_timeStep);
+  }
+}
+
+//////////////////////////////////////////////////
 void Entity::SetId(uint64_t _id)
 {
   this->id = _id;
@@ -90,14 +103,6 @@ Entity &Entity::GetChildById(uint64_t _id)
 //////////////////////////////////////////////////
 bool Entity::RemoveChildById(uint64_t _id)
 {
-  // for (size_t i = 0; i < this->children.size(); ++i)
-  // {
-  //   if (this->children[i].GetId() == _id)
-  //   {
-  //     this->children.erase(this->children.begin() + i);
-  //     return;
-  //   }
-  // }
   auto it = this->children.find(_id);
   if (it != this->children.end())
   {
@@ -110,16 +115,6 @@ bool Entity::RemoveChildById(uint64_t _id)
 
 //////////////////////////////////////////////////
 bool Entity::RemoveChildByName(const std::string &_name)
-{
-//  for (size_t i = 0; i < this->children.size(); ++i)
-//  {
-//    if (this->children[i]->GetName() == _name)
-//    {
-//      this->children.erase(this->children.begin() + i);
-//      return;
-//    }
-//  }
-
   for (auto it = this->children.begin(); it != this->children.end(); ++it)
   {
     if (it->second.GetName() == _name)
@@ -130,18 +125,6 @@ bool Entity::RemoveChildByName(const std::string &_name)
   }
   return false;
 }
-
-// ///////////////////////////////////////////////
-// void Entity::RemoveChildByIndex(size_t _index)
-// {
-//   if (_index >= this->children.size())
-//   {
-//     ignerr << "Unable to remove child with index " << _index << std::endl;
-//     return;
-//   }
-//
-//   this->children.erase(this->children.begin() + _index);
-// }
 
 //////////////////////////////////////////////////
 size_t Entity::GetChildCount() const

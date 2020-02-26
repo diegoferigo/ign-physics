@@ -34,6 +34,15 @@ TEST(World, BasicAPI)
   world.SetName("world_1");
   EXPECT_EQ("world_1", world.GetName());
 
+  world.SetTime(1.0);
+  EXPECT_EQ(1.0, world.GetTime());
+
+  world.SetTimeStep(0.1);
+  EXPECT_EQ(0.1, world.GetTimeStep());
+
+  world.Step();
+  EXPECT_EQ(1.1, world.GetTime());
+
   World world2;
   EXPECT_NE(world.GetId(), world2.GetId());
 }

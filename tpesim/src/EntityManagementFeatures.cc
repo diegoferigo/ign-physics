@@ -40,14 +40,14 @@ std::size_t EntityManagementFeatures::GetEngineIndex(
 
 /////////////////////////////////////////////////
 std::size_t EntityManagementFeatures::GetWorldCount(
-    const Identity &/*_engineID*/) const
+  const Identity &/*_engineID*/) const
 {
   return worlds.size();
 }
 
 /////////////////////////////////////////////////
 Identity EntityManagementFeatures::GetWorld(
-    const Identity &, std::size_t _worldIndex) const
+  const Identity &, std::size_t _worldIndex) const
 {
   auto it = worlds.begin();
   std::advance(it, _worldIndex);
@@ -56,7 +56,7 @@ Identity EntityManagementFeatures::GetWorld(
 
 /////////////////////////////////////////////////
 Identity EntityManagementFeatures::GetWorld(
-    const Identity &, const std::string &_worldName) const
+  const Identity &, const std::string &_worldName) const
 {
   for (auto it = worlds.begin(); it != worlds.end(); ++it)
   {
@@ -70,7 +70,7 @@ Identity EntityManagementFeatures::GetWorld(
 
 /////////////////////////////////////////////////
 const std::string &EntityManagementFeatures::GetWorldName(
-    const Identity &_worldID) const
+  const Identity &_worldID) const
 {
   static std::string name;
   auto it = worlds.find(_worldID);
@@ -87,7 +87,7 @@ const std::string &EntityManagementFeatures::GetWorldName(
 
 /////////////////////////////////////////////////
 std::size_t EntityManagementFeatures::GetWorldIndex(
-    const Identity &_worldID) const
+  const Identity &_worldID) const
 {
   auto it = worlds.find(_worldID);
   return std::distance(it, worlds.begin());
@@ -102,7 +102,7 @@ Identity EntityManagementFeatures::GetEngineOfWorld(
 
 /////////////////////////////////////////////////
 std::size_t EntityManagementFeatures::GetModelCount(
-    const Identity &_worldID) const
+  const Identity &_worldID) const
 {
   auto it = worlds.find(_worldID);
   if (it != worlds.end())
@@ -114,7 +114,7 @@ std::size_t EntityManagementFeatures::GetModelCount(
 
 /////////////////////////////////////////////////
 Identity EntityManagementFeatures::GetModel(
-    const Identity &_worldID, const std::size_t _modelIndex) const
+  const Identity &_worldID, const std::size_t _modelIndex) const
 {
   auto modelIt = models.begin();
   std::advance(modelIt, _modelIndex);
@@ -131,7 +131,7 @@ Identity EntityManagementFeatures::GetModel(
 
 /////////////////////////////////////////////////
 Identity EntityManagementFeatures::GetModel(
-    const Identity &_worldID, const std::string &_modelName) const
+  const Identity &_worldID, const std::string &_modelName) const
 {
   auto worldIt = worlds.find(_worldID);
   auto model = worldIt->second->GetModelByName(_modelName);
@@ -148,7 +148,7 @@ Identity EntityManagementFeatures::GetModel(
 
 /////////////////////////////////////////////////
 const std::string &EntityManagementFeatures::GetModelName(
-    const Identity &_modelID) const
+  const Identity &_modelID) const
 {
   static std::string name;
   auto it = models.find(_modelID);
@@ -165,7 +165,7 @@ const std::string &EntityManagementFeatures::GetModelName(
 
 /////////////////////////////////////////////////
 std::size_t EntityManagementFeatures::GetModelIndex(
-    const Identity &_modelID) const
+  const Identity &_modelID) const
 {
   auto it = models.find(_modelID);
   return std::distance(it, models.begin());
@@ -173,7 +173,7 @@ std::size_t EntityManagementFeatures::GetModelIndex(
 
 /////////////////////////////////////////////////
 Identity EntityManagementFeatures::GetWorldOfModel(
-    const Identity &_modelID) const
+  const Identity &_modelID) const
 {
   auto it = childIdToParentId.find(_modelID);
   auto worldIt = worlds.find(it->second);
@@ -186,7 +186,7 @@ Identity EntityManagementFeatures::GetWorldOfModel(
 
 /////////////////////////////////////////////////
 std::size_t EntityManagementFeatures::GetLinkCount(
-    const Identity &_modelID) const
+  const Identity &_modelID) const
 {
   auto it = models.find(_modelID);
   if (it != models.end())
@@ -198,7 +198,7 @@ std::size_t EntityManagementFeatures::GetLinkCount(
 
 /////////////////////////////////////////////////
 Identity EntityManagementFeatures::GetLink(
-    const Identity &_modelID, const std::size_t _linkIndex) const
+  const Identity &_modelID, const std::size_t _linkIndex) const
 {
   auto linkIt = links.begin();
   std::advance(linkIt, _linkIndex);
@@ -215,7 +215,7 @@ Identity EntityManagementFeatures::GetLink(
 
 /////////////////////////////////////////////////
 Identity EntityManagementFeatures::GetLink(
-    const Identity &_modelID, const std::string &_linkName) const
+  const Identity &_modelID, const std::string &_linkName) const
 {
   auto modelIt = models.find(_modelID);
   auto link = modelIt->second->GetLinkByName(_linkName);
@@ -232,7 +232,7 @@ Identity EntityManagementFeatures::GetLink(
 
 /////////////////////////////////////////////////
 const std::string &EntityManagementFeatures::GetLinkName(
-    const Identity &_linkID) const
+  const Identity &_linkID) const
 {
   static std::string name;
   auto it = links.find(_linkID);
@@ -242,14 +242,14 @@ const std::string &EntityManagementFeatures::GetLinkName(
   }
   else
   {
-    name = ""; 
+    name = "";
   }
   return name;
 }
 
 /////////////////////////////////////////////////
 std::size_t EntityManagementFeatures::GetLinkIndex(
-    const Identity &_linkID) const
+  const Identity &_linkID) const
 {
   auto it = links.find(_linkID);
   return std::distance(it, links.begin());
@@ -257,7 +257,7 @@ std::size_t EntityManagementFeatures::GetLinkIndex(
 
 /////////////////////////////////////////////////
 Identity EntityManagementFeatures::GetModelOfLink(
-    const Identity &_linkID) const
+  const Identity &_linkID) const
 {
   auto it = childIdToParentId.find(_linkID);
   auto modelIt = models.find(it->second);
@@ -270,7 +270,7 @@ Identity EntityManagementFeatures::GetModelOfLink(
 
 /////////////////////////////////////////////////
 bool EntityManagementFeatures::RemoveModelByIndex(
-    const Identity &_worldID, std::size_t _modelIndex)
+  const Identity &_worldID, std::size_t _modelIndex)
 {
   auto modelIt = models.begin();
   std::advance(modelIt, _modelIndex);
@@ -286,7 +286,7 @@ bool EntityManagementFeatures::RemoveModelByIndex(
 
 /////////////////////////////////////////////////
 bool EntityManagementFeatures::RemoveModelByName(
-    const Identity &_worldID, const std::string &_modelName)
+  const Identity &_worldID, const std::string &_modelName)
 {
   auto worldIt = worlds.find(_worldID);
   if (worldIt != worlds.end())
@@ -323,7 +323,7 @@ bool EntityManagementFeatures::ModelRemoved(const Identity &_modelID) const
 
 /////////////////////////////////////////////////
 Identity EntityManagementFeatures::ConstructEmptyWorld(
-    const Identity &/*_engineID*/, const std::string &_name)
+  const Identity &/*_engineID*/, const std::string &_name)
 {
   World world;
   world.SetName(_name);
@@ -332,7 +332,7 @@ Identity EntityManagementFeatures::ConstructEmptyWorld(
 
 /////////////////////////////////////////////////
 Identity EntityManagementFeatures::ConstructEmptyModel(
-    const Identity &_worldID, const std::string &_name)
+  const Identity &_worldID, const std::string &_name)
 {
   Model model;
   model.SetName(_name);
@@ -341,7 +341,7 @@ Identity EntityManagementFeatures::ConstructEmptyModel(
 
 /////////////////////////////////////////////////
 Identity EntityManagementFeatures::ConstructEmptyLink(
-    const Identity &_modelID, const std::string &_name)
+  const Identity &_modelID, const std::string &_name)
 {
   Link link;
   link.SetName(_name);

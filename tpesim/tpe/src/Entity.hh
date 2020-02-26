@@ -65,6 +65,8 @@ class Entity
   /// \return Pose of entity to set to
   public: virtual math::Pose3d GetPose() const;
 
+  public: virtual void UpdatePose(double _timeStep);
+
   /// \brief Get a child entity by id
   /// \param[in] _id Id of child entity
   /// \return Child entity
