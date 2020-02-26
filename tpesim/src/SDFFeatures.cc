@@ -51,8 +51,8 @@ Identity SDFFeatures::ConstructSdfModel(
   const auto pose = _sdfModel.Pose();
 
   auto world = this->worlds.at(_worldID);
-  Entity ent = world->AddModel();
-  Model *model = static_cast<Model *>(&ent);
+  tpe::Entity ent = world->AddModel();
+  tpe::Model *model = static_cast<tpe::Model *>(&ent);
   model->SetName(name);
   model->SetPose(pose);
   const auto modelIdentity = this->AddModel(world->GetId(), *model);
@@ -83,8 +83,8 @@ Identity SDFFeatures::ConstructSdfLink(
   const auto pose = _sdfLink.Pose();
 
   auto model = this->models.at(_modelID);
-  Entity ent = model->AddLink();
-  Link *link = static_cast<Link *>(&ent);
+  tpe::Entity ent = model->AddLink();
+  tpe::Link *link = static_cast<tpe::Link *>(&ent);
   link->SetName(name);
   link->SetPose(pose);
   const auto linkIdentity = this->AddLink(model->GetId(), *link);
@@ -110,21 +110,21 @@ Identity SDFFeatures::ConstructSdfCollision(
   const auto geom = _sdfCollision.Geom();
 
   auto link = this->links.at(_linkID);
-  Entity ent = link->AddCollision();
-  Collision *collision = static_cast<Collision *>(&ent);
+  tpe::Entity ent = link->AddCollision();
+  tpe::Collision *collision = static_cast<tpe::Collision *>(&ent);
   collision->SetName(name);
   collision->SetPose(pose);
   if (geom->Type() == ::sdf::GeometryType::BOX)
   {
     const auto boxSdf = geom->BoxShape();
-    BoxShape shape;
+    tpe::BoxShape shape;
     shape.SetSize(boxSdf->Size());
     collision->SetShape(shape);
   }
   else if (geom->Type() == ::sdf::GeometryType::CYLINDER)
   {
     const auto cylinderSdf = geom->CylinderShape();
-    CylinderShape shape;
+    tpe::CylinderShape shape;
     shape.SetRadius(cylinderSdf->Radius());
     shape.SetLength(cylinderSdf->Length());
     collision->SetShape(shape);
@@ -132,7 +132,7 @@ Identity SDFFeatures::ConstructSdfCollision(
   else if (geom->Type() == ::sdf::GeometryType::SPHERE)
   {
     const auto sphereSdf = geom->SphereShape();
-    SphereShape shape;
+    tpe::SphereShape shape;
     shape.SetRadius(sphereSdf->Radius());
     collision->SetShape(shape);
   }
@@ -143,7 +143,7 @@ Identity SDFFeatures::ConstructSdfCollision(
     // in ign-physics
     if (_mesh)
     {
-      MeshShape shape;
+      tpe::MeshShape shape;
       shape.SetMesh(*_mesh);
       collision->SetShape(shape);
     }

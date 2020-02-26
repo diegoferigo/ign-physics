@@ -26,7 +26,7 @@
 
 namespace ignition {
 namespace physics {
-namespace tpesim {
+namespace tpe {
 
 /// \enum ShapeType
 /// \brief The set of shape types.

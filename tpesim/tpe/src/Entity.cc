@@ -18,11 +18,11 @@
 
 #include <ignition/common/Console.hh>
 
-#include "Entity.hh"
+#include "ignition/physics/tpe/Entity.hh"
 
 using namespace ignition;
 using namespace physics;
-using namespace tpesim;
+using namespace tpe;
 
 uint64_t Entity::nextId = 0;
 Entity Entity::kNullEntity = Entity(kNullEntityId);

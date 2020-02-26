@@ -21,8 +21,8 @@
 #include <map>
 #include <string>
 
+#include "ignition/physics/tpe/World.hh"
 #include "../tpe/src/Engine.hh"
-#include "../tpe/src/World.hh"
 #include "../tpe/src/Model.hh"
 #include "../tpe/src/Link.hh"
 #include "../tpe/src/Collision.hh"
@@ -34,7 +34,7 @@ namespace ignition {
 namespace physics {
 namespace tpesim {
 
-/// \brief The structs ModelInfo, LinkInfo, JointInfo, and ShapeInfo are used
+/// \brief The structs tpe::ModelInfo, tpe::LinkInfo, JointInfo, and ShapeInfo are used
 /// for two reasons:
 /// 1) Holding extra information such as the name or offset
 ///    that will be different from the underlying engine
@@ -53,45 +53,46 @@ class Base : public Implements3d<FeatureList<Feature>>
     return this->GenerateIdentity(0);
   }
 
-  public: inline Identity AddWorld(World world)
+  public: inline Identity AddWorld(tpe::World world)
   {
-    auto worldPtr = std::make_shared<World>(world);
+    auto worldPtr = std::make_shared<tpe::World>(world);
     this->worlds.insert({world.GetId(), worldPtr});
 
     return this->GenerateIdentity(world.GetId(), worldPtr);
   }
 
-  public: inline Identity AddModel(uint64_t _worldId, Model model)
+  public: inline Identity AddModel(uint64_t _worldId, tpe::Model model)
   {
-    auto modelPtr = std::make_shared<Model>(model);
+    auto modelPtr = std::make_shared<tpe::Model>(model);
     this->models.insert({model.GetId(), modelPtr});
     this->childIdToParentId.insert({model.GetId(), _worldId});
 
     return this->GenerateIdentity(model.GetId(), modelPtr);
   }
 
-  public: inline Identity AddLink(uint64_t _modelId, Link link)
+  public: inline Identity AddLink(uint64_t _modelId, tpe::Link link)
   {
-    auto linkPtr = std::make_shared<Link>(link);
+    auto linkPtr = std::make_shared<tpe::Link>(link);
     this->links.insert({link.GetId(), linkPtr});
     this->childIdToParentId.insert({link.GetId(), _modelId});
 
     return this->GenerateIdentity(link.GetId(), linkPtr);
   }
 
-  public: inline Identity AddCollision(uint64_t _linkId, Collision collision)
+  public: inline Identity AddCollision(uint64_t _linkId,
+      tpe::Collision collision)
   {
-    auto collisionPtr = std::make_shared<Collision>(collision);
+    auto collisionPtr = std::make_shared<tpe::Collision>(collision);
     this->collisions.insert({collision.GetId(), collisionPtr});
     this->childIdToParentId.insert({collision.GetId(), _linkId});
 
     return this->GenerateIdentity(collision.GetId(), collisionPtr);
   }
 
-  public: std::map<uint64_t, std::shared_ptr<World>> worlds;
-  public: std::map<uint64_t, std::shared_ptr<Model>> models;
-  public: std::map<uint64_t, std::shared_ptr<Link>> links;
-  public: std::map<uint64_t, std::shared_ptr<Collision>> collisions;
+  public: std::map<uint64_t, std::shared_ptr<tpe::World>> worlds;
+  public: std::map<uint64_t, std::shared_ptr<tpe::Model>> models;
+  public: std::map<uint64_t, std::shared_ptr<tpe::Link>> links;
+  public: std::map<uint64_t, std::shared_ptr<tpe::Collision>> collisions;
   public: std::map<uint64_t, uint64_t> childIdToParentId;
 };
 

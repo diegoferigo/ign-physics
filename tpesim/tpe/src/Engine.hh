@@ -21,11 +21,11 @@
 #include <string>
 #include <map>
 
-#include "Entity.hh"
+#include "ignition/physics/tpe/Entity.hh"
 
 namespace ignition {
 namespace physics {
-namespace tpesim {
+namespace tpe {
 
 class World;
 

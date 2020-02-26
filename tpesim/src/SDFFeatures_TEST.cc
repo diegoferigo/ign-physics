@@ -29,7 +29,7 @@
 #include <ignition/physics/sdf/ConstructModel.hh>
 #include <ignition/physics/sdf/ConstructWorld.hh>
 
-// #include <ignition/physics/tpesim/tpe/World.hh>
+#include <ignition/physics/tpesim/World.hh>
 
 #include <sdf/Root.hh>
 #include <sdf/World.hh>
@@ -37,7 +37,7 @@
 #include <test/Utils.hh>
 
 struct TestFeatureList : ignition::physics::FeatureList<
-//    ignition::physics::dartsim::RetrieveWorld,
+    ignition::physics::tpesim::RetrieveWorld,
     ignition::physics::sdf::ConstructSdfLink,
     ignition::physics::sdf::ConstructSdfModel,
     ignition::physics::sdf::ConstructSdfWorld

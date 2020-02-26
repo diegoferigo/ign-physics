@@ -19,6 +19,7 @@
 
 #include <ignition/physics/Register.hh>
 
+#include "CustomFeatures.hh"
 #include "EntityManagementFeatures.hh"
 #include "SDFFeatures.hh"
 
@@ -27,6 +28,7 @@ namespace physics {
 namespace tpesim {
 
 struct TpesimFeatures : FeatureList<
+  CustomFeatureList,
   EntityManagementFeatureList,
   SDFFeatureList
 > { };
@@ -34,6 +36,7 @@ struct TpesimFeatures : FeatureList<
 class Plugin :
   public virtual Implements3d<TpesimFeatures>,
   public virtual Base,
+  public virtual CustomFeatures,
   public virtual EntityManagementFeatures,
   public virtual SDFFeatures { };
 

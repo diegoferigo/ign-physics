@@ -17,12 +17,12 @@
 
 #include <string>
 
+#include "ignition/physics/tpe/World.hh"
 #include "Engine.hh"
-#include "World.hh"
 
 using namespace ignition;
 using namespace physics;
-using namespace tpesim;
+using namespace tpe;
 
 /////////////////////////////////////////////////
 Engine::Engine()

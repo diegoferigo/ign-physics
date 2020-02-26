@@ -15,30 +15,19 @@
  *
 */
 
-#ifndef IGNITION_PHYSICS_TPESIM_TPE_LINK_HH_
-#define IGNITION_PHYSICS_TPESIM_TPE_LINK_HH_
-
-#include "ignition/physics/tpe/Entity.hh"
+#include "CustomFeatures.hh"
 
 namespace ignition {
 namespace physics {
-namespace tpe {
+namespace tpesim {
 
-class Link : public Entity
+/////////////////////////////////////////////////
+std::shared_ptr<tpe::World> CustomFeatures::GetTpesimWorld(
+    const Identity &_worldID)
 {
-  /// \brief Constructor
-  public: Link();
-
-  /// \brief Destructor
-  public: ~Link() = default;
-
-  /// \brief Add a collision
-  /// \return Newly created Collision
-  public: Entity &AddCollision();
-};
+  return this->worlds.at(_worldID);
+}
 
 }
 }
 }
-
-#endif

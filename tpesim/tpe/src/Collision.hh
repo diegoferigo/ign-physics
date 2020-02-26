@@ -18,12 +18,12 @@
 #ifndef IGNITION_PHYSICS_TPESIM_TPE_COLLISISION_HH_
 #define IGNITION_PHYSICS_TPESIM_TPE_COLLISISION_HH_
 
-#include "Entity.hh"
+#include "ignition/physics/tpe/Entity.hh"
 #include "Shape.hh"
 
 namespace ignition {
 namespace physics {
-namespace tpesim {
+namespace tpe {
 
 /// \brief Collision class
 class Collision : public Entity
