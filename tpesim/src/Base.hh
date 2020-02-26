@@ -79,6 +79,15 @@ class Base : public Implements3d<FeatureList<Feature>>
     return this->GenerateIdentity(link.GetId(), linkPtr);
   }
 
+  public: inline Identity AddCollision(uint64_t _linkId, Collision collision)
+  {
+    auto collisionPtr = std::make_shared<Collision>(collision);
+    this->collisions.insert({collision.GetId(), collisionPtr});
+    this->childIdToParentId.insert({collision.GetId(), _linkId});
+
+    return this->GenerateIdentity(collision.GetId(), collisionPtr);
+  }
+
   public: std::map<uint64_t, std::shared_ptr<World>> worlds;
   public: std::map<uint64_t, std::shared_ptr<Model>> models;
   public: std::map<uint64_t, std::shared_ptr<Link>> links;

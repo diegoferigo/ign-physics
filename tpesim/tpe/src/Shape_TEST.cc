@@ -30,13 +30,14 @@ using namespace tpesim;
 TEST(Shape, BoxShape)
 {
   BoxShape shape;
-  math::AxisAlignedBox empty = shape.BoundingBox();
+  EXPECT_EQ(ShapeType::BOX, shape.GetType());
+  math::AxisAlignedBox empty = shape.GetBoundingBox();
   EXPECT_EQ(math::Vector3d::Zero, empty.Center());
   EXPECT_EQ(math::Vector3d::Zero, empty.Size());
 
   math::Vector3d size(1.2, 3.6, 5.8);
   shape.SetSize(size);
-  math::AxisAlignedBox bbox = shape.BoundingBox();
+  math::AxisAlignedBox bbox = shape.GetBoundingBox();
   EXPECT_EQ(math::Vector3d::Zero, bbox.Center());
   EXPECT_EQ(size, bbox.Size());
   EXPECT_EQ(math::Vector3d(-0.6, -1.8, -2.9), bbox.Min());
@@ -47,7 +48,8 @@ TEST(Shape, BoxShape)
 TEST(Shape, CylinderShape)
 {
   CylinderShape shape;
-  math::AxisAlignedBox empty = shape.BoundingBox();
+  EXPECT_EQ(ShapeType::CYLINDER, shape.GetType());
+  math::AxisAlignedBox empty = shape.GetBoundingBox();
   EXPECT_EQ(math::Vector3d::Zero, empty.Center());
   EXPECT_EQ(math::Vector3d::Zero, empty.Size());
 
@@ -55,7 +57,7 @@ TEST(Shape, CylinderShape)
   double length = 2.8;
   shape.SetRadius(radius);
   shape.SetLength(length);
-  math::AxisAlignedBox bbox = shape.BoundingBox();
+  math::AxisAlignedBox bbox = shape.GetBoundingBox();
   EXPECT_EQ(math::Vector3d::Zero, bbox.Center());
   EXPECT_EQ(math::Vector3d(1.2, 1.2, 2.8), bbox.Size());
   EXPECT_EQ(math::Vector3d(-0.6, -0.6, -1.4), bbox.Min());
@@ -66,13 +68,14 @@ TEST(Shape, CylinderShape)
 TEST(Shape, SphereShape)
 {
   SphereShape shape;
-  math::AxisAlignedBox empty = shape.BoundingBox();
+  EXPECT_EQ(ShapeType::SPHERE, shape.GetType());
+  math::AxisAlignedBox empty = shape.GetBoundingBox();
   EXPECT_EQ(math::Vector3d::Zero, empty.Center());
   EXPECT_EQ(math::Vector3d::Zero, empty.Size());
 
   double radius = 30.2;
   shape.SetRadius(radius);
-  math::AxisAlignedBox bbox = shape.BoundingBox();
+  math::AxisAlignedBox bbox = shape.GetBoundingBox();
   EXPECT_EQ(math::Vector3d::Zero, bbox.Center());
   EXPECT_EQ(math::Vector3d(60.4, 60.4, 60.4), bbox.Size());
   EXPECT_EQ(math::Vector3d(-30.2, -30.2, -30.2), bbox.Min());
@@ -83,7 +86,8 @@ TEST(Shape, SphereShape)
 TEST(Shape, MeshShape)
 {
   MeshShape shape;
-  math::AxisAlignedBox empty = shape.BoundingBox();
+  EXPECT_EQ(ShapeType::MESH, shape.GetType());
+  math::AxisAlignedBox empty = shape.GetBoundingBox();
   EXPECT_EQ(math::Vector3d::Zero, empty.Center());
   EXPECT_EQ(math::Vector3d::Zero, empty.Size());
 
@@ -101,7 +105,7 @@ TEST(Shape, MeshShape)
   shape.SetMesh(mesh);
   double scale = 1.0;
   shape.SetScale(scale);
-  math::AxisAlignedBox bbox = shape.BoundingBox();
+  math::AxisAlignedBox bbox = shape.GetBoundingBox();
   EXPECT_EQ(math::Vector3d(0, 0.5, 0.5), bbox.Center());
   EXPECT_EQ(math::Vector3d(0, 1.0, 1.0), bbox.Size());
   EXPECT_EQ(v0, bbox.Min());

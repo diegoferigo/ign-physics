@@ -20,19 +20,22 @@
 #include <ignition/physics/Register.hh>
 
 #include "EntityManagementFeatures.hh"
+#include "SDFFeatures.hh"
 
 namespace ignition {
 namespace physics {
 namespace tpesim {
 
 struct TpesimFeatures : FeatureList<
-  EntityManagementFeatureList
+  EntityManagementFeatureList,
+  SDFFeatureList
 > { };
 
 class Plugin :
   public virtual Implements3d<TpesimFeatures>,
   public virtual Base,
-  public virtual EntityManagementFeatures { };
+  public virtual EntityManagementFeatures,
+  public virtual SDFFeatures { };
 
 IGN_PHYSICS_ADD_PLUGIN(Plugin, FeaturePolicy3d, TpesimFeatures)
 

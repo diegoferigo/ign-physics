@@ -19,7 +19,7 @@ target_include_directories(${tpe_target}
 
 
 ign_build_tests(
-  TYPE UNIT
+  TYPE UNIT_tpe
   SOURCES ${test_sources}
   LIB_DEPS
     ${features}

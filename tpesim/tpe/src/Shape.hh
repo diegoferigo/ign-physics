@@ -28,6 +28,30 @@ namespace ignition {
 namespace physics {
 namespace tpesim {
 
+/// \enum ShapeType
+/// \brief The set of shape types.
+enum class ShapeType
+{
+  /// \brief Empty shpae . This means no shape has been defined.
+  EMPTY = 0,
+
+  /// \brief A box shape.
+  BOX = 1,
+
+  /// \brief A cylinder shape.
+  CYLINDER = 2,
+
+  /// \brief A plane shape.
+  PLANE = 3,
+
+  /// \brief A sphere shape.
+  SPHERE = 4,
+
+  /// \brief A mesh shape.
+  MESH = 5,
+};
+
+
 /// \brief Base shape geometry class
 class Shape
 {
@@ -39,13 +63,20 @@ class Shape
 
   /// \brief Get bounding box of shape
   /// \return Shape's bounding box
-  public: virtual math::AxisAlignedBox BoundingBox();
+  public: virtual math::AxisAlignedBox GetBoundingBox();
+
+  /// \brief Get type of shape
+  /// \return Type of shape
+  public: virtual ShapeType GetType() const;
 
   /// \brief Update the shape's bounding box
-  protected: virtual void UpdateBoundingBox() = 0;
+  protected: virtual void UpdateBoundingBox();
 
    /// \brief Bounding Box
   protected: math::AxisAlignedBox bbox;
+
+   /// \brief Type of shape
+  protected: ShapeType type;
 
    /// \brief Flag to indicate if dimensions changed
   protected: bool dirty = false;
@@ -55,7 +86,7 @@ class Shape
 class BoxShape : public Shape
 {
   /// \brief Constructor
-  public: BoxShape() = default;
+  public: BoxShape();
 
   /// \brief Destructor
   public: ~BoxShape() = default;
@@ -75,7 +106,7 @@ class BoxShape : public Shape
 class CylinderShape : public Shape
 {
   /// \brief Constructor
-  public: CylinderShape() = default;
+  public: CylinderShape();
 
   /// \brief Destructor
   public: ~CylinderShape() = default;
@@ -102,7 +133,7 @@ class CylinderShape : public Shape
 class SphereShape : public Shape
 {
   /// \brief Constructor
-  public: SphereShape() = default;
+  public: SphereShape();
 
   /// \brief Destructor
   public: ~SphereShape() = default;
@@ -122,7 +153,7 @@ class SphereShape : public Shape
 class MeshShape : public Shape
 {
   /// \brief Constructor
-  public: MeshShape() = default;
+  public: MeshShape();
 
   /// \brief Destructor
   public: ~MeshShape() = default;
