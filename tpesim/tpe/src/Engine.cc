@@ -18,7 +18,7 @@
 #include <string>
 
 #include "ignition/physics/tpe/World.hh"
-#include "Engine.hh"
+#include "ignition/physics/tpe/Engine.hh"
 
 using namespace ignition;
 using namespace physics;

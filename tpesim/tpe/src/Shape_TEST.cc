@@ -20,7 +20,7 @@
 #include <ignition/common/Mesh.hh>
 #include <ignition/common/SubMesh.hh>
 
-#include "Shape.hh"
+#include "ignition/physics/tpe/Shape.hh"
 
 using namespace ignition;
 using namespace physics;

@@ -15,7 +15,7 @@
  *
 */
 
-#include "Shape.hh"
+#include "ignition/physics/tpe/Shape.hh"
 
 using namespace ignition;
 using namespace physics;
