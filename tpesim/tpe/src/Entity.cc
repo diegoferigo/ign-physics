@@ -115,6 +115,7 @@ bool Entity::RemoveChildById(uint64_t _id)
 
 //////////////////////////////////////////////////
 bool Entity::RemoveChildByName(const std::string &_name)
+{
   for (auto it = this->children.begin(); it != this->children.end(); ++it)
   {
     if (it->second.GetName() == _name)

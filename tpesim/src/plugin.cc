@@ -20,6 +20,7 @@
 #include <ignition/physics/Register.hh>
 
 #include "EntityManagementFeatures.hh"
+#include "FreeGroupFeatures.hh"
 #include "SimulationFeatures.hh"
 
 namespace ignition {
@@ -28,6 +29,7 @@ namespace tpesim {
 
 struct TpesimFeatures : FeatureList<
   EntityManagementFeatureList,
+  FreeGroupFeatureList,
   SimulationFeatureList
 > { };
 
@@ -35,6 +37,7 @@ class Plugin :
   public virtual Implements3d<TpesimFeatures>,
   public virtual Base,
   public virtual EntityManagementFeatures,
+  public virtual FreeGroupFeatures,
   public virtual SimulationFeatures { };
 
 IGN_PHYSICS_ADD_PLUGIN(Plugin, FeaturePolicy3d, TpesimFeatures)
