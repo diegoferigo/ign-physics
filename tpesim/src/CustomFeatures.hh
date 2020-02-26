@@ -15,26 +15,29 @@
  *
 */
 
-#ifndef IGNITION_PHYSICS_TPESIM_TPE_LINK_HH_
-#define IGNITION_PHYSICS_TPESIM_TPE_LINK_HH_
+#ifndef IGNITION_PHYSICS_TPESIM_SRC_CUSTOMFEATURES_HH
+#define IGNITION_PHYSICS_TPESIM_SRC_CUSTOMFEATURES_HH
 
-#include "ignition/physics/tpe/Entity.hh"
+#include <ignition/physics/Implements.hh>
+
+#include <ignition/physics/tpesim/World.hh>
+
+#include "Base.hh"
 
 namespace ignition {
 namespace physics {
-namespace tpe {
+namespace tpesim {
 
-class Link : public Entity
+using CustomFeatureList = FeatureList<
+  RetrieveWorld
+>;
+
+class CustomFeatures :
+    public virtual Base,
+    public virtual Implements3d<CustomFeatureList>
 {
-  /// \brief Constructor
-  public: Link();
-
-  /// \brief Destructor
-  public: ~Link() = default;
-
-  /// \brief Add a collision
-  /// \return Newly created Collision
-  public: Entity &AddCollision();
+  public: std::shared_ptr<tpe::World> GetTpesimWorld(
+      const Identity &_worldID) override;
 };
 
 }

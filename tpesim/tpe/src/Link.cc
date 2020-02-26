@@ -20,7 +20,7 @@
 
 using namespace ignition;
 using namespace physics;
-using namespace tpesim;
+using namespace tpe;
 
 //////////////////////////////////////////////////
 Link::Link() : Entity()

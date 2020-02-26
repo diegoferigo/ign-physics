@@ -15,38 +15,18 @@
  *
 */
 
-// #include <string>
-
-#include <ignition/physics/Register.hh>
-
 #include "CustomFeatures.hh"
-#include "EntityManagementFeatures.hh"
-#include "FreeGroupFeatures.hh"
-#include "SDFFeatures.hh"
-#include "SimulationFeatures.hh"
 
 namespace ignition {
 namespace physics {
 namespace tpesim {
 
-struct TpesimFeatures : FeatureList<
-  CustomFeatureList,
-  EntityManagementFeatureList,
-  FreeGroupFeatureList,
-  SDFFeatureList,
-  SimulationFeatureList
-> { };
-
-class Plugin :
-  public virtual Implements3d<TpesimFeatures>,
-  public virtual Base,
-  public virtual CustomFeatures,
-  public virtual EntityManagementFeatures,
-  public virtual FreeGroupFeatures,
-  public virtual SDFFeatures,
-  public virtual SimulationFeatures { };
-
-IGN_PHYSICS_ADD_PLUGIN(Plugin, FeaturePolicy3d, TpesimFeatures)
+/////////////////////////////////////////////////
+std::shared_ptr<tpe::World> CustomFeatures::GetTpesimWorld(
+    const Identity &_worldID)
+{
+  return this->worlds.at(_worldID);
+}
 
 }
 }

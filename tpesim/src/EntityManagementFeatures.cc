@@ -123,7 +123,7 @@ Identity EntityManagementFeatures::GetModel(
   if (worldIt != worlds.end())
   {
     auto model = worldIt->second->GetChildById(modelId);
-    auto modelPtr = std::make_shared<Entity>(model);
+    auto modelPtr = std::make_shared<tpe::Entity>(model);
     return this->GenerateIdentity(modelId, modelPtr);
   }
   return this->GenerateInvalidId();
@@ -207,7 +207,7 @@ Identity EntityManagementFeatures::GetLink(
   if (modelIt != models.end())
   {
     auto link = modelIt->second->GetChildById(linkId);
-    auto linkPtr = std::make_shared<Entity>(link);
+    auto linkPtr = std::make_shared<tpe::Entity>(link);
     return this->GenerateIdentity(linkId, linkPtr);
   }
   return this->GenerateInvalidId();
@@ -325,7 +325,7 @@ bool EntityManagementFeatures::ModelRemoved(const Identity &_modelID) const
 Identity EntityManagementFeatures::ConstructEmptyWorld(
   const Identity &/*_engineID*/, const std::string &_name)
 {
-  World world;
+  tpe::World world;
   world.SetName(_name);
   return this->AddWorld(world);
 }
@@ -334,7 +334,7 @@ Identity EntityManagementFeatures::ConstructEmptyWorld(
 Identity EntityManagementFeatures::ConstructEmptyModel(
   const Identity &_worldID, const std::string &_name)
 {
-  Model model;
+  tpe::Model model;
   model.SetName(_name);
   return this->AddModel(_worldID, model);
 }
@@ -343,7 +343,7 @@ Identity EntityManagementFeatures::ConstructEmptyModel(
 Identity EntityManagementFeatures::ConstructEmptyLink(
   const Identity &_modelID, const std::string &_name)
 {
-  Link link;
+  tpe::Link link;
   link.SetName(_name);
   return this->AddLink(_modelID, link);
 }

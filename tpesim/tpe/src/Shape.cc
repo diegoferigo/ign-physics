@@ -19,10 +19,10 @@
 
 using namespace ignition;
 using namespace physics;
-using namespace tpesim;
+using namespace tpe;
 
 //////////////////////////////////////////////////
-math::AxisAlignedBox Shape::BoundingBox()
+math::AxisAlignedBox Shape::GetBoundingBox()
 {
   if (this->dirty)
   {
@@ -30,6 +30,24 @@ math::AxisAlignedBox Shape::BoundingBox()
     this->dirty = false;
   }
   return this->bbox;
+}
+
+//////////////////////////////////////////////////
+void Shape::UpdateBoundingBox()
+{
+  // No op. To be overriden by derived classes
+}
+
+//////////////////////////////////////////////////
+ShapeType Shape::GetType() const
+{
+  return this->type;
+}
+
+//////////////////////////////////////////////////
+BoxShape::BoxShape() : Shape()
+{
+  this->type = ShapeType::BOX;
 }
 
 //////////////////////////////////////////////////
@@ -44,6 +62,12 @@ void BoxShape::UpdateBoundingBox()
 {
   math::Vector3d halfSize = this->size * 0.5;
   this->bbox = math::AxisAlignedBox(-halfSize, halfSize);
+}
+
+//////////////////////////////////////////////////
+CylinderShape::CylinderShape() : Shape()
+{
+  this->type = ShapeType::CYLINDER;
 }
 
 //////////////////////////////////////////////////
@@ -68,6 +92,12 @@ void CylinderShape::UpdateBoundingBox()
 }
 
 //////////////////////////////////////////////////
+SphereShape::SphereShape() : Shape()
+{
+  this->type = ShapeType::SPHERE;
+}
+
+//////////////////////////////////////////////////
 void SphereShape::SetRadius(double _radius)
 {
   this->radius = _radius;
@@ -79,6 +109,12 @@ void SphereShape::UpdateBoundingBox()
 {
   math::Vector3d halfSize(this->radius, this->radius, this->radius);
   this->bbox = math::AxisAlignedBox(-halfSize, halfSize);
+}
+
+//////////////////////////////////////////////////
+MeshShape::MeshShape() : Shape()
+{
+  this->type = ShapeType::MESH;
 }
 
 //////////////////////////////////////////////////

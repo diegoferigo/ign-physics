@@ -1,13 +1,17 @@
 add_subdirectory(tpe)
 
-# This component expresses custom features of the dartsim plugin, which can
-# expose native dartsim data types.
+# This component expresses custom features of the tpesim plugin, which can
+# expose native tpesim data types.
 ign_add_component(tpesim INTERFACE
   DEPENDS_ON_COMPONENTS sdf mesh
   GET_TARGET_NAME features)
 
-target_link_libraries(${features} INTERFACE)
+target_link_libraries(${features} INTERFACE ${PROJECT_LIBRARY_TARGET_NAME}-tpe)
 target_include_directories(${features} SYSTEM INTERFACE)
+
+install(
+  DIRECTORY include/
+  DESTINATION "${IGN_INCLUDE_INSTALL_DIR_FULL}")
 
 ign_get_libsources_and_unittests(sources test_sources)
 
@@ -31,4 +35,24 @@ target_link_libraries(${tpesim_plugin}
   ignition-common${IGN_COMMON_VER}::profiler
 )
 
-# add test later
+ign_build_tests(
+  TYPE UNIT_tpe
+  SOURCES ${test_sources}
+  LIB_DEPS
+    ${features}
+    ignition-plugin${IGN_PLUGIN_VER}::loader
+    ignition-common${IGN_COMMON_VER}::ignition-common${IGN_COMMON_VER}
+    ${PROJECT_LIBRARY_TARGET_NAME}-sdf
+    ${PROJECT_LIBRARY_TARGET_NAME}-mesh
+  TEST_LIST tests)
+
+foreach(test ${tests})
+
+  target_compile_definitions(${test} PRIVATE
+    "tpesim_plugin_LIB=\"$<TARGET_FILE:${tpesim_plugin}>\""
+    "TEST_WORLD_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/worlds/\""
+    "IGNITION_PHYSICS_RESOURCE_DIR=\"${IGNITION_PHYSICS_RESOURCE_DIR}\"")
+
+endforeach()
+
+

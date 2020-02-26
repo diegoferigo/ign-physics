@@ -45,8 +45,8 @@ class FreeGroupFeatures :
 
   struct FreeGroupInfo
   {
-    Model *model;
-    Link *link;
+    tpe::Model *model;
+    tpe::Link *link;
   };
 
   void SetFreeGroupWorldPose(

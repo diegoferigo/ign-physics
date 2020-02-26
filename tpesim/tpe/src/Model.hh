@@ -18,11 +18,11 @@
 #ifndef IGNITION_PHYSICS_TPESIM_TPE_MODEL_HH_
 #define IGNITION_PHYSICS_TPESIM_TPE_MODEL_HH_
 
-#include "Entity.hh"
+#include "ignition/physics/tpe/Entity.hh"
 
 namespace ignition {
 namespace physics {
-namespace tpesim {
+namespace tpe {
 
 class Link;
 

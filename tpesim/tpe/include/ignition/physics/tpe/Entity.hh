@@ -24,7 +24,7 @@
 
 namespace ignition {
 namespace physics {
-namespace tpesim {
+namespace tpe {
 
 /// \brief Represents an invalid Id.
 static const uint64_t kNullEntityId = math::MAX_UI64;

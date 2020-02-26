@@ -20,13 +20,26 @@
 
 using namespace ignition;
 using namespace physics;
-using namespace tpesim;
+using namespace tpe;
 
 //////////////////////////////////////////////////
 Collision::Collision() : Entity()
 {
 }
 
+//////////////////////////////////////////////////
+void Collision::SetShape(Shape &_shape)
+{
+  this->shape = _shape;
+}
+
+//////////////////////////////////////////////////
+Shape Collision::GetShape() const
+{
+  return this->shape;
+}
+
+/*
 //////////////////////////////////////////////////
 BoxShape Collision::AddBoxShape()
 {
@@ -106,3 +119,4 @@ uint64_t Collision::GetMeshShapeCount()
 {
   return this->meshShapes.size();
 }
+*/

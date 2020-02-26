@@ -36,7 +36,7 @@ void SimulationFeatures::WorldForwardStep(
     ignerr << "World with id [" << _worldID.id << "] not found."
       << std::endl;
   }
-  const std::shared_ptr<World> worldPtr = it->second;
+  const std::shared_ptr<tpe::World> worldPtr = it->second;
   auto *dtDur =
     _u.Query<std::chrono::steady_clock::duration>();
   const double tol = 1e-6;

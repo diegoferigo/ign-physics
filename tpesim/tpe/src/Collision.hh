@@ -18,12 +18,12 @@
 #ifndef IGNITION_PHYSICS_TPESIM_TPE_COLLISISION_HH_
 #define IGNITION_PHYSICS_TPESIM_TPE_COLLISISION_HH_
 
-#include "Entity.hh"
+#include "ignition/physics/tpe/Entity.hh"
 #include "Shape.hh"
 
 namespace ignition {
 namespace physics {
-namespace tpesim {
+namespace tpe {
 
 /// \brief Collision class
 class Collision : public Entity
@@ -34,7 +34,16 @@ class Collision : public Entity
   /// \brief Destructor
   public: ~Collision() = default;
 
-  /// \brief Add shape to collision
+  /// brief Set Shape
+  public: void SetShape(Shape &_shape);
+
+  /// brief Get Shape
+  public: Shape GetShape() const;
+
+  /// \brief Shape
+  private: Shape shape;
+
+/*  /// \brief Add shape to collision
   /// \return Box geometry
   public: BoxShape AddBoxShape();
 
@@ -89,6 +98,7 @@ class Collision : public Entity
   protected: std::vector<SphereShape> sphereShapes;
 
   protected: std::vector<MeshShape> meshShapes;
+*/
 };
 
 }
