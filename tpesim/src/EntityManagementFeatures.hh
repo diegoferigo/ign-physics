@@ -54,32 +54,34 @@ class EntityManagementFeatures :
   public: std::size_t GetWorldCount(const Identity &) const override;
 
   public: Identity GetWorld(
-      const Identity &, std::size_t /*_worldIndex*/) const override;
-      // { return this->GenerateInvalidId(); };
+    const Identity &, std::size_t /*_worldIndex*/) const override;
+    // { return this->GenerateInvalidId(); };
 
   public: Identity GetWorld(
-      const Identity &, const std::string &/*_worldName*/) const override;
-      // { return this->GenerateInvalidId(); };
+    const Identity &, const std::string &/*_worldName*/) const override;
+    // { return this->GenerateInvalidId(); };
 
   public: const std::string &GetWorldName(
-      const Identity &_worldID) const override;
+    const Identity &_worldID) const override;
 
-  public: std::size_t GetWorldIndex(const Identity &/*_worldID*/) const override;
+  public: std::size_t GetWorldIndex(
+    const Identity &/*_worldID*/) const override;
     // { return 0; };
 
-  public: Identity GetEngineOfWorld(const Identity &/*_worldID*/) const override;
+  public: Identity GetEngineOfWorld(
+    const Identity &/*_worldID*/) const override;
 
   public: std::size_t GetModelCount(
-      const Identity &_worldID) const override;
+    const Identity &_worldID) const override;
 
   public: Identity GetModel(
-      const Identity &_worldID, std::size_t _modelIndex) const override;
+    const Identity &_worldID, std::size_t _modelIndex) const override;
 
   public: Identity GetModel(
-      const Identity &_worldID, const std::string &_modelName) const override;
+    const Identity &_worldID, const std::string &_modelName) const override;
 
   public: const std::string &GetModelName(
-      const Identity &_modelID) const override;
+    const Identity &_modelID) const override;
 
   public: std::size_t GetModelIndex(const Identity &_modelID) const override;
 
@@ -88,13 +90,13 @@ class EntityManagementFeatures :
   public: std::size_t GetLinkCount(const Identity &_modelID) const override;
 
   public: Identity GetLink(
-      const Identity &_modelID, std::size_t _linkIndex) const override;
+    const Identity &_modelID, std::size_t _linkIndex) const override;
 
   public: Identity GetLink(
-      const Identity &_modelID, const std::string &_linkName) const override;
+    const Identity &_modelID, const std::string &_linkName) const override;
 
   public: const std::string &GetLinkName(
-      const Identity &_linkID) const override;
+    const Identity &_linkID) const override;
 
   public: std::size_t GetLinkIndex(const Identity &_linkID) const override;
 
@@ -102,10 +104,10 @@ class EntityManagementFeatures :
 
   // ----- Remove entities -----
   public: bool RemoveModelByIndex(
-      const Identity &_worldID, std::size_t _modelIndex) override;
+    const Identity &_worldID, std::size_t _modelIndex) override;
 
   public: bool RemoveModelByName(
-      const Identity &_worldID, const std::string &_modelName) override;
+    const Identity &_worldID, const std::string &_modelName) override;
 
   public: bool RemoveModel(const Identity &_modelID) override;
 
@@ -113,13 +115,13 @@ class EntityManagementFeatures :
 
   // ----- Construct empty entities -----
   public: Identity ConstructEmptyWorld(
-      const Identity &_engineID, const std::string &_name) override;
+    const Identity &_engineID, const std::string &_name) override;
 
   public: Identity ConstructEmptyModel(
-      const Identity &_worldID, const std::string &_name) override;
+    const Identity &_worldID, const std::string &_name) override;
 
   public: Identity ConstructEmptyLink(
-      const Identity &_modelID, const std::string &_name) override;
+    const Identity &_modelID, const std::string &_name) override;
 };
 
 }

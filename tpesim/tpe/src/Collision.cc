@@ -41,7 +41,7 @@ Shape Collision::GetShape() const
 
 /*
 //////////////////////////////////////////////////
-BoxShape &Collision::AddBoxShape()
+BoxShape Collision::AddBoxShape()
 {
   BoxShape newShape;
   this->boxShapes.push_back(newShape);
@@ -61,7 +61,7 @@ uint64_t Collision::GetBoxShapeCount()
 }
 
 //////////////////////////////////////////////////
-CylinderShape &Collision::AddCylinderShape()
+CylinderShape Collision::AddCylinderShape()
 {
   CylinderShape newShape;
   this->cylinderShapes.push_back(newShape);
@@ -81,7 +81,7 @@ uint64_t Collision::GetCylinderShapeCount()
 }
 
 //////////////////////////////////////////////////
-SphereShape &Collision::AddSphereShape()
+SphereShape Collision::AddSphereShape()
 {
   SphereShape newShape;
   this->sphereShapes.push_back(newShape);
@@ -101,7 +101,7 @@ uint64_t Collision::GetSphereShapeCount()
 }
 
 //////////////////////////////////////////////////
-MeshShape &Collision::AddMeshShape()
+MeshShape Collision::AddMeshShape()
 {
   MeshShape newShape;
   this->meshShapes.push_back(newShape);

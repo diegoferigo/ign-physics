@@ -18,7 +18,10 @@
 #ifndef IGNITION_PHYSICS_TPESIM_BASE_HH_
 #define IGNITION_PHYSICS_TPESIM_BASE_HH_
 
+#include <ignition/physics/Implements.hh>
+
 #include <map>
+#include <memory>
 #include <string>
 
 #include "ignition/physics/tpe/World.hh"
@@ -27,8 +30,6 @@
 #include "../tpe/src/Link.hh"
 #include "../tpe/src/Collision.hh"
 #include "../tpe/src/Shape.hh"
-
-#include <ignition/physics/Implements.hh>
 
 namespace ignition {
 namespace physics {
@@ -46,7 +47,6 @@ namespace tpesim {
 
 class Base : public Implements3d<FeatureList<Feature>>
 {
-
   public: inline Identity InitiateEngine(std::size_t /*_engineID*/) override
   {
     // tpesim does not have multiple "engines"

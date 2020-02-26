@@ -15,39 +15,33 @@
  *
 */
 
-// #include <string>
+#ifndef IGNITION_PHYSICS_TPESIM_SRC_SIMULATIONFEATURES_HH_
+#define IGNITION_PHYSICS_TPESIM_SRC_SIMULATIONFEATURES_HH_
 
-#include <ignition/physics/Register.hh>
+#include <ignition/physics/ForwardStep.hh>
 
-#include "CustomFeatures.hh"
-#include "EntityManagementFeatures.hh"
-#include "FreeGroupFeatures.hh"
-#include "SDFFeatures.hh"
-#include "SimulationFeatures.hh"
+#include "Base.hh"
 
 namespace ignition {
 namespace physics {
 namespace tpesim {
-
-struct TpesimFeatures : FeatureList<
-  CustomFeatureList,
-  EntityManagementFeatureList,
-  FreeGroupFeatureList,
-  SDFFeatureList,
-  SimulationFeatureList
+struct SimulationFeatureList : FeatureList<
+  ForwardStep
 > { };
 
-class Plugin :
-  public virtual Implements3d<TpesimFeatures>,
+class SimulationFeatures :
   public virtual Base,
-  public virtual CustomFeatures,
-  public virtual EntityManagementFeatures,
-  public virtual FreeGroupFeatures,
-  public virtual SDFFeatures,
-  public virtual SimulationFeatures { };
+  public virtual Implements3d<SimulationFeatureList>
+{
+  public: void WorldForwardStep(
+    const Identity &_worldID,
+    ForwardStep::Output &_h,
+    ForwardStep::State &_x,
+    const ForwardStep::Input &_u) override;
+};
 
-IGN_PHYSICS_ADD_PLUGIN(Plugin, FeaturePolicy3d, TpesimFeatures)
+}
+}
+}
 
-}
-}
-}
+#endif

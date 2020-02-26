@@ -45,7 +45,7 @@ class Collision : public Entity
 
 /*  /// \brief Add shape to collision
   /// \return Box geometry
-  public: BoxShape &AddBoxShape();
+  public: BoxShape AddBoxShape();
 
   /// \brief Get all box shapes in collision
   /// \return boxShapes vector
@@ -57,7 +57,7 @@ class Collision : public Entity
 
   /// \brief Add shape to collision
   /// \return Cylinder geometry
-  public: CylinderShape &AddCylinderShape();
+  public: CylinderShape AddCylinderShape();
 
   /// \brief Get cylinder shapes
   /// \return cylinderShape vector
@@ -69,7 +69,7 @@ class Collision : public Entity
 
   /// \brief Add shape to collision
   /// \return Sphere geometry
-  public: SphereShape &AddSphereShape();
+  public: SphereShape AddSphereShape();
 
   /// \brief Get sphere shapes
   /// \return sphereShapes vector
@@ -81,7 +81,7 @@ class Collision : public Entity
 
   /// \brief Add shape to collision
   /// \return Mesh geometry
-  public: MeshShape &AddMeshShape();
+  public: MeshShape AddMeshShape();
 
   /// \brief Get mesh shapes
   /// \return meshShapes vector

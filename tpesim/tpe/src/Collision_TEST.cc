@@ -55,7 +55,7 @@ TEST(Collision, BoxShape)
 //  EXPECT_EQ(0u, collision.GetBoxShapeCount());
 //
 //  // add a box shape
-//  BoxShape &boxShape = collision.AddBoxShape();
+//  BoxShape boxShape = collision.AddBoxShape();
 //  EXPECT_EQ(1u, collision.GetBoxShapeCount());
 //
 //  BoxShape *box = static_cast<BoxShape *>(&boxShape);
@@ -72,12 +72,11 @@ TEST(Collision, CylinderShape)
   CylinderShape *cylinder = static_cast<CylinderShape *>(&shape);
   EXPECT_NE(nullptr, cylinder);
 
-
 //  Collision collision;
 //  EXPECT_EQ(0u, collision.GetCylinderShapeCount());
 //
 //  // add a cylinder shape
-//  CylinderShape &cylinderShape = collision.AddCylinderShape();
+//  CylinderShape cylinderShape = collision.AddCylinderShape();
 //  EXPECT_EQ(1u, collision.GetCylinderShapeCount());
 //
 //  CylinderShape *cylinder = static_cast<CylinderShape *>(&cylinderShape);
@@ -94,12 +93,11 @@ TEST(Collision, SphereShape)
   SphereShape *sphere = static_cast<SphereShape *>(&shape);
   EXPECT_NE(nullptr, sphere);
 
-
 //  Collision collision;
 //  EXPECT_EQ(0u, collision.GetSphereShapeCount());
 //
 //  // add a sphere shape
-//  SphereShape &sphereShape = collision.AddSphereShape();
+//  SphereShape sphereShape = collision.AddSphereShape();
 //  EXPECT_EQ(1u, collision.GetSphereShapeCount());
 //
 //  SphereShape *sphere = static_cast<SphereShape *>(&sphereShape);
@@ -120,7 +118,7 @@ TEST(Collision, MeshShape)
 //  EXPECT_EQ(0u, collision.GetMeshShapeCount());
 //
 //  // add a mesh shape
-//  MeshShape &meshShape = collision.AddMeshShape();
+//  MeshShape meshShape = collision.AddMeshShape();
 //  EXPECT_EQ(1u, collision.GetMeshShapeCount());
 //
 //  MeshShape *mesh = static_cast<MeshShape *>(&meshShape);

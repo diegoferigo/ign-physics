@@ -43,6 +43,12 @@ class World : public Entity
   /// \return double current time of the world
   public: double GetTime();
 
+  public: void SetTimeStep(double _timeStep);
+
+  /// \brief Get the timestep
+  /// \return double current timestep of the world
+  public: double GetTimeStep();
+
   /// \brief Step forward at a constant timestep
   public: void Step();
 

@@ -17,7 +17,9 @@
 
 #include <string>
 
+#include <ignition/math/Pose3.hh>
 #include "ignition/physics/tpe/World.hh"
+
 #include "Model.hh"
 
 using namespace ignition;
@@ -42,9 +44,28 @@ double World::GetTime()
 }
 
 /////////////////////////////////////////////////
+void World::SetTimeStep(double _timeStep)
+{
+  this->timeStep = _timeStep;
+}
+
+/////////////////////////////////////////////////
+double World::GetTimeStep()
+{
+  return this->timeStep;
+}
+
+/////////////////////////////////////////////////
 void World::Step()
 {
-  // only increment time for now, no model action yet
+  // apply updates to each model
+  for (auto it = children.begin(); it != children.end(); ++it)
+  {
+    auto &model = it->second;
+    model.UpdatePose(this->timeStep);
+  }
+
+  // increment world time by step size
   this->time += this->timeStep;
 }
 
