@@ -48,7 +48,7 @@ Identity SDFFeatures::ConstructSdfModel(
 {
   // Read sdf params
   const std::string name = _sdfModel.Name();
-  const auto pose = _sdfModel.Pose();
+  const auto pose = _sdfModel.RawPose();
 
   auto world = this->worlds.at(_worldID);
   tpe::Entity ent = world->AddModel();
@@ -80,7 +80,7 @@ Identity SDFFeatures::ConstructSdfLink(
 {
   // Read sdf params
   const std::string name = _sdfLink.Name();
-  const auto pose = _sdfLink.Pose();
+  const auto pose = _sdfLink.RawPose();
 
   auto model = this->models.at(_modelID);
   tpe::Entity ent = model->AddLink();
@@ -106,7 +106,7 @@ Identity SDFFeatures::ConstructSdfCollision(
 {
   // Read sdf params
   const std::string name = _sdfCollision.Name();
-  const auto pose = _sdfCollision.Pose();
+  const auto pose = _sdfCollision.RawPose();
   const auto geom = _sdfCollision.Geom();
 
   auto link = this->links.at(_linkID);
