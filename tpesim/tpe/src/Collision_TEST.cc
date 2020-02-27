@@ -17,8 +17,8 @@
 
 #include <gtest/gtest.h>
 
-#include "Collision.hh"
-#include "Shape.hh"
+#include "ignition/physics/tpe/Collision.hh"
+#include "ignition/physics/tpe/Shape.hh"
 
 using namespace ignition;
 using namespace physics;

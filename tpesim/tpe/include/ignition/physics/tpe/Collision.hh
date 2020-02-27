@@ -19,7 +19,7 @@
 #define IGNITION_PHYSICS_TPESIM_TPE_COLLISISION_HH_
 
 #include "ignition/physics/tpe/Entity.hh"
-#include "Shape.hh"
+#include "ignition/physics/tpe/Shape.hh"
 
 namespace ignition {
 namespace physics {

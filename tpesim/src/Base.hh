@@ -25,11 +25,11 @@
 #include <string>
 
 #include "ignition/physics/tpe/World.hh"
-#include "../tpe/src/Engine.hh"
-#include "../tpe/src/Model.hh"
-#include "../tpe/src/Link.hh"
-#include "../tpe/src/Collision.hh"
-#include "../tpe/src/Shape.hh"
+#include "ignition/physics/tpe/Engine.hh"
+#include "ignition/physics/tpe/Model.hh"
+#include "ignition/physics/tpe/Link.hh"
+#include "ignition/physics/tpe/Collision.hh"
+#include "ignition/physics/tpe/Shape.hh"
 
 namespace ignition {
 namespace physics {

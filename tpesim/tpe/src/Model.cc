@@ -17,8 +17,8 @@
 
 #include <string>
 
-#include "Link.hh"
-#include "Model.hh"
+#include "ignition/physics/tpe/Link.hh"
+#include "ignition/physics/tpe/Model.hh"
 
 using namespace ignition;
 using namespace physics;

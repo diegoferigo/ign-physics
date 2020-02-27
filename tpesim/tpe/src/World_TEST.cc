@@ -18,7 +18,7 @@
 #include <gtest/gtest.h>
 
 #include "ignition/physics/tpe/World.hh"
-#include "Model.hh"
+#include "ignition/physics/tpe/Model.hh"
 
 using namespace ignition;
 using namespace physics;
