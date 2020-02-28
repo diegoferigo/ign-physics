@@ -18,6 +18,8 @@
 #ifndef IGNITION_PHYSICS_TPESIM_TPE_MODEL_HH_
 #define IGNITION_PHYSICS_TPESIM_TPE_MODEL_HH_
 
+#include <ignition/physics/Geometry.hh>
+
 #include "ignition/physics/tpe/Entity.hh"
 
 namespace ignition {
@@ -47,6 +49,15 @@ class Model : public Entity
   /// \param[in] _linkName link name
   /// \return Link
   public: Entity &GetLinkByName(const std::string &_name);
+
+  public: void SetLinearVelocity(const LinearVector3d _velocity);
+
+  public: void SetAngularVelocity(const AngularVector3d _velocity);
+
+  protected: LinearVector3d linearVelocity;
+
+  protected: AngularVector3d angularVelocity;
+
 };
 
 }
