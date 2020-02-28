@@ -59,6 +59,9 @@ TEST(Model, Link)
   EXPECT_EQ("link_1", ent.GetName());
   EXPECT_EQ(math::Pose3d(2, 3, 4, 0, 0, 1), ent.GetPose());
 
+  Entity entByName = model.GetChildByName("link_1");
+  EXPECT_EQ("link_1", entByName.GetName());
+
   // test casting to link
   Link *link = static_cast<Link *>(&linkEnt);
   EXPECT_NE(nullptr, link);

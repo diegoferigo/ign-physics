@@ -29,6 +29,8 @@
 #include <ignition/physics/sdf/ConstructModel.hh>
 #include <ignition/physics/sdf/ConstructWorld.hh>
 
+#include <ignition/physics/tpe/Entity.hh>
+#include <ignition/physics/tpe/World.hh>
 #include <ignition/physics/tpesim/World.hh>
 
 #include <sdf/Root.hh>
@@ -79,9 +81,32 @@ World LoadWorld(const std::string &_world)
 }
 
 // Test that the dartsim plugin loaded all the relevant information correctly.
-TEST(SDFFeatures_TEST, CheckDartsimData)
+TEST(SDFFeatures_TEST, CheckTpesimData)
 {
   World world = LoadWorld(TEST_WORLD_DIR"/test.world");
+  auto tpeWorld = world.GetTpesimWorld();
+  ASSERT_NE(nullptr, tpeWorld);
+
+  ASSERT_EQ(6u, tpeWorld->GetChildCount());
+
+  ignition::physics::tpe::Entity &model =
+      tpeWorld->GetChildByName("ground_plane");
+  ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(), model.GetId());
+  EXPECT_EQ("ground_plane", model.GetName());
+  EXPECT_EQ(ignition::math::Pose3d::Zero, model.GetPose());
+  EXPECT_EQ(1u, model.GetChildCount());
+
+  ignition::physics::tpe::Entity &link = model.GetChildByName("link");
+  ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(), link.GetId());
+  EXPECT_EQ("link", link.GetName());
+  EXPECT_EQ(ignition::math::Pose3d::Zero, link.GetPose());
+  EXPECT_EQ(1u, link.GetChildCount());
+
+  ignition::physics::tpe::Entity &collision = link.GetChildByName("collision");
+  ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+      collision.GetId());
+  EXPECT_EQ("collision", collision.GetName());
+  EXPECT_EQ(ignition::math::Pose3d::Zero, collision.GetPose());
 
   // dart::simulation::WorldPtr dartWorld = world.GetDartsimWorld();
   // ASSERT_NE(nullptr, dartWorld);

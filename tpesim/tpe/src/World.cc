@@ -59,10 +59,11 @@ double World::GetTimeStep()
 void World::Step()
 {
   // apply updates to each model
+  auto children = this->GetChildren();
   for (auto it = children.begin(); it != children.end(); ++it)
   {
     auto &model = it->second;
-    model.UpdatePose(this->timeStep);
+    model->UpdatePose(this->timeStep);
   }
 
   // increment world time by step size
@@ -72,20 +73,23 @@ void World::Step()
 /////////////////////////////////////////////////
 Entity &World::AddModel()
 {
-  Model model;
-  uint64_t modelId = model.GetId();
-  const auto [it, success]  = this->children.insert({modelId, model});
-  return it->second;
+  // Model model;
+  // uint64_t modelId = model.GetId();
+  uint64_t modelId = Entity::GetNextId();
+  const auto [it, success]  = this->GetChildren().insert(
+    {modelId, std::make_shared<Model>(modelId)});
+  return *it->second.get();
 }
 
 ///////////////////////////////////////////////
 Entity &World::GetModelByName(const std::string &_name)
 {
-  for (auto it = this->children.begin(); it != this->children.end(); ++it)
+  auto children = this->GetChildren();
+  for (auto it = children.begin(); it != children.end(); ++it)
   {
-    if (it->second.GetName() == _name)
+    if (it->second->GetName() == _name)
     {
-      return it->second;
+      return *it->second.get();
     }
   }
   return Entity::kNullEntity;

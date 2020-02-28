@@ -18,25 +18,82 @@
 #include "ignition/physics/tpe/Collision.hh"
 #include "ignition/physics/tpe/Shape.hh"
 
+/// \brief Private data class for Collision
+class ignition::physics::tpe::CollisionPrivate
+{
+  /// \brief Collision's geometry shape
+  public: std::shared_ptr<Shape> shape = nullptr;
+};
+
 using namespace ignition;
 using namespace physics;
 using namespace tpe;
 
 //////////////////////////////////////////////////
-Collision::Collision() : Entity()
+Collision::Collision()
+  : Entity(), dataPtr(new CollisionPrivate)
 {
 }
 
 //////////////////////////////////////////////////
-void Collision::SetShape(Shape &_shape)
+Collision::Collision(uint64_t _id)
+  : Entity(_id), dataPtr(new CollisionPrivate)
 {
-  this->shape = _shape;
 }
 
 //////////////////////////////////////////////////
-Shape Collision::GetShape() const
+Collision::Collision(const Collision &_other)
+  : Entity(), dataPtr(new CollisionPrivate)
 {
-  return this->shape;
+  this->dataPtr->shape = _other.dataPtr->shape;
+}
+
+//////////////////////////////////////////////////
+Collision &Collision::operator=(const Collision &_other)
+{
+  return *this = Collision(_other);
+}
+
+//////////////////////////////////////////////////
+Collision::~Collision()
+{
+  delete this->dataPtr;
+  this->dataPtr = nullptr;
+}
+
+//////////////////////////////////////////////////
+void Collision::SetShape(const Shape &_shape)
+{
+  // \todo(anyone) use templates?
+  if (_shape.GetType() == ShapeType::BOX)
+  {
+    const BoxShape *typedShape = static_cast<const BoxShape *>(&_shape);
+    this->dataPtr->shape.reset(new BoxShape(*typedShape));
+  }
+  else if (_shape.GetType() == ShapeType::CYLINDER)
+  {
+    const CylinderShape *typedShape = static_cast<const CylinderShape *>(&_shape);
+    this->dataPtr->shape.reset(new CylinderShape(*typedShape));
+  }
+  else if (_shape.GetType() == ShapeType::SPHERE)
+  {
+    const SphereShape *typedShape = dynamic_cast<const SphereShape *>(&_shape);
+    this->dataPtr->shape.reset(new SphereShape(*typedShape));
+  }
+  else if (_shape.GetType() == ShapeType::MESH)
+  {
+    const MeshShape *typedShape = dynamic_cast<const MeshShape *>(&_shape);
+    this->dataPtr->shape.reset(new MeshShape(*typedShape));
+  }
+  else
+  {
+  }
+}
+
+//////////////////////////////////////////////////
+Shape *Collision::GetShape() const
+{
+  return this->dataPtr->shape.get();
 }
 
 /*

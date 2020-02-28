@@ -56,10 +56,18 @@ enum class ShapeType
 class Shape
 {
   /// \brief Constructor
-  public: Shape() = default;
+  public: Shape();
+
+  /// \brief Copy Constructor
+  /// \param[in] _other shape to copy from
+  // public: Shape(const Shape &_other);
 
   /// \brief Destructor
   public: ~Shape() = default;
+
+  /// \brief Assignment operator
+  /// \param[in] _other shape to copy from
+  // public: virtual Shape &operator=(const Shape &_other);
 
   /// \brief Get bounding box of shape
   /// \return Shape's bounding box
@@ -79,7 +87,7 @@ class Shape
   protected: ShapeType type;
 
    /// \brief Flag to indicate if dimensions changed
-  protected: bool dirty = false;
+  protected: bool dirty = true;
 };
 
 /// \brief Box geometry
@@ -88,8 +96,16 @@ class BoxShape : public Shape
   /// \brief Constructor
   public: BoxShape();
 
+  /// \brief Copy Constructor
+  /// \param[in] _other shape to copy from
+  public: BoxShape(const BoxShape &_other);
+
   /// \brief Destructor
-  public: ~BoxShape() = default;
+  public: ~BoxShape();
+
+  /// \brief Assignment operator
+  /// \param[in] _other shape to copy from
+  public: Shape &operator=(const Shape &_other);
 
   /// \brief Set size of box
   /// \param[in] _size Size of box
@@ -108,8 +124,16 @@ class CylinderShape : public Shape
   /// \brief Constructor
   public: CylinderShape();
 
+  /// \brief Copy Constructor
+  /// \param[in] _other shape to copy from
+  public: CylinderShape(const CylinderShape &_other);
+
   /// \brief Destructor
   public: ~CylinderShape() = default;
+
+  /// \brief Assignment operator
+  /// \param[in] _other shape to copy from
+  public: Shape &operator=(const Shape &_other);
 
   /// \brief Set cylinder radius
   /// \param[in] _radius Cylinder radius
@@ -135,8 +159,16 @@ class SphereShape : public Shape
   /// \brief Constructor
   public: SphereShape();
 
+  /// \brief Copy Constructor
+  /// \param[in] _other shape to copy from
+  public: SphereShape(const SphereShape &_other);
+
   /// \brief Destructor
   public: ~SphereShape() = default;
+
+  /// \brief Assignment operator
+  /// \param[in] _other shape to copy from
+  public: Shape &operator=(const Shape &_other);
 
   /// \brief Set sphere radius
   /// \param[in] _radius Sphere radius
@@ -155,8 +187,16 @@ class MeshShape : public Shape
   /// \brief Constructor
   public: MeshShape();
 
+  /// \brief Copy Constructor
+  /// \param[in] _other shape to copy from
+  public: MeshShape(const MeshShape &_other);
+
   /// \brief Destructor
   public: ~MeshShape() = default;
+
+  /// \brief Assignment operator
+  /// \param[in] _other shape to copy from
+  public: Shape &operator=(const Shape &_other);
 
   /// \brief Set mesh
   /// \param[in] _mesh Mesh object

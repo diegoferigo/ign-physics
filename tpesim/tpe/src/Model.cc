@@ -30,22 +30,30 @@ Model::Model() : Entity()
 }
 
 //////////////////////////////////////////////////
+Model::Model(uint64_t _id) : Entity(_id)
+{
+}
+
+//////////////////////////////////////////////////
 Entity &Model::AddLink()
 {
-  Link link;
-  uint64_t linkId = link.GetId();
-  const auto [it, success]  = this->children.insert({linkId, link});
-  return it->second;
+  // Link link;
+  // uint64_t linkId = link.GetId();
+  uint64_t linkId = Entity::GetNextId();
+  const auto [it, success]  = this->GetChildren().insert(
+      {linkId, std::make_shared<Link>(linkId)});
+  return *it->second.get();
 }
 
 //////////////////////////////////////////////////
 Entity &Model::GetLinkByName(const std::string &_name)
 {
-  for (auto it = this->children.begin(); it != this->children.end(); ++it)
+  auto children = this->GetChildren();
+  for (auto it = children.begin(); it != children.end(); ++it)
   {
-    if (it->second.GetName() == _name)
+    if (it->second->GetName() == _name)
     {
-      return it->second;
+      return *it->second.get();
     }
   }
   return Entity::kNullEntity;

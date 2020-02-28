@@ -19,6 +19,7 @@
 
 #include "ignition/physics/tpe/Collision.hh"
 #include "ignition/physics/tpe/Shape.hh"
+#include "ignition/physics/tpe/Link.hh"
 
 using namespace ignition;
 using namespace physics;
@@ -46,10 +47,12 @@ TEST(Collision, BoxShape)
 {
   Collision collision;
   BoxShape boxShape;
+  boxShape.SetSize(ignition::math::Vector3d(0.5, 0.5, 0.5));
   collision.SetShape(boxShape);
-  Shape shape = collision.GetShape();
-  BoxShape *box = static_cast<BoxShape *>(&shape);
-  EXPECT_NE(nullptr, box);
+  auto result = collision.GetShape();
+  ASSERT_NE(nullptr, result);
+  EXPECT_EQ(ignition::math::Vector3d(0.25, 0.25, 0.25),
+      result->GetBoundingBox().Max());
 
 //  Collision collision;
 //  EXPECT_EQ(0u, collision.GetBoxShapeCount());
@@ -67,10 +70,13 @@ TEST(Collision, CylinderShape)
 {
   Collision collision;
   CylinderShape cylinderShape;
+  cylinderShape.SetRadius(2.0);
+  cylinderShape.SetLength(3.0);
   collision.SetShape(cylinderShape);
-  Shape shape = collision.GetShape();
-  CylinderShape *cylinder = static_cast<CylinderShape *>(&shape);
-  EXPECT_NE(nullptr, cylinder);
+  auto result = collision.GetShape();
+  ASSERT_NE(nullptr, result);
+  EXPECT_EQ(ignition::math::Vector3d(2.0, 2.0, 1.5),
+      result->GetBoundingBox().Max());
 
 //  Collision collision;
 //  EXPECT_EQ(0u, collision.GetCylinderShapeCount());
@@ -88,10 +94,12 @@ TEST(Collision, SphereShape)
 {
   Collision collision;
   SphereShape sphereShape;
+  sphereShape.SetRadius(2.0);
   collision.SetShape(sphereShape);
-  Shape shape = collision.GetShape();
-  SphereShape *sphere = static_cast<SphereShape *>(&shape);
-  EXPECT_NE(nullptr, sphere);
+  auto result = collision.GetShape();
+  ASSERT_NE(nullptr, result);
+  EXPECT_EQ(ignition::math::Vector3d(2.0, 2.0, 2.0),
+      result->GetBoundingBox().Max());
 
 //  Collision collision;
 //  EXPECT_EQ(0u, collision.GetSphereShapeCount());
@@ -110,9 +118,8 @@ TEST(Collision, MeshShape)
   Collision collision;
   MeshShape meshShape;
   collision.SetShape(meshShape);
-  Shape shape = collision.GetShape();
-  MeshShape *mesh = static_cast<MeshShape *>(&shape);
-  EXPECT_NE(nullptr, mesh);
+  auto result = collision.GetShape();
+  ASSERT_NE(nullptr, result);
 
 //  Collision collision;
 //  EXPECT_EQ(0u, collision.GetMeshShapeCount());

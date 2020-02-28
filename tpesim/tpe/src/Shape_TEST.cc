@@ -87,9 +87,6 @@ TEST(Shape, MeshShape)
 {
   MeshShape shape;
   EXPECT_EQ(ShapeType::MESH, shape.GetType());
-  math::AxisAlignedBox empty = shape.GetBoundingBox();
-  EXPECT_EQ(math::Vector3d::Zero, empty.Center());
-  EXPECT_EQ(math::Vector3d::Zero, empty.Size());
 
   // create mesh
   common::Mesh mesh;

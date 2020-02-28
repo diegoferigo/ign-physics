@@ -28,10 +28,17 @@ Link::Link() : Entity()
 }
 
 //////////////////////////////////////////////////
+Link::Link(uint64_t _id) : Entity(_id)
+{
+}
+
+//////////////////////////////////////////////////
 Entity &Link::AddCollision()
 {
-  Collision collision;
-  uint64_t collisionId = collision.GetId();
-  const auto [it, success] = this->children.insert({collisionId, collision});
-  return it->second;
+  // Collision collision;
+  // uint64_t collisionId = collision.GetId();
+  uint64_t collisionId = Entity::GetNextId();
+  const auto [it, success] = this->GetChildren().insert(
+      {collisionId, std::make_shared<Collision>(collisionId)});
+  return *it->second.get();
 }
