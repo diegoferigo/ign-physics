@@ -59,11 +59,14 @@ double World::GetTimeStep()
 void World::Step()
 {
   // apply updates to each model
-  auto children = this->GetChildren();
+  auto &children = this->GetChildren();
   for (auto it = children.begin(); it != children.end(); ++it)
   {
-    auto &model = it->second;
-    model->UpdatePose(this->timeStep);
+    auto modelPtr = it->second;
+    modelPtr->UpdatePose(
+      this->timeStep,
+      modelPtr->GetLinearVelocity(),
+      modelPtr->GetAngularVelocity());
   }
 
   // increment world time by step size

@@ -18,6 +18,8 @@
 #ifndef IGNITION_PHYSICS_TPESIM_TPE_WORLD_HH_
 #define IGNITION_PHYSICS_TPESIM_TPE_WORLD_HH_
 
+#include <memory>
+
 #include "ignition/physics/tpe/Entity.hh"
 
 namespace ignition {

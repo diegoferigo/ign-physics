@@ -58,15 +58,3 @@ Entity &Model::GetLinkByName(const std::string &_name)
   }
   return Entity::kNullEntity;
 }
-
-//////////////////////////////////////////////////
-void Model::SetLinearVelocity(const LinearVector3d _velocity)
-{
-  this->linearVelocity = _velocity;
-}
-
-//////////////////////////////////////////////////
-void Model::SetAngularVelocity(const AngularVector3d _velocity)
-{
-  this->angularVelocity = _velocity;
-}

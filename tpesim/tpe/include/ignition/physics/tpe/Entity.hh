@@ -22,6 +22,7 @@
 #include <map>
 #include <memory>
 #include <ignition/math/Pose3.hh>
+#include <ignition/physics/Geometry.hh>
 
 namespace ignition {
 namespace physics {
@@ -81,7 +82,14 @@ class Entity
   /// \return Pose of entity to set to
   public: virtual math::Pose3d GetPose() const;
 
-  public: virtual void UpdatePose(double _timeStep);
+  /// \brief Update the pose of the entity
+  /// \param[in] _timeStep current world timestep
+  /// \param[in] _linearVelocity linear velocity from world
+  /// \param[in] _angularVelocity angular velocity from world
+  public: virtual void UpdatePose(
+    const double _timeStep,
+    const LinearVector3d _linearVelocity,
+    const AngularVector3d _angularVelocity);
 
   /// \brief Get a child entity by id
   /// \param[in] _id Id of child entity
@@ -112,6 +120,18 @@ class Entity
   /// \brief Get number of children
   /// \return Map of child id's to child entities
   protected: std::map<uint64_t, std::shared_ptr<Entity>> &GetChildren();
+
+  public: void SetLinearVelocity(const LinearVector3d _velocity);
+
+  public: LinearVector3d GetLinearVelocity() const;
+
+  public: AngularVector3d GetAngularVelocity() const;
+
+  public: void SetAngularVelocity(const AngularVector3d _velocity);
+
+  protected: LinearVector3d linearVelocity;
+
+  protected: AngularVector3d angularVelocity;
 
   /// \brief An invalid vertex.
   public: static Entity kNullEntity;
