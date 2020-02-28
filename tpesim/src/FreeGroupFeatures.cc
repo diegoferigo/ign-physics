@@ -15,6 +15,11 @@
  *
 */
 
+#include <Eigen/Geometry>
+
+#include <ignition/math/eigen3/Conversions.hh>
+#include <ignition/math/Pose3.hh>
+
 #include "FreeGroupFeatures.hh"
 
 namespace ignition {
@@ -25,18 +30,34 @@ namespace tpesim {
 Identity FreeGroupFeatures::FindFreeGroupForModel(
   const Identity &_modelID) const
 {
+  auto it = this->models.find(_modelID);
+  if (it == this->models.end())
+    return this->GenerateInvalidId();
+  auto modelPtr = it->second;
+  // if there are no links in this model, then the FreeGroup functions
+  // will not work properly; need to reject this case.
+  if (modelPtr->GetChildCount() == 0)
+    return this->GenerateInvalidId();
+  return _modelID;
 }
 
 /////////////////////////////////////////////////
 Identity FreeGroupFeatures::FindFreeGroupForLink(
   const Identity &_linkID) const
 {
+  auto it = this->links.find(_linkID);
+  if (it == this->links.end())
+    this->GenerateInvalidId();
+  return this->GenerateIdentity(_linkID, it->second);  
 }
 
 /////////////////////////////////////////////////
 Identity FreeGroupFeatures::GetFreeGroupCanonicalLink(
   const Identity &_groupID) const
 {
+  // assume no canonical link for now
+  // assume groupID ~= modelID
+  return _groupID;
 }
 
 /////////////////////////////////////////////////
@@ -44,6 +65,12 @@ void FreeGroupFeatures::SetFreeGroupWorldPose(
   const Identity &_groupID,
   const PoseType &_pose)
 {
+  // assume no canonical link for now
+  // assume groupID ~= modelID
+  auto it = this->models.find(_groupID);
+  if (it != this->models.end())
+    // convert Eigen::Tranform to Math::Pose3d
+    it->second->SetPose(math::eigen3::convert(_pose));
 }
 
 /////////////////////////////////////////////////
@@ -51,14 +78,25 @@ void FreeGroupFeatures::SetFreeGroupWorldLinearVelocity(
   const Identity &_groupID,
   const LinearVelocity &_linearVelocity)
 {
+  // assume no canonical link for now
+  // assume groupID ~= modelID
+  auto it = this->models.find(_groupID);
+  // set model linear velocity
+  if (it != this->models.end())
+    it->second->SetLinearVelocity(_linearVelocity);
 }
 
 /////////////////////////////////////////////////
 void FreeGroupFeatures::SetFreeGroupWorldAngularVelocity(
   const Identity &_groupID, const AngularVelocity &_angularVelocity)
 {
+  // assume no canonical link for now
+  // assume groupID ~= modelID
+  auto it = this->models.find(_groupID);
+  // set model angular velocity
+  if (it != this->models.end())
+    it->second->SetAngularVelocity(_angularVelocity);
 }
-
 }
 }
 }
