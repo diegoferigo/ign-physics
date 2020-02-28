@@ -89,373 +89,239 @@ TEST(SDFFeatures_TEST, CheckTpesimData)
 
   ASSERT_EQ(6u, tpeWorld->GetChildCount());
 
-  ignition::physics::tpe::Entity &model =
-      tpeWorld->GetChildByName("ground_plane");
-  ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(), model.GetId());
-  EXPECT_EQ("ground_plane", model.GetName());
-  EXPECT_EQ(ignition::math::Pose3d::Zero, model.GetPose());
-  EXPECT_EQ(1u, model.GetChildCount());
-
-  ignition::physics::tpe::Entity &link = model.GetChildByName("link");
-  ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(), link.GetId());
-  EXPECT_EQ("link", link.GetName());
-  EXPECT_EQ(ignition::math::Pose3d::Zero, link.GetPose());
-  EXPECT_EQ(1u, link.GetChildCount());
-
-  ignition::physics::tpe::Entity &collision = link.GetChildByName("collision");
-  ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
-      collision.GetId());
-  EXPECT_EQ("collision", collision.GetName());
-  EXPECT_EQ(ignition::math::Pose3d::Zero, collision.GetPose());
-
-  // dart::simulation::WorldPtr dartWorld = world.GetDartsimWorld();
-  // ASSERT_NE(nullptr, dartWorld);
-
-  // ASSERT_EQ(6u, dartWorld->getNumSkeletons());
-
-  // const dart::dynamics::SkeletonPtr skeleton = dartWorld->getSkeleton(1);
-  // ASSERT_NE(nullptr, skeleton);
-  // ASSERT_EQ(3u, skeleton->getNumBodyNodes());
-
-  // auto verify = [](const dart::dynamics::DegreeOfFreedom * dof,
-  //                  double initialPos, double damping, double friction,
-  //                  double springRest, double stiffness, double lower,
-  //                  double upper, double maxForce, double maxVelocity)
-  // {
-  //   EXPECT_DOUBLE_EQ(initialPos, dof->getPosition());
-  //   EXPECT_DOUBLE_EQ(initialPos, dof->getInitialPosition());
-  //   EXPECT_DOUBLE_EQ(damping, dof->getDampingCoefficient());
-  //   EXPECT_DOUBLE_EQ(friction, dof->getCoulombFriction());
-  //   EXPECT_DOUBLE_EQ(springRest, dof->getRestPosition());
-  //   EXPECT_DOUBLE_EQ(stiffness, dof->getSpringStiffness());
-  //   EXPECT_DOUBLE_EQ(lower, dof->getPositionLowerLimit());
-  //   EXPECT_DOUBLE_EQ(upper, dof->getPositionUpperLimit());
-  //   EXPECT_DOUBLE_EQ(-maxForce, dof->getForceLowerLimit());
-  //   EXPECT_DOUBLE_EQ(maxForce, dof->getForceUpperLimit());
-  //   EXPECT_DOUBLE_EQ(-maxVelocity, dof->getVelocityLowerLimit());
-  //   EXPECT_DOUBLE_EQ(maxVelocity, dof->getVelocityUpperLimit());
-  // };
-
-  // // Test that things were parsed correctly. These values are either stated or
-  // // implied in the test.world SDF file.
-  // verify(skeleton->getJoint(1)->getDof(0),
-  //        1.5706796, 3.0, 0.0, 0.0, 0.0, -1e16, 1e16,
-  //        std::numeric_limits<double>::infinity(),
-  //        std::numeric_limits<double>::infinity());
-
-  // verify(skeleton->getJoint(2)->getDof(0),
-  //        -0.429462, 3.0, 0.0, 0.0, 0.0, -1e16, 1e16,
-  //        std::numeric_limits<double>::infinity(),
-  //        std::numeric_limits<double>::infinity());
-
-  // /// \todo (anyone) getBodyNode("blah")->getFrictionCoeff is deprecated,
-  // /// disabling these tests.
-  // /*
-  // EXPECT_DOUBLE_EQ(1.1, skeleton->getBodyNode("base")->getFrictionCoeff());
-  // // The last collision element overwrites the value set by previous collision
-  // // elements. We expect mu=1, the default value, instead of 0.1.
-  // EXPECT_DOUBLE_EQ(1, skeleton->getBodyNode("upper_link")->getFrictionCoeff());
-  // // Gets the default value when the <surface> tag is missing
-  // EXPECT_DOUBLE_EQ(1, skeleton->getBodyNode("lower_link")->getFrictionCoeff());
-  // */
-
-  // for (const auto * joint : {skeleton->getJoint(1), skeleton->getJoint(2)})
-  // {
-  //   const auto * revolute =
-  //       dynamic_cast<const dart::dynamics::RevoluteJoint*>(joint);
-  //   ASSERT_NE(nullptr, revolute);
-
-  //   const Eigen::Vector3d &axis = revolute->getAxis();
-  //   EXPECT_DOUBLE_EQ(1.0, axis[0]);
-  //   EXPECT_DOUBLE_EQ(0.0, axis[1]);
-  //   EXPECT_DOUBLE_EQ(0.0, axis[2]);
-  // }
-
-  // const dart::dynamics::SkeletonPtr freeBody =
-  //     dartWorld->getSkeleton("free_body");
-  // ASSERT_NE(nullptr, freeBody);
-  // ASSERT_EQ(1u, freeBody->getNumBodyNodes());
-  // const dart::dynamics::BodyNode *bn = freeBody->getBodyNode(0);
-  // ASSERT_NE(nullptr, bn);
-
-  // EXPECT_TRUE(dynamic_cast<const dart::dynamics::FreeJoint*>(
-  //               bn->getParentJoint()));
-
-  // const Eigen::Vector3d translation = bn->getTransform().translation();
-  // EXPECT_DOUBLE_EQ(0.0, translation[0]);
-  // EXPECT_DOUBLE_EQ(10.0, translation[1]);
-  // EXPECT_DOUBLE_EQ(10.0, translation[2]);
-
-  // const dart::dynamics::SkeletonPtr screwJointTest =
-  //     dartWorld->getSkeleton("screw_joint_test");
-  // ASSERT_NE(nullptr, screwJointTest);
-  // ASSERT_EQ(2u, screwJointTest->getNumBodyNodes());
-  // const auto *screwJoint = dynamic_cast<const dart::dynamics::ScrewJoint*>(
-  //     screwJointTest->getJoint(1));
-  // ASSERT_NE(nullptr, screwJoint);
-  // EXPECT_DOUBLE_EQ(-IGN_PI, screwJoint->getPitch());
-}
-
-
-
-/*
-// Create Model with parent and child links. If a link is not set, the joint
-// will use the world as that link.
-auto CreateTestModel(WorldPtr _world, const std::string &_model,
-                     const std::optional<sdf::Link> &_parentLink,
-                     const std::optional<sdf::Link> &_childLink)
-{
-  sdf::Model sdfModel;
-  sdfModel.SetName(_model);
-  auto model = _world->ConstructModel(sdfModel);
-  EXPECT_NE(nullptr, model);
-
-  sdf::Joint sdfJoint;
-  sdfJoint.SetName("joint0");
-  sdfJoint.SetType(sdf::JointType::REVOLUTE);
-  if (_parentLink)
+  // check model 01
   {
-    auto parent = model->ConstructLink(*_parentLink);
-    EXPECT_NE(nullptr, parent);
-    sdfJoint.SetParentLinkName(_parentLink->Name());
-  }
-  else
-  {
-    sdfJoint.SetParentLinkName("world");
+    ignition::physics::tpe::Entity &model =
+        tpeWorld->GetChildByName("ground_plane");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        model.GetId());
+    EXPECT_EQ("ground_plane", model.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, model.GetPose());
+    EXPECT_EQ(1u, model.GetChildCount());
+
+    ignition::physics::tpe::Entity &link = model.GetChildByName("link");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link.GetId());
+    EXPECT_EQ("link", link.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, link.GetPose());
+    EXPECT_EQ(1u, link.GetChildCount());
+
+    ignition::physics::tpe::Entity &collision = link.GetChildByName("collision");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        collision.GetId());
+    EXPECT_EQ("collision", collision.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, collision.GetPose());
   }
 
-  if (_childLink)
+  // check model 02
   {
-    auto child = model->ConstructLink(*_childLink);
-    EXPECT_NE(nullptr, child);
-    sdfJoint.SetChildLinkName(_childLink->Name());
+    ignition::physics::tpe::Entity &model =
+        tpeWorld->GetChildByName("double_pendulum_with_base");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        model.GetId());
+    EXPECT_EQ("double_pendulum_with_base", model.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(1, 0, 0, 0, 0, 0), model.GetPose());
+    EXPECT_EQ(3u, model.GetChildCount());
+
+    ignition::physics::tpe::Entity &link = model.GetChildByName("base");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link.GetId());
+    EXPECT_EQ("base", link.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, link.GetPose());
+    EXPECT_EQ(2u, link.GetChildCount());
+
+    ignition::physics::tpe::Entity &collision =
+        link.GetChildByName("col_plate_on_ground");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        collision.GetId());
+    EXPECT_EQ("col_plate_on_ground", collision.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(0, 0, 0.01, 0, 0, 0), collision.GetPose());
+
+    ignition::physics::tpe::Entity &collision02 =
+        link.GetChildByName("col_pole");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        collision.GetId());
+    EXPECT_EQ("col_pole", collision02.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(-0.275, 0, 1.1, 0, 0, 0),
+        collision02.GetPose());
+
+    ignition::physics::tpe::Entity &link02 = model.GetChildByName("upper_link");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link02.GetId());
+    EXPECT_EQ("upper_link", link02.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(0, 0, 2.1, -1.5708, 0, 0), link02.GetPose());
+    EXPECT_EQ(3u, link02.GetChildCount());
+
+    ignition::physics::tpe::Entity &collision03 =
+        link02.GetChildByName("col_upper_joint");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        collision03.GetId());
+    EXPECT_EQ("col_upper_joint", collision03.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(-0.05, 0, 0, 0, 1.5708, 0),
+        collision03.GetPose());
+
+    ignition::physics::tpe::Entity &collision04 =
+        link02.GetChildByName("col_lower_joint");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        collision04.GetId());
+    EXPECT_EQ("col_lower_joint", collision04.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(0, 0, 1.0, 0, 1.5708, 0),
+        collision04.GetPose());
+
+    ignition::physics::tpe::Entity &collision05 =
+        link02.GetChildByName("col_cylinder");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        collision05.GetId());
+    EXPECT_EQ("col_cylinder", collision05.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(0, 0, 0.5, 0, 0, 0),
+        collision05.GetPose());
+
+    ignition::physics::tpe::Entity &link03 = model.GetChildByName("lower_link");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link03.GetId());
+    EXPECT_EQ("lower_link", link03.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(0.25, 1.0, 2.1, -2, 0, 0),
+        link03.GetPose());
+    EXPECT_EQ(2u, link03.GetChildCount());
+
+    ignition::physics::tpe::Entity &collision06 =
+        link03.GetChildByName("col_lower_joint");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        collision06.GetId());
+    EXPECT_EQ("col_lower_joint", collision06.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(0, 0, 0, 0, 1.5708, 0),
+        collision06.GetPose());
+
+    ignition::physics::tpe::Entity &collision07 =
+        link03.GetChildByName("col_cylinder");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        collision07.GetId());
+    EXPECT_EQ("col_cylinder", collision07.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(0, 0, 0.5, 0, 0, 0),
+        collision07.GetPose());
   }
-  else
+
+  // check model 03
   {
-    sdfJoint.SetChildLinkName("world");
+    ignition::physics::tpe::Entity &model =
+        tpeWorld->GetChildByName("free_body");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        model.GetId());
+    EXPECT_EQ("free_body", model.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(0, 10, 10, 0, 0, 0), model.GetPose());
+    EXPECT_EQ(1u, model.GetChildCount());
+
+    ignition::physics::tpe::Entity &link = model.GetChildByName("link");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link.GetId());
+    EXPECT_EQ("link", link.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, link.GetPose());
+    EXPECT_EQ(0u, link.GetChildCount());
   }
 
-  auto joint0 = model->ConstructJoint(sdfJoint);
-  return std::make_tuple(model, joint0);
-}
-
-// Test joints with world as parent or child
-TEST(SDFFeatures_TEST, WorldIsParentOrChild)
-{
-  auto engine = LoadEngine();
-  ASSERT_NE(nullptr, engine);
-  sdf::World sdfWorld;
-  sdfWorld.SetName("default");
-  auto world = engine->ConstructWorld(sdfWorld);
-  EXPECT_NE(nullptr, world);
-
-  std::optional<sdf::Link> parent = sdf::Link();
-  parent->SetName("parent");
-  std::optional<sdf::Link> child = sdf::Link();
-  child->SetName("child");
-
+  // check model 04
   {
-    const auto &[model, joint] =
-        CreateTestModel(world, "test0", std::nullopt, std::nullopt);
-    EXPECT_EQ(nullptr, joint);
+    ignition::physics::tpe::Entity &model =
+        tpeWorld->GetChildByName("joint_limit_test");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        model.GetId());
+    EXPECT_EQ("joint_limit_test", model.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(10, 0, 2, 0, 0, 0), model.GetPose());
+    EXPECT_EQ(2u, model.GetChildCount());
+
+    ignition::physics::tpe::Entity &link = model.GetChildByName("base");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link.GetId());
+    EXPECT_EQ("base", link.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, link.GetPose());
+    EXPECT_EQ(0u, link.GetChildCount());
+
+    ignition::physics::tpe::Entity &link02 = model.GetChildByName("bar");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link02.GetId());
+    EXPECT_EQ("bar", link02.GetName());
+    EXPECT_EQ(ignition::math::Pose3d(1, 0, 0, 0, 0, 0), link02.GetPose());
+    EXPECT_EQ(0u, link02.GetChildCount());
   }
+
+  // check model 05
   {
-    const auto &[model, joint] = CreateTestModel(world, "test1", parent, child);
-    EXPECT_NE(nullptr, joint);
+    ignition::physics::tpe::Entity &model =
+        tpeWorld->GetChildByName("screw_joint_test");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        model.GetId());
+    EXPECT_EQ("screw_joint_test", model.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, model.GetPose());
+    EXPECT_EQ(2u, model.GetChildCount());
+
+    ignition::physics::tpe::Entity &link = model.GetChildByName("link0");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link.GetId());
+    EXPECT_EQ("link0", link.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, link.GetPose());
+    EXPECT_EQ(0u, link.GetChildCount());
+
+    ignition::physics::tpe::Entity &link02 = model.GetChildByName("link1");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link02.GetId());
+    EXPECT_EQ("link1", link02.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, link02.GetPose());
+    EXPECT_EQ(0u, link02.GetChildCount());
   }
+
+  // check model 06
   {
-    const auto &[model, joint] =
-        CreateTestModel(world, "test2", std::nullopt, child);
-    EXPECT_NE(nullptr, joint);
+    ignition::physics::tpe::Entity &model =
+        tpeWorld->GetChildByName("unsupported_joint_test");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        model.GetId());
+    EXPECT_EQ("unsupported_joint_test", model.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, model.GetPose());
+    EXPECT_EQ(6u, model.GetChildCount());
+
+    ignition::physics::tpe::Entity &link = model.GetChildByName("link0");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link.GetId());
+    EXPECT_EQ("link0", link.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, link.GetPose());
+    EXPECT_EQ(0u, link.GetChildCount());
+
+    ignition::physics::tpe::Entity &link02 = model.GetChildByName("link1");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link02.GetId());
+    EXPECT_EQ("link1", link02.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, link02.GetPose());
+    EXPECT_EQ(0u, link02.GetChildCount());
+
+    ignition::physics::tpe::Entity &link03 = model.GetChildByName("link2");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link03.GetId());
+    EXPECT_EQ("link2", link03.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, link03.GetPose());
+    EXPECT_EQ(0u, link03.GetChildCount());
+
+    ignition::physics::tpe::Entity &link04 = model.GetChildByName("link3");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link04.GetId());
+    EXPECT_EQ("link3", link04.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, link04.GetPose());
+    EXPECT_EQ(0u, link04.GetChildCount());
+
+    ignition::physics::tpe::Entity &link05 = model.GetChildByName("link4");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link05.GetId());
+    EXPECT_EQ("link4", link05.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, link05.GetPose());
+    EXPECT_EQ(0u, link05.GetChildCount());
+
+    ignition::physics::tpe::Entity &link06 = model.GetChildByName("link5");
+    ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
+        link06.GetId());
+    EXPECT_EQ("link5", link06.GetName());
+    EXPECT_EQ(ignition::math::Pose3d::Zero, link06.GetPose());
+    EXPECT_EQ(0u, link06.GetChildCount());
   }
-  {
-    const auto &[model, joint] =
-        CreateTestModel(world, "test3", parent, std::nullopt);
-    EXPECT_EQ(nullptr, joint);
-  }
 }
-
-
-TEST(SDFFeatures_FrameSemantics, LinkRelativeTo)
-{
-  World world = LoadWorld(TEST_WORLD_DIR"/model_frames.sdf");
-  const std::string modelName = "link_relative_to";
-
-  dart::simulation::WorldPtr dartWorld = world.GetDartsimWorld();
-  ASSERT_NE(nullptr, dartWorld);
-
-  const dart::dynamics::SkeletonPtr skeleton =
-      dartWorld->getSkeleton(modelName);
-
-  ASSERT_NE(nullptr, skeleton);
-  ASSERT_EQ(2u, skeleton->getNumBodyNodes());
-
-
-  const dart::dynamics::BodyNode *link2 = skeleton->getBodyNode("L2");
-  ASSERT_NE(nullptr, link2);
-
-  // Expect the world pose of L2 to be 0 0 3 0 0 pi
-  Eigen::Isometry3d expWorldPose =
-      Eigen::Translation3d(0, 0, 3) *
-      Eigen::AngleAxisd(IGN_PI, Eigen::Vector3d::UnitZ());
-
-  dartWorld->step();
-
-  // Step once and check
-  EXPECT_TRUE(ignition::physics::test::Equal(
-      expWorldPose, link2->getWorldTransform(), 1e-3));
-}
-
-TEST(SDFFeatures_FrameSemantics, CollisionRelativeTo)
-{
-  World world = LoadWorld(TEST_WORLD_DIR"/model_frames.sdf");
-  const std::string modelName = "collision_relative_to";
-
-  dart::simulation::WorldPtr dartWorld = world.GetDartsimWorld();
-  ASSERT_NE(nullptr, dartWorld);
-
-  const dart::dynamics::SkeletonPtr skeleton =
-      dartWorld->getSkeleton(modelName);
-
-  ASSERT_NE(nullptr, skeleton);
-  ASSERT_EQ(2u, skeleton->getNumBodyNodes());
-
-
-  const dart::dynamics::BodyNode *link2 = skeleton->getBodyNode("L2");
-  ASSERT_NE(nullptr, link2);
-
-  const auto collision = link2->getShapeNode(0);
-  ASSERT_TRUE(collision);
-  // Expect the pose of c1 relative to L2 (the parent link) to be the same
-  // as the pose of L1 relative to L2
-  Eigen::Isometry3d expPose;
-  expPose = Eigen::Translation3d(0, 0, -1);
-
-  EXPECT_TRUE(ignition::physics::test::Equal(
-      expPose, collision->getRelativeTransform(), 1e-5));
-
-  // Step once and check, the relative pose should still be the same
-  dartWorld->step();
-
-  EXPECT_TRUE(ignition::physics::test::Equal(
-      expPose, collision->getRelativeTransform(), 1e-5));
-}
-
-TEST(SDFFeatures_FrameSemantics, ExplicitFramesWithLinks)
-{
-  World world = LoadWorld(TEST_WORLD_DIR"/model_frames.sdf");
-  const std::string modelName = "explicit_frames_with_links";
-
-  dart::simulation::WorldPtr dartWorld = world.GetDartsimWorld();
-  ASSERT_NE(nullptr, dartWorld);
-
-  const dart::dynamics::SkeletonPtr skeleton =
-      dartWorld->getSkeleton(modelName);
-
-  ASSERT_NE(nullptr, skeleton);
-  ASSERT_EQ(2u, skeleton->getNumBodyNodes());
-
-
-  const dart::dynamics::BodyNode *link1 = skeleton->getBodyNode("L1");
-  ASSERT_NE(nullptr, link1);
-
-  const dart::dynamics::BodyNode *link2 = skeleton->getBodyNode("L2");
-  ASSERT_NE(nullptr, link2);
-
-  // Expect the world pose of L1 to be the same as the world pose of F1
-  Eigen::Isometry3d link1ExpPose;
-  link1ExpPose = Eigen::Translation3d(1, 0, 1);
-
-  EXPECT_TRUE(ignition::physics::test::Equal(
-      link1ExpPose, link1->getWorldTransform(), 1e-5));
-
-  // Expect the world pose of L2 to be the same as the world pose of F2, which
-  // is at the origin of the model
-  Eigen::Isometry3d link2ExpPose;
-  link2ExpPose = Eigen::Translation3d(1, 0, 0);
-
-  EXPECT_TRUE(ignition::physics::test::Equal(
-      link2ExpPose, link2->getWorldTransform(), 1e-5));
-
-  // Step once and check
-  dartWorld->step();
-
-  EXPECT_TRUE(ignition::physics::test::Equal(
-      link1ExpPose, link1->getWorldTransform(), 1e-5));
-  EXPECT_TRUE(ignition::physics::test::Equal(
-      link2ExpPose, link2->getWorldTransform(), 1e-5));
-}
-
-TEST(SDFFeatures_FrameSemantics, ExplicitFramesWithCollision)
-{
-  World world = LoadWorld(TEST_WORLD_DIR"/model_frames.sdf");
-  const std::string modelName = "explicit_frames_with_collisions";
-
-  dart::simulation::WorldPtr dartWorld = world.GetDartsimWorld();
-  ASSERT_NE(nullptr, dartWorld);
-
-  const dart::dynamics::SkeletonPtr skeleton =
-      dartWorld->getSkeleton(modelName);
-
-  ASSERT_NE(nullptr, skeleton);
-  ASSERT_EQ(1u, skeleton->getNumBodyNodes());
-
-  const dart::dynamics::BodyNode *link1 = skeleton->getBodyNode("L1");
-  ASSERT_NE(nullptr, link1);
-
-  const auto collision = link1->getShapeNode(0);
-  ASSERT_TRUE(collision);
-
-  // Expect the pose of c1 relative to L1 (the parent link) to be the same
-  // as the pose of F1 relative to L1
-  Eigen::Isometry3d expPose;
-  expPose = Eigen::Translation3d(0, 0, 1);
-
-  EXPECT_TRUE(ignition::physics::test::Equal(
-      expPose, collision->getRelativeTransform(), 1e-5));
-
-  // Step once and check
-  dartWorld->step();
-
-  EXPECT_TRUE(ignition::physics::test::Equal(
-      expPose, collision->getRelativeTransform(), 1e-5));
-}
-
-TEST(SDFFeatures_FrameSemantics, ExplicitWorldFrames)
-{
-  World world = LoadWorld(TEST_WORLD_DIR"/world_frames.sdf");
-  const std::string modelName = "M";
-
-  dart::simulation::WorldPtr dartWorld = world.GetDartsimWorld();
-  ASSERT_NE(nullptr, dartWorld);
-
-  const dart::dynamics::SkeletonPtr skeleton =
-      dartWorld->getSkeleton(modelName);
-
-
-  ASSERT_NE(nullptr, skeleton);
-  ASSERT_EQ(1u, skeleton->getNumBodyNodes());
-
-  const dart::dynamics::BodyNode *link1 = skeleton->getBodyNode("L1");
-  ASSERT_NE(nullptr, link1);
-
-  // Expect the world pose of M to be (1 1 2 0 0 0) taking into acount the chain
-  // of explicit frames relative to which its pose is expressed
-  Eigen::Isometry3d expPose;
-  expPose = Eigen::Translation3d(1, 1, 2);
-
-  // Since we can't get the skeleton's world transform, we use the world
-  // transform of L1 which is at the origin of the model frame.
-  EXPECT_TRUE(ignition::physics::test::Equal(
-      expPose, link1->getWorldTransform(), 1e-5));
-
-  // Step once and check
-  dartWorld->step();
-
-  EXPECT_TRUE(ignition::physics::test::Equal(
-      expPose, link1->getWorldTransform(), 1e-5));
-}
-*/
 
 int main(int argc, char *argv[])
 {

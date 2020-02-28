@@ -58,8 +58,7 @@ Identity SDFFeatures::ConstructSdfModel(
   const auto pose = _sdfModel.RawPose();
 
   auto world = this->worlds.at(_worldID)->world;
-  // tpe::Entity &ent = world->AddModel();
-  auto ent = world->AddModel();
+  tpe::Entity &ent = world->AddModel();
   tpe::Model *model = static_cast<tpe::Model *>(&ent);
   model->SetName(name);
   model->SetPose(pose);
@@ -70,12 +69,6 @@ Identity SDFFeatures::ConstructSdfModel(
   {
     this->ConstructSdfLink(modelIdentity, *_sdfModel.LinkByIndex(i));
   }
-
-  // Buld joints
-  // for (std::size_t i = 0; i < _sdfModel.JointCount(); ++i)
-  // {
-  //   this->BuildSdfJoint(modelIdentity, *_sdfModel.JointByIndex(i));
-  // }
 
   return modelIdentity;
 }
