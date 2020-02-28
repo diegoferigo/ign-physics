@@ -57,7 +57,7 @@ class World : public Entity
   public: Entity &AddModel();
 
   /// \brief Get model from current world
-  /// \param _name model name 
+  /// \param _name model name
   /// \return pointer to the model object
   public: Entity &GetModelByName(const std::string &_name);
 

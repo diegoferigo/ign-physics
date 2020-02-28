@@ -45,6 +45,26 @@ namespace tpesim {
 ///    create a std::shared_ptr of the struct that wraps the corresponding DART
 ///    shared pointer.
 
+struct WorldInfo
+{
+  std::shared_ptr<tpe::World> world;
+};
+
+struct ModelInfo
+{
+  tpe::Model *model;
+};
+
+struct LinkInfo
+{
+  tpe::Link *link;
+};
+
+struct CollisionInfo
+{
+  tpe::Collision *collision;
+};
+
 class Base : public Implements3d<FeatureList<Feature>>
 {
   public: inline Identity InitiateEngine(std::size_t /*_engineID*/) override
@@ -53,46 +73,50 @@ class Base : public Implements3d<FeatureList<Feature>>
     return this->GenerateIdentity(0);
   }
 
-  public: inline Identity AddWorld(tpe::World world)
+  public: inline Identity AddWorld(std::shared_ptr<tpe::World> _world)
   {
-    auto worldPtr = std::make_shared<tpe::World>(world);
-    this->worlds.insert({world.GetId(), worldPtr});
+    auto worldPtr = std::make_shared<WorldInfo>();
+    worldPtr->world = _world;
+    this->worlds.insert({_world->GetId(), worldPtr});
 
-    return this->GenerateIdentity(world.GetId(), worldPtr);
+    return this->GenerateIdentity(_world->GetId(), worldPtr);
   }
 
-  public: inline Identity AddModel(uint64_t _worldId, tpe::Model model)
+  public: inline Identity AddModel(uint64_t _worldId, tpe::Model &_model)
   {
-    auto modelPtr = std::make_shared<tpe::Model>(model);
-    this->models.insert({model.GetId(), modelPtr});
-    this->childIdToParentId.insert({model.GetId(), _worldId});
+    auto modelPtr = std::make_shared<ModelInfo>();
+    modelPtr->model = &_model;
+    this->models.insert({_model.GetId(), modelPtr});
+    this->childIdToParentId.insert({_model.GetId(), _worldId});
 
-    return this->GenerateIdentity(model.GetId(), modelPtr);
+    return this->GenerateIdentity(_model.GetId(), modelPtr);
   }
 
-  public: inline Identity AddLink(uint64_t _modelId, tpe::Link link)
+  public: inline Identity AddLink(uint64_t _modelId, tpe::Link &_link)
   {
-    auto linkPtr = std::make_shared<tpe::Link>(link);
-    this->links.insert({link.GetId(), linkPtr});
-    this->childIdToParentId.insert({link.GetId(), _modelId});
+    auto linkPtr = std::make_shared<LinkInfo>();
+    linkPtr->link = &_link;
+    this->links.insert({_link.GetId(), linkPtr});
+    this->childIdToParentId.insert({_link.GetId(), _modelId});
 
-    return this->GenerateIdentity(link.GetId(), linkPtr);
+    return this->GenerateIdentity(_link.GetId(), linkPtr);
   }
 
   public: inline Identity AddCollision(uint64_t _linkId,
-      tpe::Collision collision)
+      tpe::Collision &_collision)
   {
-    auto collisionPtr = std::make_shared<tpe::Collision>(collision);
-    this->collisions.insert({collision.GetId(), collisionPtr});
-    this->childIdToParentId.insert({collision.GetId(), _linkId});
+    auto collisionPtr = std::make_shared<CollisionInfo>();
+    collisionPtr->collision = &_collision;
+    this->collisions.insert({_collision.GetId(), collisionPtr});
+    this->childIdToParentId.insert({_collision.GetId(), _linkId});
 
-    return this->GenerateIdentity(collision.GetId(), collisionPtr);
+    return this->GenerateIdentity(_collision.GetId(), collisionPtr);
   }
 
-  public: std::map<uint64_t, std::shared_ptr<tpe::World>> worlds;
-  public: std::map<uint64_t, std::shared_ptr<tpe::Model>> models;
-  public: std::map<uint64_t, std::shared_ptr<tpe::Link>> links;
-  public: std::map<uint64_t, std::shared_ptr<tpe::Collision>> collisions;
+  public: std::map<uint64_t, std::shared_ptr<WorldInfo>> worlds;
+  public: std::map<uint64_t, std::shared_ptr<ModelInfo>> models;
+  public: std::map<uint64_t, std::shared_ptr<LinkInfo>> links;
+  public: std::map<uint64_t, std::shared_ptr<CollisionInfo>> collisions;
   public: std::map<uint64_t, uint64_t> childIdToParentId;
 };
 

@@ -36,7 +36,7 @@ Identity FreeGroupFeatures::FindFreeGroupForModel(
   auto modelPtr = it->second;
   // if there are no links in this model, then the FreeGroup functions
   // will not work properly; need to reject this case.
-  if (modelPtr->GetChildCount() == 0)
+  if (modelPtr->model->GetChildCount() == 0)
     return this->GenerateInvalidId();
   return _modelID;
 }
@@ -48,7 +48,7 @@ Identity FreeGroupFeatures::FindFreeGroupForLink(
   auto it = this->links.find(_linkID);
   if (it == this->links.end())
     this->GenerateInvalidId();
-  return this->GenerateIdentity(_linkID, it->second);  
+  return this->GenerateIdentity(_linkID, it->second);
 }
 
 /////////////////////////////////////////////////
@@ -70,7 +70,7 @@ void FreeGroupFeatures::SetFreeGroupWorldPose(
   auto it = this->models.find(_groupID);
   if (it != this->models.end())
     // convert Eigen::Tranform to Math::Pose3d
-    it->second->SetPose(math::eigen3::convert(_pose));
+    it->second->model->SetPose(math::eigen3::convert(_pose));
 }
 
 /////////////////////////////////////////////////
@@ -83,7 +83,7 @@ void FreeGroupFeatures::SetFreeGroupWorldLinearVelocity(
   auto it = this->models.find(_groupID);
   // set model linear velocity
   if (it != this->models.end())
-    it->second->SetLinearVelocity(_linearVelocity);
+    it->second->model->SetLinearVelocity(_linearVelocity);
 }
 
 /////////////////////////////////////////////////
@@ -95,7 +95,7 @@ void FreeGroupFeatures::SetFreeGroupWorldAngularVelocity(
   auto it = this->models.find(_groupID);
   // set model angular velocity
   if (it != this->models.end())
-    it->second->SetAngularVelocity(_angularVelocity);
+    it->second->model->SetAngularVelocity(_angularVelocity);
 }
 }
 }

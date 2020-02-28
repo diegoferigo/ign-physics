@@ -18,6 +18,8 @@
 #ifndef IGNITION_PHYSICS_TPESIM_TPE_COLLISISION_HH_
 #define IGNITION_PHYSICS_TPESIM_TPE_COLLISISION_HH_
 
+#include <ignition/common/Console.hh>
+
 #include "ignition/physics/tpe/Entity.hh"
 #include "ignition/physics/tpe/Shape.hh"
 
@@ -25,23 +27,36 @@ namespace ignition {
 namespace physics {
 namespace tpe {
 
+// Forward declartion
+class CollisionPrivate;
+
 /// \brief Collision class
 class Collision : public Entity
 {
   /// \brief Constructor
   public: Collision();
 
+  /// \brief Constructor
+  /// \param[in] _id Collision id
+  public: Collision(uint64_t _id);
+
+  /// \brief Copy Constructor
+  public: Collision(const Collision &_other);
+
   /// \brief Destructor
-  public: ~Collision() = default;
+  public: ~Collision();
+
+  /// \brief Assignment operator
+  public: Collision &operator=(const Collision &_other);
 
   /// brief Set Shape
-  public: void SetShape(Shape &_shape);
+  public: void SetShape(const Shape &_shape);
 
   /// brief Get Shape
-  public: Shape GetShape() const;
+  public: Shape *GetShape() const;
 
-  /// \brief Shape
-  private: Shape shape;
+  /// \brief Private data pointer class
+  private: CollisionPrivate *dataPtr = nullptr;
 
 /*  /// \brief Add shape to collision
   /// \return Box geometry

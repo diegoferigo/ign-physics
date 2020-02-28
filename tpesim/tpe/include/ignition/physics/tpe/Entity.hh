@@ -20,11 +20,15 @@
 
 #include <string>
 #include <map>
+#include <memory>
 #include <ignition/math/Pose3.hh>
 
 namespace ignition {
 namespace physics {
 namespace tpe {
+
+// forward declaration
+class EntityPrivate;
 
 /// \brief Represents an invalid Id.
 static const uint64_t kNullEntityId = math::MAX_UI64;
@@ -34,12 +38,24 @@ class Entity
   /// \brief Constructor
   public: Entity();
 
-  /// \brief Destructor
-  public: ~Entity() = default;
+  /// \brief Copy Constructor
+  /// \param[in] _other Other entity to copy from
+  public: Entity(const Entity &_other);
+
+  /// \brief Move constructor
+  /// \param[in] _other Other entity to move from
+  public: Entity(Entity &&_entity) noexcept;
 
   /// \brief Constructor with id
   /// \param[in] _id Id to set the entity to
   protected: explicit Entity(uint64_t _id);
+
+  /// \brief Destructor
+  public: ~Entity();
+
+  /// \brief Assignment operator
+  /// \param[in] _other Other entity to copy from
+  public: Entity &operator=(const Entity &_other);
 
   /// \brief Set the name of the entity
   /// \param[in] _name Name of entity
@@ -72,6 +88,11 @@ class Entity
   /// \return Child entity
   public: virtual Entity &GetChildById(uint64_t _id);
 
+  /// \brief Get a child entity by name
+  /// \param[in] _name Name of child entity
+  /// \return Child entity
+  public: virtual Entity &GetChildByName(const std::string &_name);
+
   /// \brief Remove a child entity by id
   /// \param[in] _id Id of child entity to remove
   public: virtual bool RemoveChildById(uint64_t _id);
@@ -88,26 +109,21 @@ class Entity
   /// \brief Get number of children
   public: virtual size_t GetChildCount() const;
 
+  /// \brief Get number of children
+  /// \return Map of child id's to child entities
+  protected: std::map<uint64_t, std::shared_ptr<Entity>> &GetChildren();
+
   /// \brief An invalid vertex.
   public: static Entity kNullEntity;
 
   /// \brief
   protected: static uint64_t GetNextId();
 
-  /// \brief Name of entity
-  protected: std::string name;
-
-  /// \brief Entity pose
-  protected: math::Pose3d pose;
-
-  /// \brief Entity Id
-  protected: uint64_t id;
-
-  /// \brief Child entities
-  protected: std::map<uint64_t, Entity> children;
-
   /// \brief Entity id counter
   private: static uint64_t nextId;
+
+  /// \brief Pointer to private data class
+  private: EntityPrivate *dataPtr = nullptr;
 };
 
 

@@ -38,6 +38,12 @@ Identity SDFFeatures::ConstructSdfWorld(
   // auto gravity = _sdfWorld.Gravity();
   // world->SetGravity(gravity);
 
+  // construct models
+  for (std::size_t i = 0; i < _sdfWorld.ModelCount(); ++i)
+  {
+    this->ConstructSdfModel(worldID, *_sdfWorld.ModelByIndex(i));
+  }
+
   return worldID;
 }
 
@@ -48,10 +54,11 @@ Identity SDFFeatures::ConstructSdfModel(
 {
   // Read sdf params
   const std::string name = _sdfModel.Name();
+  std::cerr << "construct model " << name << std::endl;
   const auto pose = _sdfModel.RawPose();
 
-  auto world = this->worlds.at(_worldID);
-  tpe::Entity ent = world->AddModel();
+  auto world = this->worlds.at(_worldID)->world;
+  tpe::Entity &ent = world->AddModel();
   tpe::Model *model = static_cast<tpe::Model *>(&ent);
   model->SetName(name);
   model->SetPose(pose);
@@ -60,15 +67,8 @@ Identity SDFFeatures::ConstructSdfModel(
   // construct links
   for (std::size_t i = 0; i < _sdfModel.LinkCount(); ++i)
   {
-  //  this->BuildSdfLink(modelIdentity, *_sdfModel.LinkByIndex(i), i);
     this->ConstructSdfLink(modelIdentity, *_sdfModel.LinkByIndex(i));
   }
-
-  // Buld joints
-  // for (std::size_t i = 0; i < _sdfModel.JointCount(); ++i)
-  // {
-  //   this->BuildSdfJoint(modelIdentity, *_sdfModel.JointByIndex(i));
-  // }
 
   return modelIdentity;
 }
@@ -80,10 +80,11 @@ Identity SDFFeatures::ConstructSdfLink(
 {
   // Read sdf params
   const std::string name = _sdfLink.Name();
+  std::cerr << "construct link " << name << std::endl;
   const auto pose = _sdfLink.RawPose();
 
-  auto model = this->models.at(_modelID);
-  tpe::Entity ent = model->AddLink();
+  auto model = this->models.at(_modelID)->model;
+  tpe::Entity &ent = model->AddLink();
   tpe::Link *link = static_cast<tpe::Link *>(&ent);
   link->SetName(name);
   link->SetPose(pose);
@@ -106,11 +107,12 @@ Identity SDFFeatures::ConstructSdfCollision(
 {
   // Read sdf params
   const std::string name = _sdfCollision.Name();
+  std::cerr << "construct collision " << name << std::endl;
   const auto pose = _sdfCollision.RawPose();
   const auto geom = _sdfCollision.Geom();
 
-  auto link = this->links.at(_linkID);
-  tpe::Entity ent = link->AddCollision();
+  auto link = this->links.at(_linkID)->link;
+  tpe::Entity &ent = link->AddCollision();
   tpe::Collision *collision = static_cast<tpe::Collision *>(&ent);
   collision->SetName(name);
   collision->SetPose(pose);

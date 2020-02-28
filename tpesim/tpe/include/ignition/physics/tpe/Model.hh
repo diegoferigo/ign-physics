@@ -34,6 +34,10 @@ class Model : public Entity
   /// \brief Constructor
   public: Model();
 
+  /// \brief Constructor
+  /// \param[in] _id Model id
+  public: Model(uint64_t _id);
+
   /// \brief Destructor
   public: ~Model() = default;
 
