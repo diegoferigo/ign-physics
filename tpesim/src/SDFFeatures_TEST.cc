@@ -106,7 +106,8 @@ TEST(SDFFeatures_TEST, CheckTpesimData)
     EXPECT_EQ(ignition::math::Pose3d::Zero, link.GetPose());
     EXPECT_EQ(1u, link.GetChildCount());
 
-    ignition::physics::tpe::Entity &collision = link.GetChildByName("collision");
+    ignition::physics::tpe::Entity &collision =
+        link.GetChildByName("collision");
     ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
         collision.GetId());
     EXPECT_EQ("collision", collision.GetName());
@@ -149,7 +150,9 @@ TEST(SDFFeatures_TEST, CheckTpesimData)
     ASSERT_NE(ignition::physics::tpe::Entity::kNullEntity.GetId(),
         link02.GetId());
     EXPECT_EQ("upper_link", link02.GetName());
-    EXPECT_EQ(ignition::math::Pose3d(0, 0, 2.1, -1.5708, 0, 0), link02.GetPose());
+    EXPECT_EQ(
+        ignition::math::Pose3d(0, 0, 2.1, -1.5708, 0, 0),
+        link02.GetPose());
     EXPECT_EQ(3u, link02.GetChildCount());
 
     ignition::physics::tpe::Entity &collision03 =

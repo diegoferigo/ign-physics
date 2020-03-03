@@ -18,6 +18,8 @@
 #ifndef IGNITION_PHYSICS_TPESIM_WORLD_HH_
 #define IGNITION_PHYSICS_TPESIM_WORLD_HH_
 
+#include <memory>
+
 #include <ignition/physics/tpe/World.hh>
 
 #include <ignition/physics/FeatureList.hh>

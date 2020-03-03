@@ -100,7 +100,7 @@ TEST(Shape, MeshShape)
   mesh.AddSubMesh(submesh);
 
   shape.SetMesh(mesh);
-  double scale = 1.0;
+  math::Vector3d scale = math::Vector3d(1.0, 1.0, 1.0);
   shape.SetScale(scale);
   math::AxisAlignedBox bbox = shape.GetBoundingBox();
   EXPECT_EQ(math::Vector3d(0, 0.5, 0.5), bbox.Center());

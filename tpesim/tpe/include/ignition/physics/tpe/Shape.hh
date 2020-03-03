@@ -111,6 +111,10 @@ class BoxShape : public Shape
   /// \param[in] _size Size of box
   public: void SetSize(const math::Vector3d &_size);
 
+  /// \brief Get size of box
+  /// \param[return] _size Size of box
+  public: math::Vector3d GetSize();
+
   // Documentation inherited
   protected: virtual void UpdateBoundingBox() override;
 
@@ -135,9 +139,17 @@ class CylinderShape : public Shape
   /// \param[in] _other shape to copy from
   public: Shape &operator=(const Shape &_other);
 
+  /// \brief Get cylinder radius
+  /// \param[return] _radius cylinder radius
+  public: double GetRadius();
+
   /// \brief Set cylinder radius
   /// \param[in] _radius Cylinder radius
   public: void SetRadius(double _radius);
+
+  /// \brief Get cylinder length
+  /// \param[return] _length Cylinder length
+  public: double GetLength();
 
   /// \brief Set cylinder length
   /// \param[in] _length Cylinder length
@@ -169,6 +181,10 @@ class SphereShape : public Shape
   /// \brief Assignment operator
   /// \param[in] _other shape to copy from
   public: Shape &operator=(const Shape &_other);
+
+  /// \brief Get sphere radius
+  /// \param[return] _radius Sphere radius
+  public: double GetRadius();
 
   /// \brief Set sphere radius
   /// \param[in] _radius Sphere radius
@@ -202,15 +218,19 @@ class MeshShape : public Shape
   /// \param[in] _mesh Mesh object
   public: void SetMesh(const ignition::common::Mesh &_mesh);
 
+  /// \brief Get mesh scale
+  /// \param[return] _scale Mesh scale
+  public: math::Vector3d GetScale();
+
   /// \brief Set mesh scale
   /// \param[in] _scale Mesh scale
-  public: void SetScale(double _scale);
+  public: void SetScale(math::Vector3d _scale);
 
   // Documentation inherited
   protected: virtual void UpdateBoundingBox() override;
 
   /// \brief Mesh scale
-  private: double scale = 1.0;
+  private: math::Vector3d scale{1.0, 1.0, 1.0};
 
   /// \brief Mesh object
   private: math::AxisAlignedBox meshAABB;

@@ -18,6 +18,8 @@
 #ifndef IGNITION_PHYSICS_TPESIM_SRC_CUSTOMFEATURES_HH
 #define IGNITION_PHYSICS_TPESIM_SRC_CUSTOMFEATURES_HH
 
+#include <memory>
+
 #include <ignition/physics/Implements.hh>
 
 #include <ignition/physics/tpesim/World.hh>

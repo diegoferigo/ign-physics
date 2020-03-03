@@ -34,7 +34,7 @@ TEST(EntityManagement_TEST, ConstructEmptyWorld)
 
   ignition::plugin::PluginPtr tpesim =
     loader.Instantiate("ignition::physics::tpesim::Plugin");
-  
+
   auto engine =
     ignition::physics::RequestEngine3d<TestFeatureList>::From(tpesim);
   ASSERT_NE(nullptr, engine);

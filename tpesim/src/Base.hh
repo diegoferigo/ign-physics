@@ -35,7 +35,8 @@ namespace ignition {
 namespace physics {
 namespace tpesim {
 
-/// \brief The structs tpe::ModelInfo, tpe::LinkInfo, JointInfo, and ShapeInfo are used
+/// \brief The structs tpe::ModelInfo,
+/// tpe::LinkInfo, JointInfo, and ShapeInfo are used
 /// for two reasons:
 /// 1) Holding extra information such as the name or offset
 ///    that will be different from the underlying engine

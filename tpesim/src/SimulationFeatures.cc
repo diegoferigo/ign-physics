@@ -52,6 +52,7 @@ void SimulationFeatures::WorldForwardStep(
   }
   worldPtr->Step();
 }
+
 }
 }
 }

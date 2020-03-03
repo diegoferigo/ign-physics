@@ -127,10 +127,22 @@ Shape &CylinderShape::operator=(const Shape &_other)
 }
 
 //////////////////////////////////////////////////
+double CylinderShape::GetRadius()
+{
+  return this->radius;
+}
+
+//////////////////////////////////////////////////
 void CylinderShape::SetRadius(double _radius)
 {
   this->radius = _radius;
   this->dirty = true;
+}
+
+//////////////////////////////////////////////////
+double CylinderShape::GetLength()
+{
+  return this->length;
 }
 
 //////////////////////////////////////////////////
@@ -166,6 +178,12 @@ Shape &SphereShape::operator=(const Shape &_other)
   auto other = static_cast<const SphereShape *>(&_other);
   this->radius = other->radius;
   return *this;
+}
+
+//////////////////////////////////////////////////
+double SphereShape::GetRadius()
+{
+  return this->radius;
 }
 
 //////////////////////////////////////////////////
@@ -206,7 +224,13 @@ Shape &MeshShape::operator=(const Shape &_other)
 }
 
 //////////////////////////////////////////////////
-void MeshShape::SetScale(double _scale)
+math::Vector3d MeshShape::GetScale()
+{
+  return this->scale;
+}
+
+//////////////////////////////////////////////////
+void MeshShape::SetScale(math::Vector3d _scale)
 {
   this->scale = _scale;
   this->dirty = true;
