@@ -26,36 +26,6 @@ namespace physics {
 namespace tpesim {
 
 /////////////////////////////////////////////////
-Pose3d ShapeFeatures::GetShapeRelativeTransform(
-  const Identity &_shapeID) const
-{
-  // dart::_shapeID = tpe::_collisionID
-  auto it = this->collisions.find(_shapeID);
-  if (it == this->collisions.end())
-  {
-    ignerr << "Collision with ID ["
-      << _shapeID.id << "] not found."
-      << std::endl;
-  }
-  return math::eigen3::convert(it->second->collision->GetPose());
-}
-
-/////////////////////////////////////////////////
-void ShapeFeatures::SetShapeRelativeTransform(
-  const Identity &_shapeID, const Pose3d &_pose)
-{
-  // dart::_shapeID = tpe::_collisionID
-  auto it = this->collisions.find(_shapeID);
-  if (it == this->collisions.end())
-  {
-    ignerr << "Collision with ID ["
-      << _shapeID.id << "] not found."
-      << std::endl;
-  }
-  it->second->collision->SetPose(math::eigen3::convert(_pose));
-}
-
-/////////////////////////////////////////////////
 Identity ShapeFeatures::CastToBoxShape(const Identity &_shapeID) const
 {
   // dart::_shapeID = tpe::_collisionID

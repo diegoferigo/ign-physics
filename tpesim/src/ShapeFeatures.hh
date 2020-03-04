@@ -33,8 +33,6 @@ namespace physics {
 namespace tpesim {
 
 struct ShapeFeatureList : FeatureList<
-  GetShapeKinematicProperties,
-  SetShapeKinematicProperties,
   GetShapeBoundingBox,
 
   GetBoxShapeProperties,
@@ -54,14 +52,6 @@ class ShapeFeatures :
     public virtual Base,
     public virtual Implements3d<ShapeFeatureList>
 {
-  // ----- Kinematic Properties -----
-  public: Pose3d GetShapeRelativeTransform(
-      const Identity &_shapeID) const override;
-
-  public: void SetShapeRelativeTransform(
-      const Identity &_shapeID, const Pose3d &_pose) override;
-
-
   // ----- Box Features -----
   public: Identity CastToBoxShape(
       const Identity &_shapeID) const override;
