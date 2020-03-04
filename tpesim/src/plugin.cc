@@ -19,11 +19,13 @@
 
 #include <ignition/physics/Register.hh>
 
+#include "Base.hh"
 #include "CustomFeatures.hh"
 #include "EntityManagementFeatures.hh"
 #include "FreeGroupFeatures.hh"
 #include "SDFFeatures.hh"
 #include "SimulationFeatures.hh"
+#include "ShapeFeatures.hh"
 
 namespace ignition {
 namespace physics {
@@ -34,6 +36,7 @@ struct TpesimFeatures : FeatureList<
   EntityManagementFeatureList,
   FreeGroupFeatureList,
   SDFFeatureList,
+  ShapeFeatureList,
   SimulationFeatureList
 > { };
 
@@ -44,6 +47,7 @@ class Plugin :
   public virtual EntityManagementFeatures,
   public virtual FreeGroupFeatures,
   public virtual SDFFeatures,
+  public virtual ShapeFeatures,
   public virtual SimulationFeatures { };
 
 IGN_PHYSICS_ADD_PLUGIN(Plugin, FeaturePolicy3d, TpesimFeatures)

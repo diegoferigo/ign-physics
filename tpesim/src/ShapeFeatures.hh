@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Open Source Robotics Foundation
+ * Copyright (C) 2018 Open Source Robotics Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,83 +51,83 @@ struct ShapeFeatureList : FeatureList<
 > { };
 
 class ShapeFeatures :
-  public virtual Base,
-  public virtual Implements3d<ShapeFeatureList>
+    public virtual Base,
+    public virtual Implements3d<ShapeFeatureList>
 {
   // ----- Kinematic Properties -----
   public: Pose3d GetShapeRelativeTransform(
-    const Identity &_shapeID) const override;
+      const Identity &_shapeID) const override;
 
   public: void SetShapeRelativeTransform(
-    const Identity &_shapeID, const Pose3d &_pose) override;
+      const Identity &_shapeID, const Pose3d &_pose) override;
 
 
   // ----- Box Features -----
   public: Identity CastToBoxShape(
-    const Identity &_shapeID) const override;
+      const Identity &_shapeID) const override;
 
   public: LinearVector3d GetBoxShapeSize(
-    const Identity &_boxID) const override;
+      const Identity &_boxID) const override;
 
   public: Identity AttachBoxShape(
-    const Identity &_linkID,
-    const std::string &_name,
-    const LinearVector3d &_size,
-    const Pose3d &_pose) override;
+      const Identity &_linkID,
+      const std::string &_name,
+      const LinearVector3d &_size,
+      const Pose3d &_pose) override;
 
 
   // ----- Cylinder Features -----
   public: Identity CastToCylinderShape(
-    const Identity &_shapeID) const override;
+      const Identity &_shapeID) const override;
 
   public: double GetCylinderShapeRadius(
-    const Identity &_cylinderID) const override;
+      const Identity &_cylinderID) const override;
 
   public: double GetCylinderShapeHeight(
-    const Identity &_cylinderID) const override;
+      const Identity &_cylinderID) const override;
 
   public: Identity AttachCylinderShape(
-    const Identity &_linkID,
-    const std::string &_name,
-    double _radius,
-    double _height,
-    const Pose3d &_pose) override;
+      const Identity &_linkID,
+      const std::string &_name,
+      double _radius,
+      double _height,
+      const Pose3d &_pose) override;
 
 
   // ----- Sphere Features -----
   public: Identity CastToSphereShape(
-    const Identity &_shapeID) const override;
+      const Identity &_shapeID) const override;
 
   public: double GetSphereShapeRadius(
-    const Identity &_sphereID) const override;
+      const Identity &_sphereID) const override;
 
   public: Identity AttachSphereShape(
-    const Identity &_linkID,
-    const std::string &_name,
-    double _radius,
-    const Pose3d &_pose) override;
+      const Identity &_linkID,
+      const std::string &_name,
+      double _radius,
+      const Pose3d &_pose) override;
 
 
   // ----- Mesh Features -----
   public: Identity CastToMeshShape(
-    const Identity &_shapeID) const override;
+      const Identity &_shapeID) const override;
 
   public: LinearVector3d GetMeshShapeSize(
-    const Identity &_meshID) const override;
+      const Identity &_meshID) const override;
 
   public: LinearVector3d GetMeshShapeScale(
-    const Identity &_meshID) const override;
+      const Identity &_meshID) const override;
 
   public: Identity AttachMeshShape(
-    const Identity &_linkID,
-    const std::string &_name,
-    const ignition::common::Mesh &_mesh,
-    const Pose3d &_pose,
-    const LinearVector3d &_scale) override;
+      const Identity &_linkID,
+      const std::string &_name,
+      const ignition::common::Mesh &_mesh,
+      const Pose3d &_pose,
+      const LinearVector3d &_scale) override;
 
   // ----- Boundingbox Features -----
   public: AlignedBox3d GetShapeAxisAlignedBoundingBox(
-    const Identity &_shapeID) const override;
+              const Identity &_shapeID) const override;
 };
 
 }
