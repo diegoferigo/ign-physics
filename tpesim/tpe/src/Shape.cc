@@ -27,19 +27,6 @@ Shape::Shape()
   this->type = ShapeType::EMPTY;
 }
 
-//////////////////////////////////////////////////
-// Shape::Shape(const Shape &_other)
-// {
-//   this->type = _other.type;
-// }
-
-//////////////////////////////////////////////////
-// Shape &Shape::operator=(const Shape &_other)
-// {
-//   this->type = _other.type;
-//   return *this;
-// }
-
  //////////////////////////////////////////////////
  math::AxisAlignedBox Shape::GetBoundingBox()
  {

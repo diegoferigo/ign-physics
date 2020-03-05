@@ -58,3 +58,41 @@ Entity &Model::GetLinkByName(const std::string &_name)
   }
   return Entity::kNullEntity;
 }
+
+//////////////////////////////////////////////////
+void Model::SetLinearVelocity(const math::Vector3d _velocity)
+{
+  this->linearVelocity = _velocity;
+}
+
+//////////////////////////////////////////////////
+math::Vector3d Model::GetLinearVelocity() const
+{
+  return this->linearVelocity;
+}
+
+//////////////////////////////////////////////////
+void Model::SetAngularVelocity(const math::Vector3d _velocity)
+{
+  this->angularVelocity = _velocity;
+}
+
+//////////////////////////////////////////////////
+math::Vector3d Model::GetAngularVelocity() const
+{
+  return this->angularVelocity;
+}
+
+//////////////////////////////////////////////////
+void Model::UpdatePose(
+  const double _timeStep,
+  const math::Vector3d _linearVelocity,
+  const math::Vector3d _angularVelocity)
+{
+  math::Pose3d currentPose = this->GetPose();
+  math::Pose3d changeInPose;
+  changeInPose.Set(
+    _linearVelocity * _timeStep, _angularVelocity * _timeStep);
+  math::Pose3d nextPose = currentPose + changeInPose;
+  this->SetPose(nextPose);
+}

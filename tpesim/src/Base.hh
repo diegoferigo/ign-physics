@@ -104,7 +104,7 @@ class Base : public Implements3d<FeatureList<Feature>>
   }
 
   public: inline Identity AddCollision(uint64_t _linkId,
-      tpe::Collision &_collision)
+    tpe::Collision &_collision)
   {
     auto collisionPtr = std::make_shared<CollisionInfo>();
     collisionPtr->collision = &_collision;

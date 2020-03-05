@@ -59,15 +59,11 @@ class Shape
   public: Shape();
 
   /// \brief Copy Constructor
-  /// \param[in] _other shape to copy from
+  /// \param _other shape to copy from
   // public: Shape(const Shape &_other);
 
   /// \brief Destructor
   public: ~Shape() = default;
-
-  /// \brief Assignment operator
-  /// \param[in] _other shape to copy from
-  // public: virtual Shape &operator=(const Shape &_other);
 
   /// \brief Get bounding box of shape
   /// \return Shape's bounding box
@@ -97,22 +93,22 @@ class BoxShape : public Shape
   public: BoxShape();
 
   /// \brief Copy Constructor
-  /// \param[in] _other shape to copy from
+  /// \param _other shape to copy from
   public: BoxShape(const BoxShape &_other);
 
   /// \brief Destructor
   public: ~BoxShape();
 
   /// \brief Assignment operator
-  /// \param[in] _other shape to copy from
+  /// \param _other shape to copy from
   public: Shape &operator=(const Shape &_other);
 
   /// \brief Set size of box
-  /// \param[in] _size Size of box
+  /// \param _size Size of box
   public: void SetSize(const math::Vector3d &_size);
 
   /// \brief Get size of box
-  /// \param[return] _size Size of box
+  /// \return _size Size of box
   public: math::Vector3d GetSize();
 
   // Documentation inherited
@@ -129,30 +125,30 @@ class CylinderShape : public Shape
   public: CylinderShape();
 
   /// \brief Copy Constructor
-  /// \param[in] _other shape to copy from
+  /// \param _other shape to copy from
   public: CylinderShape(const CylinderShape &_other);
 
   /// \brief Destructor
   public: ~CylinderShape() = default;
 
   /// \brief Assignment operator
-  /// \param[in] _other shape to copy from
+  /// \param _other shape to copy from
   public: Shape &operator=(const Shape &_other);
 
   /// \brief Get cylinder radius
-  /// \param[return] _radius cylinder radius
+  /// \return _radius cylinder radius
   public: double GetRadius();
 
   /// \brief Set cylinder radius
-  /// \param[in] _radius Cylinder radius
+  /// \param _radius Cylinder radius
   public: void SetRadius(double _radius);
 
   /// \brief Get cylinder length
-  /// \param[return] _length Cylinder length
+  /// \return _length Cylinder length
   public: double GetLength();
 
   /// \brief Set cylinder length
-  /// \param[in] _length Cylinder length
+  /// \param _length Cylinder length
   public: void SetLength(double _length);
 
   // Documentation inherited
@@ -172,22 +168,22 @@ class SphereShape : public Shape
   public: SphereShape();
 
   /// \brief Copy Constructor
-  /// \param[in] _other shape to copy from
+  /// \param _other shape to copy from
   public: SphereShape(const SphereShape &_other);
 
   /// \brief Destructor
   public: ~SphereShape() = default;
 
   /// \brief Assignment operator
-  /// \param[in] _other shape to copy from
+  /// \param _other shape to copy from
   public: Shape &operator=(const Shape &_other);
 
   /// \brief Get sphere radius
-  /// \param[return] _radius Sphere radius
+  /// \return _radius Sphere radius
   public: double GetRadius();
 
   /// \brief Set sphere radius
-  /// \param[in] _radius Sphere radius
+  /// \param _radius Sphere radius
   public: void SetRadius(double _radius);
 
   // Documentation inherited
@@ -204,26 +200,26 @@ class MeshShape : public Shape
   public: MeshShape();
 
   /// \brief Copy Constructor
-  /// \param[in] _other shape to copy from
+  /// \param _other shape to copy from
   public: MeshShape(const MeshShape &_other);
 
   /// \brief Destructor
   public: ~MeshShape() = default;
 
   /// \brief Assignment operator
-  /// \param[in] _other shape to copy from
+  /// \param _other shape to copy from
   public: Shape &operator=(const Shape &_other);
 
   /// \brief Set mesh
-  /// \param[in] _mesh Mesh object
+  /// \param _mesh Mesh object
   public: void SetMesh(const ignition::common::Mesh &_mesh);
 
   /// \brief Get mesh scale
-  /// \param[return] _scale Mesh scale
+  /// \return _scale Mesh scale
   public: math::Vector3d GetScale();
 
   /// \brief Set mesh scale
-  /// \param[in] _scale Mesh scale
+  /// \param _scale Mesh scale
   public: void SetScale(math::Vector3d _scale);
 
   // Documentation inherited

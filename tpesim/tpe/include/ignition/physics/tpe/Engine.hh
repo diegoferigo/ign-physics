@@ -43,7 +43,7 @@ class Engine
   public: Entity &AddWorld();
 
   /// \brief Get World
-  /// \param[in] _worldId World ID
+  /// \param_worldId World ID
   public: Entity &GetWorldById(uint64_t _worldId);
 
   /// \brief Get total number of worlds
@@ -60,7 +60,6 @@ class Engine
 
   /// \brief World entities in engine
   protected: std::map<uint64_t, Entity> worlds;
-
 };
 
 } // namespace tpe

@@ -30,7 +30,7 @@ class Link : public Entity
   public: Link();
 
   /// \brief Constructor
-  /// \param[in] _id Link id
+  /// \param _id Link id
   public: Link(uint64_t _id);
 
   /// \brief Destructor

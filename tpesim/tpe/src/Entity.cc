@@ -111,27 +111,6 @@ math::Pose3d Entity::GetPose() const
 }
 
 //////////////////////////////////////////////////
-void Entity::UpdatePose(
-  const double _timeStep,
-  const LinearVector3d _linearVelocity,
-  const AngularVector3d _angularVelocity)
-{
-  math::Pose3d currentPose = this->GetPose();
-  auto linearUpdate = _linearVelocity * _timeStep;
-  auto angularUpdate = _angularVelocity * _timeStep;
-
-  math::Pose3d changeInPose(
-    linearUpdate(0),
-    linearUpdate(1),
-    linearUpdate(2),
-    angularUpdate(0),
-    angularUpdate(1),
-    angularUpdate(2));
-  math::Pose3d nextPose = currentPose + changeInPose;
-  this->SetPose(nextPose);
-}
-
-//////////////////////////////////////////////////
 void Entity::SetId(uint64_t _id)
 {
   this->dataPtr->id = _id;
@@ -214,28 +193,4 @@ std::map<uint64_t, std::shared_ptr<Entity>> &Entity::GetChildren()
 uint64_t Entity::GetNextId()
 {
   return nextId++;
-}
-
-//////////////////////////////////////////////////
-void Entity::SetLinearVelocity(const LinearVector3d _velocity)
-{
-  this->linearVelocity = _velocity;
-}
-
-//////////////////////////////////////////////////
-LinearVector3d Entity::GetLinearVelocity() const
-{
-  return this->linearVelocity;
-}
-
-//////////////////////////////////////////////////
-void Entity::SetAngularVelocity(const AngularVector3d _velocity)
-{
-  this->angularVelocity = _velocity;
-}
-
-//////////////////////////////////////////////////
-AngularVector3d Entity::GetAngularVelocity() const
-{
-  return this->angularVelocity;
 }

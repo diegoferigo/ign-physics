@@ -21,8 +21,8 @@
 #include <string>
 #include <map>
 #include <memory>
+
 #include <ignition/math/Pose3.hh>
-#include <ignition/physics/Geometry.hh>
 
 namespace ignition {
 namespace physics {
@@ -40,26 +40,26 @@ class Entity
   public: Entity();
 
   /// \brief Copy Constructor
-  /// \param[in] _other Other entity to copy from
+  /// \param _other Other entity to copy from
   public: Entity(const Entity &_other);
 
   /// \brief Move constructor
-  /// \param[in] _other Other entity to move from
+  /// \param _other Other entity to move from
   public: Entity(Entity &&_entity) noexcept;
 
   /// \brief Constructor with id
-  /// \param[in] _id Id to set the entity to
+  /// \param _id Id to set the entity to
   protected: explicit Entity(uint64_t _id);
 
   /// \brief Destructor
   public: ~Entity();
 
   /// \brief Assignment operator
-  /// \param[in] _other Other entity to copy from
+  /// \param _other Other entity to copy from
   public: Entity &operator=(const Entity &_other);
 
   /// \brief Set the name of the entity
-  /// \param[in] _name Name of entity
+  /// \param _name Name of entity
   public: virtual void SetName(const std::string &_name);
 
   /// \brief Get the name of the entity
@@ -67,7 +67,7 @@ class Entity
   public: virtual std::string GetName() const;
 
   /// \brief Set the id of the entity
-  /// \param[in] _unique Id
+  /// \param _unique Id
   public: virtual void SetId(uint64_t _id);
 
   /// \brief Get the id of the entity
@@ -75,43 +75,34 @@ class Entity
   public: virtual uint64_t GetId() const;
 
   /// \brief Set the pose of the entity
-  /// \param[in] _pose Pose of entity to set to
+  /// \param _pose Pose of entity to set to
   public: virtual void SetPose(const math::Pose3d &_pose);
 
   /// \brief Get the pose of the entity
   /// \return Pose of entity to set to
   public: virtual math::Pose3d GetPose() const;
 
-  /// \brief Update the pose of the entity
-  /// \param[in] _timeStep current world timestep
-  /// \param[in] _linearVelocity linear velocity from world
-  /// \param[in] _angularVelocity angular velocity from world
-  public: virtual void UpdatePose(
-    const double _timeStep,
-    const LinearVector3d _linearVelocity,
-    const AngularVector3d _angularVelocity);
-
   /// \brief Get a child entity by id
-  /// \param[in] _id Id of child entity
+  /// \param _id Id of child entity
   /// \return Child entity
   public: virtual Entity &GetChildById(uint64_t _id);
 
   /// \brief Get a child entity by name
-  /// \param[in] _name Name of child entity
+  /// \param _name Name of child entity
   /// \return Child entity
   public: virtual Entity &GetChildByName(const std::string &_name);
 
   /// \brief Remove a child entity by id
-  /// \param[in] _id Id of child entity to remove
+  /// \param _id Id of child entity to remove
   public: virtual bool RemoveChildById(uint64_t _id);
 
   /// \brief Remove a child entity by name
-  /// \param[in] _name Name of child entity to remove
+  /// \param _name Name of child entity to remove
   /// \return True if child entity was removed, false otherwise
   public: virtual bool RemoveChildByName(const std::string &_name);
 
   /// \brief Remove a child entity by index
-  /// \param[in] _index Index of child entity to remove
+  /// \param _index Index of child entity to remove
   // public: virtual void RemoveChildByIndex(size_t _index);
 
   /// \brief Get number of children
@@ -120,18 +111,6 @@ class Entity
   /// \brief Get number of children
   /// \return Map of child id's to child entities
   protected: std::map<uint64_t, std::shared_ptr<Entity>> &GetChildren();
-
-  public: void SetLinearVelocity(const LinearVector3d _velocity);
-
-  public: LinearVector3d GetLinearVelocity() const;
-
-  public: AngularVector3d GetAngularVelocity() const;
-
-  public: void SetAngularVelocity(const AngularVector3d _velocity);
-
-  protected: LinearVector3d linearVelocity;
-
-  protected: AngularVector3d angularVelocity;
 
   /// \brief An invalid vertex.
   public: static Entity kNullEntity;

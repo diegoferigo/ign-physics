@@ -36,7 +36,7 @@ struct TpesimFeatures : FeatureList<
   EntityManagementFeatureList,
   FreeGroupFeatureList,
   SDFFeatureList,
-  // ShapeFeatureList,
+  ShapeFeatureList,
   SimulationFeatureList
 > { };
 
@@ -47,7 +47,7 @@ class Plugin :
   public virtual EntityManagementFeatures,
   public virtual FreeGroupFeatures,
   public virtual SDFFeatures,
-  // public virtual ShapeFeatures,
+  public virtual ShapeFeatures,
   public virtual SimulationFeatures { };
 
 IGN_PHYSICS_ADD_PLUGIN(Plugin, FeaturePolicy3d, TpesimFeatures)

@@ -33,11 +33,6 @@ Identity SDFFeatures::ConstructSdfWorld(
 {
   const Identity worldID = this->ConstructEmptyWorld(_engine, _sdfWorld.Name());
 
-  // gravity not supported
-  // auto world = this->worlds.at(worldID);
-  // auto gravity = _sdfWorld.Gravity();
-  // world->SetGravity(gravity);
-
   // construct models
   for (std::size_t i = 0; i < _sdfWorld.ModelCount(); ++i)
   {
@@ -157,9 +152,6 @@ Identity SDFFeatures::ConstructSdfCollision(
 
   const auto collisionIdentity = this->AddCollision(link->GetId(), *collision);
   return collisionIdentity;
-}
-
-
 /*/////////////////////////////////////////////////
 Identity SDFFeatures::BuildSdfLink(
   const Identity &_modelID,
@@ -210,6 +202,7 @@ Identity SDFFeatures::BuildSdfLink(
   return linkIdentity;
 }
 */
+}
 
 }
 }

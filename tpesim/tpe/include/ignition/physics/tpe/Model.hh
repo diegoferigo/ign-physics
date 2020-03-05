@@ -18,6 +18,8 @@
 #ifndef IGNITION_PHYSICS_TPESIM_TPE_MODEL_HH_
 #define IGNITION_PHYSICS_TPESIM_TPE_MODEL_HH_
 
+#include <ignition/math/Pose3.hh>
+
 #include "ignition/physics/tpe/Entity.hh"
 
 namespace ignition {
@@ -33,7 +35,7 @@ class Model : public Entity
   public: Model();
 
   /// \brief Constructor
-  /// \param[in] _id Model id
+  /// \param _id Model id
   public: Model(uint64_t _id);
 
   /// \brief Destructor
@@ -44,10 +46,40 @@ class Model : public Entity
   public: Entity &AddLink();
 
   /// \brief Get a link
-  /// \param[in] _linkName link name
+  /// \param _linkName link name
   /// \return Link
   public: Entity &GetLinkByName(const std::string &_name);
 
+  /// \brief Set the linear velocity of model
+  /// \param _velocity linear velocity
+  public: void SetLinearVelocity(const math::Vector3d _velocity);
+
+  /// \brief Get the linear velocity of model
+  /// \return _velocity linear velocity of model
+  public: math::Vector3d GetLinearVelocity() const;
+
+  /// \brief Set the angular velocity of model
+  /// \param _velocity angular velocity from world
+  public: void SetAngularVelocity(const math::Vector3d _velocity);
+
+  /// \brief Get the angular velocity of model
+  /// \return _velocity angular velocity
+  public: math::Vector3d GetAngularVelocity() const;
+
+  /// \brief Update the pose of the entity
+  /// \param _timeStep current world timestep
+  /// \param _linearVelocity linear velocity
+  /// \param _angularVelocity angular velocity
+  public: virtual void UpdatePose(
+    const double _timeStep,
+    const math::Vector3d _linearVelocity,
+    const math::Vector3d _angularVelocity);
+
+  /// \brief linear velocity of model
+  protected: math::Vector3d linearVelocity;
+
+  /// \brief angular velocity of model
+  protected: math::Vector3d angularVelocity;
 };
 
 }

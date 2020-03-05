@@ -62,11 +62,14 @@ void World::Step()
   auto &children = this->GetChildren();
   for (auto it = children.begin(); it != children.end(); ++it)
   {
-    auto modelPtr = it->second;
-    modelPtr->UpdatePose(
+    std::shared_ptr<Entity> ent;
+    std::shared_ptr<Model> model;
+    ent = it->second;
+    model = std::dynamic_pointer_cast<Model>(ent);
+    model->UpdatePose(
       this->timeStep,
-      modelPtr->GetLinearVelocity(),
-      modelPtr->GetAngularVelocity());
+      model->GetLinearVelocity(),
+      model->GetAngularVelocity());
   }
 
   // increment world time by step size
@@ -91,9 +94,7 @@ Entity &World::GetModelByName(const std::string &_name)
   for (auto it = children.begin(); it != children.end(); ++it)
   {
     if (it->second->GetName() == _name)
-    {
       return *it->second.get();
-    }
   }
   return Entity::kNullEntity;
 }

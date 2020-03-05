@@ -72,24 +72,3 @@ bool Engine::RemoveWorldById(uint64_t _worldId)
   }
   return false;
 }
-
-// /////////////////////////////////////////////////
-// World Engine::GetWorldByName(const std::string &_name) const
-// {
-//   for (auto const&[id, world] : this->worlds)
-//   {
-//     if (world.GetName() == _name)
-//       return world;
-//   }
-// }
-
-// /////////////////////////////////////////////////
-// World Engine::GetWorldById(const int _id) const
-// {
-//   // return this->worlds[_id];
-//   auto it = this->worlds.find(_id);
-//   if (it != this->worlds.end())
-//   {
-//     return it->second;
-//   }
-// }

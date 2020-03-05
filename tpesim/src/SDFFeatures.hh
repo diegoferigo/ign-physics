@@ -49,26 +49,26 @@ class SDFFeatures :
     public virtual Implements3d<SDFFeatureList>
 {
   public: Identity ConstructSdfWorld(
-      const Identity &/*_engine*/,
-      const ::sdf::World &_sdfWorld) override;
+    const Identity &/*_engine*/,
+    const ::sdf::World &_sdfWorld) override;
 
   public: Identity ConstructSdfModel(
-      const Identity &_worldID,
-      const ::sdf::Model &_sdfModel) override;
+    const Identity &_worldID,
+    const ::sdf::Model &_sdfModel) override;
 
   public: Identity ConstructSdfVisual(
-      const Identity &/* _linkID */,
-      const ::sdf::Visual &/* _visual */) override
-      { return this->GenerateInvalidId(); };
+    const Identity &/* _linkID */,
+    const ::sdf::Visual &/* _visual */) override
+    { return this->GenerateInvalidId(); };
 
   public: Identity ConstructSdfLink(
-      const Identity &_modelID,
-      const ::sdf::Link &_sdfLink) override;
+    const Identity &_modelID,
+    const ::sdf::Link &_sdfLink) override;
 
   private: Identity ConstructSdfCollision(
-      const Identity &_linkID,
-      const ::sdf::Collision &_collision,
-      const ignition::common::Mesh *_mesh = nullptr);
+    const Identity &_linkID,
+    const ::sdf::Collision &_collision,
+    const ignition::common::Mesh *_mesh = nullptr);
 };
 
 }

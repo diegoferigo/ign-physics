@@ -51,7 +51,9 @@ Identity EntityManagementFeatures::GetWorld(
 {
   auto it = worlds.begin();
   std::advance(it, _worldIndex);
-  return this->GenerateIdentity(it->first, it->second);
+  if (it != worlds.end())
+    return this->GenerateIdentity(it->first, it->second);
+  return this->GenerateInvalidId();
 }
 
 /////////////////////////////////////////////////
@@ -61,9 +63,7 @@ Identity EntityManagementFeatures::GetWorld(
   for (auto it = worlds.begin(); it != worlds.end(); ++it)
   {
     if (it->second->world->GetName() == _worldName)
-    {
       return this->GenerateIdentity(it->first, it->second);
-    }
   }
   return this->GenerateInvalidId();
 }
@@ -72,16 +72,10 @@ Identity EntityManagementFeatures::GetWorld(
 const std::string &EntityManagementFeatures::GetWorldName(
   const Identity &_worldID) const
 {
-  static std::string name;
+  static std::string name{""};
   auto it = worlds.find(_worldID);
   if (it != worlds.end())
-  {
     name = it->second->world->GetName();
-  }
-  else
-  {
-    name = "";
-  }
   return name;
 }
 
@@ -90,7 +84,9 @@ std::size_t EntityManagementFeatures::GetWorldIndex(
   const Identity &_worldID) const
 {
   auto it = worlds.find(_worldID);
-  return std::distance(it, worlds.begin());
+  if (it != worlds.end())
+    return std::distance(it, worlds.begin());
+  return -1;
 }
 
 /////////////////////////////////////////////////
@@ -106,22 +102,25 @@ std::size_t EntityManagementFeatures::GetModelCount(
 {
   auto it = this->worlds.find(_worldID);
   if (it != this->worlds.end())
-  {
     return it->second->world->GetChildCount();
-  }
-  return 0;
+  return -1;
 }
 
 /////////////////////////////////////////////////
 Identity EntityManagementFeatures::GetModel(
   const Identity &_worldID, const std::size_t _modelIndex) const
 {
+  // Get the selected world
+  auto worldIt = worlds.find(_worldID);
+
+  // Get the selected model
   auto modelIt = models.begin();
   std::advance(modelIt, _modelIndex);
-  uint64_t modelId = modelIt->first;
-  auto worldIt = worlds.find(_worldID);
-  if (worldIt != worlds.end())
+
+  if (worldIt != worlds.end() && modelIt != models.end())
   {
+    // Get the model
+    uint64_t modelId = modelIt->first;
     auto model = worldIt->second->world->GetChildById(modelId);
     auto modelPtr = std::make_shared<ModelInfo>();
     modelPtr->model = static_cast<tpe::Model *>(&model);
@@ -134,12 +133,17 @@ Identity EntityManagementFeatures::GetModel(
 Identity EntityManagementFeatures::GetModel(
   const Identity &_worldID, const std::string &_modelName) const
 {
+  // Get the selected world
   auto worldIt = worlds.find(_worldID);
+  if (worldIt == worlds.end())
+    return this->GenerateInvalidId();
+
+  // Get the selected model and check name and id
   auto model = worldIt->second->world->GetModelByName(_modelName);
   for (auto it = models.begin(); it != models.end(); ++it)
   {
     if (it->second->model->GetName() == _modelName &&
-        it->second->model->GetId() == model.GetId())
+      it->second->model->GetId() == model.GetId())
     {
       return this->GenerateIdentity(model.GetId(), it->second);
     }
@@ -151,16 +155,10 @@ Identity EntityManagementFeatures::GetModel(
 const std::string &EntityManagementFeatures::GetModelName(
   const Identity &_modelID) const
 {
-  static std::string name;
+  static std::string name{""};
   auto it = models.find(_modelID);
   if (it != models.end())
-  {
-    name = it->second->model->GetName();
-  }
-  else
-  {
-    name = "";
-  }
+    name =  it->second->model->GetName();
   return name;
 }
 
@@ -169,7 +167,9 @@ std::size_t EntityManagementFeatures::GetModelIndex(
   const Identity &_modelID) const
 {
   auto it = models.find(_modelID);
-  return std::distance(it, models.begin());
+  if (it != models.end())
+    return std::distance(it, models.begin());
+  return -1;
 }
 
 /////////////////////////////////////////////////
@@ -177,10 +177,11 @@ Identity EntityManagementFeatures::GetWorldOfModel(
   const Identity &_modelID) const
 {
   auto it = childIdToParentId.find(_modelID);
-  auto worldIt = worlds.find(it->second);
-  if (it != childIdToParentId.end() && worldIt != worlds.end())
+  if (it != childIdToParentId.end())
   {
-    return this->GenerateIdentity(worldIt->first, worldIt->second);
+    auto worldIt = worlds.find(it->second);
+    if (worldIt != worlds.end())
+      return this->GenerateIdentity(worldIt->first, worldIt->second);
   }
   return this->GenerateInvalidId();
 }
@@ -191,10 +192,8 @@ std::size_t EntityManagementFeatures::GetLinkCount(
 {
   auto it = models.find(_modelID);
   if (it != models.end())
-  {
     return it->second->model->GetChildCount();
-  }
-  return 0;
+  return -1;
 }
 
 /////////////////////////////////////////////////
@@ -203,10 +202,10 @@ Identity EntityManagementFeatures::GetLink(
 {
   auto linkIt = links.begin();
   std::advance(linkIt, _linkIndex);
-  uint64_t linkId = linkIt->first;
   auto modelIt = models.find(_modelID);
-  if (modelIt != models.end())
+  if (linkIt != links.end() && modelIt != models.end())
   {
+    uint64_t linkId = linkIt->first;
     auto link = modelIt->second->model->GetChildById(linkId);
     auto linkPtr = std::make_shared<tpe::Entity>(link);
     return this->GenerateIdentity(linkId, linkPtr);
@@ -219,13 +218,16 @@ Identity EntityManagementFeatures::GetLink(
   const Identity &_modelID, const std::string &_linkName) const
 {
   auto modelIt = models.find(_modelID);
-  auto link = modelIt->second->model->GetLinkByName(_linkName);
-  for (auto it = links.begin(); it != links.end(); ++it)
+  if (modelIt != models.end())
   {
-    if (it->second->link->GetName() == _linkName &&
-        it->first == link.GetId())
+    auto link = modelIt->second->model->GetLinkByName(_linkName);
+    for (auto it = links.begin(); it != links.end(); ++it)
     {
-      return this->GenerateIdentity(link.GetId(), it->second);
+      if (it->second->link->GetName() == _linkName &&
+          it->first == link.GetId())
+      {
+        return this->GenerateIdentity(link.GetId(), it->second);
+      }
     }
   }
   return this->GenerateInvalidId();
@@ -235,16 +237,10 @@ Identity EntityManagementFeatures::GetLink(
 const std::string &EntityManagementFeatures::GetLinkName(
   const Identity &_linkID) const
 {
-  static std::string name;
+  static std::string name{""};
   auto it = links.find(_linkID);
   if (it != links.end())
-  {
     name = it->second->link->GetName();
-  }
-  else
-  {
-    name = "";
-  }
   return name;
 }
 
@@ -253,7 +249,9 @@ std::size_t EntityManagementFeatures::GetLinkIndex(
   const Identity &_linkID) const
 {
   auto it = links.find(_linkID);
-  return std::distance(it, links.begin());
+  if (it != links.end())
+    return std::distance(it, links.begin());
+  return -1;
 }
 
 /////////////////////////////////////////////////
@@ -263,9 +261,7 @@ Identity EntityManagementFeatures::GetModelOfLink(
   auto it = childIdToParentId.find(_linkID);
   auto modelIt = models.find(it->second);
   if (it != childIdToParentId.end() && modelIt != models.end())
-  {
     return this->GenerateIdentity(modelIt->first, modelIt->second);
-  }
   return this->GenerateInvalidId();
 }
 
@@ -275,10 +271,11 @@ bool EntityManagementFeatures::RemoveModelByIndex(
 {
   auto modelIt = models.begin();
   std::advance(modelIt, _modelIndex);
-  uint64_t modelId = modelIt->first;
   auto worldIt = worlds.find(_worldID);
-  if (worldIt != worlds.end())
+
+  if (modelIt != models.end() && worldIt != worlds.end())
   {
+    uint64_t modelId = modelIt->first;
     models.erase(modelIt);
     return worldIt->second->world->RemoveChildById(modelId);
   }
@@ -294,8 +291,11 @@ bool EntityManagementFeatures::RemoveModelByName(
   {
     auto modelId = worldIt->second->world->GetModelByName(_modelName).GetId();
     auto it = models.find(modelId);
-    models.erase(it);
-    return worldIt->second->world->RemoveChildByName(_modelName);
+    if (it != models.end())
+    {
+      models.erase(it);
+      return worldIt->second->world->RemoveChildByName(_modelName);
+    }
   }
   return false;
 }

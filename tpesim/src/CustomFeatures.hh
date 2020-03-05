@@ -35,11 +35,11 @@ using CustomFeatureList = FeatureList<
 >;
 
 class CustomFeatures :
-    public virtual Base,
-    public virtual Implements3d<CustomFeatureList>
+  public virtual Base,
+  public virtual Implements3d<CustomFeatureList>
 {
   public: std::shared_ptr<tpe::World> GetTpesimWorld(
-      const Identity &_worldID) override;
+    const Identity &_worldID) override;
 };
 
 }

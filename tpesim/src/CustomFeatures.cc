@@ -23,7 +23,7 @@ namespace tpesim {
 
 /////////////////////////////////////////////////
 std::shared_ptr<tpe::World> CustomFeatures::GetTpesimWorld(
-    const Identity &_worldID)
+  const Identity &_worldID)
 {
   return this->worlds.at(_worldID)->world;
 }

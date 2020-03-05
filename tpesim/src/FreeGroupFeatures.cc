@@ -46,9 +46,9 @@ Identity FreeGroupFeatures::FindFreeGroupForLink(
   const Identity &_linkID) const
 {
   auto it = this->links.find(_linkID);
-  if (it == this->links.end())
-    this->GenerateInvalidId();
-  return this->GenerateIdentity(_linkID, it->second);
+  if (it != this->links.end())
+    return this->GenerateIdentity(_linkID, it->second);
+  return this->GenerateInvalidId();
 }
 
 /////////////////////////////////////////////////
@@ -56,7 +56,6 @@ Identity FreeGroupFeatures::GetFreeGroupCanonicalLink(
   const Identity &_groupID) const
 {
   // assume no canonical link for now
-  // assume groupID ~= modelID
   return _groupID;
 }
 
@@ -83,7 +82,8 @@ void FreeGroupFeatures::SetFreeGroupWorldLinearVelocity(
   auto it = this->models.find(_groupID);
   // set model linear velocity
   if (it != this->models.end())
-    it->second->model->SetLinearVelocity(_linearVelocity);
+    it->second->model->SetLinearVelocity(
+      math::eigen3::convert(_linearVelocity));
 }
 
 /////////////////////////////////////////////////
@@ -95,8 +95,10 @@ void FreeGroupFeatures::SetFreeGroupWorldAngularVelocity(
   auto it = this->models.find(_groupID);
   // set model angular velocity
   if (it != this->models.end())
-    it->second->model->SetAngularVelocity(_angularVelocity);
+    it->second->model->SetAngularVelocity(
+      math::eigen3::convert(_angularVelocity));
 }
+
 }
 }
 }

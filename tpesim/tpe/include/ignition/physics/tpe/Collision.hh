@@ -37,7 +37,7 @@ class Collision : public Entity
   public: Collision();
 
   /// \brief Constructor
-  /// \param[in] _id Collision id
+  /// \param _id Collision id
   public: Collision(uint64_t _id);
 
   /// \brief Copy Constructor
@@ -47,9 +47,12 @@ class Collision : public Entity
   public: ~Collision();
 
   /// \brief Assignment operator
+  /// \param _other collision
+  /// \return collision
   public: Collision &operator=(const Collision &_other);
 
-  /// brief Set Shape
+  /// \brief Set Shape
+  /// \param _shape shape
   public: void SetShape(const Shape &_shape);
 
   /// brief Get Shape
@@ -57,63 +60,6 @@ class Collision : public Entity
 
   /// \brief Private data pointer class
   private: CollisionPrivate *dataPtr = nullptr;
-
-/*  /// \brief Add shape to collision
-  /// \return Box geometry
-  public: BoxShape AddBoxShape();
-
-  /// \brief Get all box shapes in collision
-  /// \return boxShapes vector
-  public: std::vector<BoxShape> GetBoxShapes();
-
-  /// \brief Get number of box shapes
-  /// \return number of box shapes
-  public: uint64_t GetBoxShapeCount();
-
-  /// \brief Add shape to collision
-  /// \return Cylinder geometry
-  public: CylinderShape AddCylinderShape();
-
-  /// \brief Get cylinder shapes
-  /// \return cylinderShape vector
-  public: std::vector<CylinderShape> GetCylinderShapes();
-
-  /// \brief Get number of cylinder shapes
-  /// \return Number of cylinder shapes
-  public: uint64_t GetCylinderShapeCount();
-
-  /// \brief Add shape to collision
-  /// \return Sphere geometry
-  public: SphereShape AddSphereShape();
-
-  /// \brief Get sphere shapes
-  /// \return sphereShapes vector
-  public: std::vector<SphereShape> GetSphereShapes();
-
-  /// \brief Get number of sphere shapes
-  /// \return number of sphere shapes
-  public: uint64_t GetSphereShapeCount();
-
-  /// \brief Add shape to collision
-  /// \return Mesh geometry
-  public: MeshShape AddMeshShape();
-
-  /// \brief Get mesh shapes
-  /// \return meshShapes vector
-  public: std::vector<MeshShape> GetMeshShapes();
-
-  /// \brief Get number of mesh shapes
-  /// \return number of mesh shapes
-  public: uint64_t GetMeshShapeCount();
-
-  protected: std::vector<BoxShape> boxShapes;
-
-  protected: std::vector<CylinderShape> cylinderShapes;
-
-  protected: std::vector<SphereShape> sphereShapes;
-
-  protected: std::vector<MeshShape> meshShapes;
-*/
 };
 
 }
