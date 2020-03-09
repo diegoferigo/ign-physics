@@ -55,7 +55,7 @@ TEST(EntityManagement_TEST, ConstructEmptyWorld)
   auto link = model->ConstructEmptyLink("empty link");
   ASSERT_NE(nullptr, link);
   EXPECT_EQ("empty link", link->GetName());
-  EXPECT_EQ(model, link->GetModel());
+  EXPECT_EQ(model, link->GetModel()); 
   EXPECT_EQ(link, model->ConstructEmptyLink("dummy"));
 }
 
