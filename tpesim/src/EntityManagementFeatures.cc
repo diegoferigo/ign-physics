@@ -297,7 +297,7 @@ Identity EntityManagementFeatures::GetShape(
 Identity EntityManagementFeatures::GetShape(
   const Identity &_linkID, const std::string &_shapeName) const
 {
-  // assume shapeName ~= collisionName 
+  // assume shapeName ~= collisionName
   auto linkIt = links.find(_linkID);
   if (linkIt != links.end())
   {

@@ -107,7 +107,7 @@ class EntityManagementFeatures :
 
   public: Identity GetShape(
     const Identity &_linkID, std::size_t _shapeIndex) const override;
-  
+
   public: Identity GetShape(
     const Identity &_linkID, const std::string &_shapeName) const override;
 
