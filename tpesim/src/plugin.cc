@@ -23,6 +23,7 @@
 #include "CustomFeatures.hh"
 #include "EntityManagementFeatures.hh"
 #include "FreeGroupFeatures.hh"
+#include "KinematicsFeatures.hh"
 #include "SDFFeatures.hh"
 #include "ShapeFeatures.hh"
 #include "SimulationFeatures.hh"
@@ -35,6 +36,7 @@ struct TpesimFeatures : FeatureList<
   CustomFeatureList,
   EntityManagementFeatureList,
   FreeGroupFeatureList,
+  KinematicsFeatureList,
   SDFFeatureList,
   ShapeFeatureList,
   SimulationFeatureList
@@ -46,6 +48,7 @@ class Plugin :
   public virtual CustomFeatures,
   public virtual EntityManagementFeatures,
   public virtual FreeGroupFeatures,
+  public virtual KinematicsFeatures,
   public virtual SDFFeatures,
   public virtual ShapeFeatures,
   public virtual SimulationFeatures { };

@@ -266,24 +266,20 @@ Identity ShapeFeatures::AttachMeshShape(
   return this->AddCollision(_linkID, collision);
 }
 
-/////////////////////////////////////////////////
-// AlignedBox3d ShapeFeatures::GetShapeAxisAlignedBoundingBox(
-//   const Identity &_shapeID) const
-// {
-//   auto it = this->collisions.find(_shapeID);
-//   if (it == this->collisions.end())
-//   {
-//     ignerr << "Collision with ID ["
-//       << _shapeID.id
-//       << "] not found."
-//       << std::endl;
-//     return math::eigen3::convert(math::AxisAlignedBox(
-//       math::Vector3d(-1.0, -1.0, -1.0),
-//       math::Vector3d(-1.0, -1.0, -1.0)));
-//   }
-//   auto shape = it->second->collision->GetShape();
-//   return math::eigen3::convert(shape->GetBoundingBox());
-// }
+///////////////////////////////////////////////
+AlignedBox3d ShapeFeatures::GetShapeAxisAlignedBoundingBox(
+  const Identity &_shapeID) const
+{
+  auto it = this->collisions.find(_shapeID);
+  if (it == this->collisions.end())
+  {
+    return math::eigen3::convert(math::AxisAlignedBox(
+      math::Vector3d(-1.0, -1.0, -1.0),
+      math::Vector3d(-1.0, -1.0, -1.0)));
+  }
+  auto shape = it->second->collision->GetShape();
+  return math::eigen3::convert(shape->GetBoundingBox());
+}
 
 }
 }

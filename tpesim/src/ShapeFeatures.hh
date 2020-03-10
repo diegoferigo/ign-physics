@@ -20,6 +20,7 @@
 
 #include <string>
 
+#include <ignition/physics/Shape.hh>
 #include <ignition/physics/BoxShape.hh>
 #include <ignition/physics/CylinderShape.hh>
 #include <ignition/physics/mesh/MeshShape.hh>
@@ -34,6 +35,7 @@ namespace tpesim {
 struct ShapeFeatureList : FeatureList<
   GetBoxShapeProperties,
   AttachBoxShapeFeature,
+  GetShapeBoundingBox,
 
   GetCylinderShapeProperties,
   AttachCylinderShapeFeature,
@@ -106,11 +108,15 @@ class ShapeFeatures :
     const Identity &_meshID) const override;
 
   public: Identity AttachMeshShape(
-      const Identity &_linkID,
+    const Identity &_linkID,
     const std::string &_name,
     const ignition::common::Mesh &_mesh,
     const Pose3d &_pose,
     const LinearVector3d &_scale) override;
+
+  // ----- Boundingbox Features -----
+  public: AlignedBox3d GetShapeAxisAlignedBoundingBox(
+    const Identity &_shapeID) const override;
 };
 
 }
