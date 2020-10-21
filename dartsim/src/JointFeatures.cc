@@ -53,6 +53,7 @@ double JointFeatures::GetJointAcceleration(
 double JointFeatures::GetJointForce(
     const Identity &_id, const std::size_t _dof) const
 {
+  this->ReferenceInterface<JointInfo>(_id)->joint->getSkeleton()->computeInverseDynamics(true, true, true);
   return this->ReferenceInterface<JointInfo>(_id)->joint->getForce(_dof);
 }
 
