@@ -62,12 +62,12 @@ void SimulationFeatures::WorldForwardStep(
   this->Write(_h.Get<ChangedWorldPoses>());
   // TODO(MXG): Fill in state
 
-  // Compute ID to populate the joint forces
-  for (size_t i = 0; i < world->getNumSkeletons(); ++i) {
-    world->getSkeleton(i)->computeInverseDynamics(
-      /*_withExternalForces=*/true,
-      /*_withDampingForces=*/true,
-      /*_withSpringForces=*/true);
+  for (auto &skeleton: this->skeletonsWithInverseDynamics)
+  {
+    skeleton->computeInverseDynamics(
+        /*_withExternalForces=*/true,
+        /*_withDampingForces=*/true,
+        /*_withSpringForces=*/true);
   }
 }
 
