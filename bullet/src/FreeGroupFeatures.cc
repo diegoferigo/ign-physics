@@ -79,6 +79,12 @@ void FreeGroupFeatures::SetFreeGroupWorldPose(
   }
 }
 
+void FreeGroupFeatures::SetFreeGroupWorldLinearVelocity(const Identity &_groupID, const LinearVelocity &_linearVelocity)
+{}
+
+void FreeGroupFeatures::SetFreeGroupWorldAngularVelocity(const Identity &_groupID, const AngularVelocity &_angularVelocity)
+{}
+
 }  // namespace bullet
 }  // namespace physics
 }  // namespace ignition

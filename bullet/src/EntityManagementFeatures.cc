@@ -71,7 +71,19 @@ bool EntityManagementFeatures::RemoveModel(const Identity &_modelID)
 bool EntityManagementFeatures::ModelRemoved(
     const Identity &_modelID) const
 {
-  return this->models.find(_modelID) == this->models.end();
+    return this->models.find(_modelID) == this->models.end();
+}
+
+bool EntityManagementFeatures::RemoveNestedModelByIndex(
+    const Identity &_modelID, std::size_t _modelIndex)
+{
+    return true;
+}
+
+bool EntityManagementFeatures::RemoveNestedModelByName(
+    const Identity &_modelID, const std::string &_modelName)
+{
+  return true;
 }
 
 bool EntityManagementFeatures::RemoveModelByIndex(
